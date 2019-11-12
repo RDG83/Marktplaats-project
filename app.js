@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require("express");
 const app = express();
 const request = require("request");
+const middleware = require("./middleware"); //Implicitly refers to index.js
 
 // Set view engine to EJS
 app.set("view engine", "ejs");
