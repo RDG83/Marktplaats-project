@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
+const request = require("request");
 
 // Set view engine to EJS
 app.set("view engine", "ejs");
