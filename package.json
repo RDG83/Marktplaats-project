@@ -1,0 +1,22 @@
+{
+  "name": "marktplaats-project",
+  "version": "1.0.0",
+  "description": "Marktplaats-project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MathijsG/Marktplaats-project.git"
+  },
+  "author": "Mathijs Groothuis, Robert de Grijs, Marten Blaauw, Martin Smit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MathijsG/Marktplaats-project/issues"
+  },
+  "homepage": "https://github.com/MathijsG/Marktplaats-project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
