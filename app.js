@@ -6,6 +6,12 @@ const request = require("request");
 const Product = require("./models/product");
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
+// Require Mongoose
+const mongoose = require("mongoose");
+
+// Actual DB connection
+mongoose.connect(process.env.DB_FULLPATH, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+
 // Set view engine to EJS
 app.set("view engine", "ejs");
 
