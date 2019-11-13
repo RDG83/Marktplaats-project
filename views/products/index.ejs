@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+<h1>Alle advertenties</h1>
+<div class="row">
+    <% products.forEach(function(product){ %>
+    <div class="col-lg-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5><%=product.title%></h5>
+                <div class="card-text"><%=product.body%></div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+</div>
+<% include ../partials/footer %>
