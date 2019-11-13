@@ -104,5 +104,7 @@ typings/
 !.vscode/extensions.json
 *.code-workspace
 
+# Extra local files
+.prettierignore
 
 # End of https://www.gitignore.io/api/node

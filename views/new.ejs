@@ -1,7 +1,16 @@
-<h1>New ad</h1>
+<% include partials/header %>
 
-<form action="/advertenties" method="POST">
-  <input type="text" name="product[title]" id="" placeholder="Titel" />
-  <input type="text" name="product[body]" id="" placeholder="Omschrijving" />
-  <input type="submit" value="Opslaan" />
+<h1>Nieuwe advertentie</h1>
+
+<form>
+  <div class="form-group">
+    <label for="title">Titel</label>
+    <input type="text" class="form-control" id="title" placeholder="Titel" />
+  </div>
+  <div class="form-group">
+    <label for="body">Omschrijving</label>
+    <textarea class="form-control" id="body" rows="3" placeholder="Geef een omschrijving"></textarea>
+  </div>
+  <input class="btn btn-outline-warning" type="submit" value="Opslaan" />
 </form>
+<% include partials/footer %>
