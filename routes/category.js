@@ -21,23 +21,31 @@ router.get("/", function (req, res)
     }
     else
     {
-      res.render("products/index", { categories: allCategories });
+      res.render("categories/index", { categories: allCategories });
     }
   });
 });
 
+// Products index route
+router.get("/:category", function (req, res)
+{
+  let category = req.params.category;
+  res.send(category);
+});
+
 router.post("/", function (req, res)
 {
-  Product.create(req.body.product, function (err, product)
+  Category.create(req.body.category, function (err, category)
   {
     if (err)
     {
       console.log(err);
-      res.redirect("/advertenties");
-    } else
+      res.redirect("/");
+    }
+    else
     {
-      product.save();
-      res.redirect("/advertenties");
+      category.save();
+      res.redirect("/categories");
     }
   });
 });
