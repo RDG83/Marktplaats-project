@@ -1,20 +1,21 @@
 <% include ../partials/header %>
 <h1 class="text-dark">Alle advertenties</h1>
 <div class="row">
-    <% products.forEach(function(product){ %>
-    <div class="col-lg-3">
-        <div class="card shadow m-2">
-            <div class="card-body">
-                <h5 class="text-dark"><%=product.title%></h5>
-                <div class="card-text"><%=product.body%></div>
-            </div>
-        </div>
+  <% products.forEach(function(product){ %>
+  <div class="col-lg-3">
+    <div class="card shadow m-2">
+      <div class="card-body">
+        <h5 class="text-dark"><%=product.title%></h5>
+        <h5 class="text-dark"><%=product.category%></h5>
+        <div class="card-text"><%=product.body%></div>
+      </div>
     </div>
-    <% }); %>
+  </div>
+  <% }); %>
 </div>
 <div class="row">
-    <div class="col m-2">
-        <a href="/advertenties/new" title="Klik hier om een advertentie aan te maken" class="btn btn-warning">Advertentie aanmaken</a>
-    </div>
+  <div class="col m-2">
+    <a href="/advertenties/new" title="Klik hier om een advertentie aan te maken" class="btn btn-warning">Advertentie aanmaken</a>
+  </div>
 </div>
 <% include ../partials/footer %>
