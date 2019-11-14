@@ -1,0 +1,12 @@
+<% include ../partials/header %>
+
+<h1 class="text-dark">Nieuwe categorie</h1>
+
+<form action="/categories" method="POST">
+  <div class="form-group">
+    <label for="title">Categorie</label>
+    <input type="text" class="form-control" id="title" name="category[title]" placeholder="Titel" required />
+  </div>
+  <input class="btn btn-warning" type="submit" value="Opslaan" />
+</form>
+<% include ../partials/footer %>

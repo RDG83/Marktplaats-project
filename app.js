@@ -25,10 +25,12 @@ app.use(express.static(__dirname + "/public"));
 // ROUTE VARIABLES
 const indexRoutes = require("./routes/index");
 const productRoutes = require("./routes/product");
+const categoryRoutes = require("./routes/category");
 
 // ROUTE INCLUDES
 app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
+app.use("/categories", categoryRoutes);
 
 // Start server
 app.listen(process.env.PORT, () => console.log(`Webserver running on port ${process.env.PORT}!`));
