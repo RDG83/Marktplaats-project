@@ -1,6 +1,6 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
-<h1>Nieuwe advertentie</h1>
+<h1 class="text-dark">Nieuwe advertentie</h1>
 
 <form action="/advertenties" method="POST">
   <div class="form-group">
@@ -11,6 +11,6 @@
     <label for="body">Omschrijving</label>
     <textarea class="form-control" id="body" rows="3" name="product[body]" placeholder="Geef een omschrijving" required></textarea>
   </div>
-  <input class="btn btn-outline-warning" type="submit" value="Opslaan" />
+  <input class="btn btn-warning" type="submit" value="Opslaan" />
 </form>
-<% include partials/footer %>
+<% include ../partials/footer %>
