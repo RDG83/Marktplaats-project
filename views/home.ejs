@@ -1,24 +1,31 @@
 <% include partials/header %>
 <h1 class="text-dark">Marktplaats</h1>
 <div class="row">
-    <div class="col">
-        <h2>Nieuwste advertenties</h2>
-    </div>
+  <div class="col">
+    <h2>Nieuwste advertenties</h2>
+  </div>
 </div>
 <div class="row">
-    <div class="col-lg-3">
-        <div class="card shadow">
-            <div class="card-body">
-                <h5 class="text-dark"><a href="#">Mooie mountainbike</a></h5>
-                <div class="card-text">Deze mountainbike is amper gebruikt. Nu te koop voor een vriendenprijsje.</div>
-            </div>
-        </div>
+  <% product.forEach(function(product){ %>
+
+  <div class="list-group col-md-3 d-none d-md-block">
+    <a href="/categories/<%=product%>" class="list-group-item list-group-item-action"><%=product%></a>
+  </div>
+
+  <% }) %>
+  <div class="col-lg-3">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="text-dark"><a href="#">Mooie mountainbike</a></h5>
+        <div class="card-text">Deze mountainbike is amper gebruikt. Nu te koop voor een vriendenprijsje.</div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="row">
-    <div class="col">
-        <a href="/advertenties/new" title="Klik hier om een advertentie aan te maken" class="btn btn-warning">Advertentie aanmaken</a>
-    </div>
+  <div class="col">
+    <a href="/advertenties/new" title="Klik hier om een advertentie aan te maken" class="btn btn-warning">Advertentie aanmaken</a>
+  </div>
 </div>
 
 <% include partials/footer %>
