@@ -6,12 +6,10 @@
   </div>
 </div>
 <div class="row">
-  <% product.forEach(function(product){ %>
-  <div class="col card-deck">
-    <div class="card">
-      <a href="/categories/<%=product%>" class="list-group-item list-group-item-action"><%=product%></a>
-    </div>
+  <div class="list-group col-6">
+    <% product.forEach(function(product){ %>
+    <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action"><%=product%></a>
+    <% }) %>
   </div>
-  <% }) %>
 </div>
 <% include partials/footer %>

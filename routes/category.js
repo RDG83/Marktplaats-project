@@ -35,7 +35,7 @@ router.get("/:category", function (req, res)
     if (error) {
       console.log("Error:", error);
     } else {
-      res.render("products/index", { products: allProducts });
+      res.render("categories/show", { products: allProducts, category: category });
     }
   });
 });

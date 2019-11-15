@@ -17,6 +17,7 @@ app.set("view engine", "ejs");
 
 // Defining public folder
 app.use(express.static(__dirname + "/public"));
+app.use(express.urlencoded());
 
 // ROUTE VARIABLES
 const indexRoutes = require("./routes/index");

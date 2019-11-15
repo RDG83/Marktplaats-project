@@ -1,12 +1,12 @@
 <% include ../partials/header %>
-<h1 class="text-dark">Alle categorieën</h1>
+<h1 class="text-dark">Alle producten van <%=category.toLowerCase()%></h1>
 <div class="row">
-    <% categories.forEach(function(category){ %>
+    <% products.forEach(function(product){ %>
     <div class="col-lg-3 card-deck">
         <div class="card shadow">
             <div class="card-body">
-                <h5 class="text-dark"><%=category.title%></h5>
-                <div class="card-text"><%=category.description%></div>
+                <h5 class="text-dark"><%=product.title%></h5>
+                <div class="card-text"><%=product.description%></div>
             </div>
         </div>
     </div>
