@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams: true });
 
 // MAIN ROUTE TO HOME
 router.get("/", function(req, res) {
-  res.render("home");
+  res.redirect("/categorieen/");
 });
 
 module.exports = router;

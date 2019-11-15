@@ -12,10 +12,6 @@ const mongoose = require("mongoose");
 // Actual DB connection
 mongoose.connect(process.env.DB_FULLPATH, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
-// Body parser
-app.use(express.json());
-app.use(express.urlencoded());
-
 // Set view engine to EJS
 app.set("view engine", "ejs");
 
@@ -30,7 +26,7 @@ const categoryRoutes = require("./routes/category");
 // ROUTE INCLUDES
 app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
-app.use("/categories", categoryRoutes);
+app.use("/categorieen", categoryRoutes);
 
 // Start server
 app.listen(process.env.PORT, () => console.log(`Webserver running on port ${process.env.PORT}!`));

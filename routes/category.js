@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Category = require("../models/category");
+const Product = require("../models/product");
 const router = express.Router({ mergeParams: true });
 
 
@@ -30,7 +31,13 @@ router.get("/", function (req, res)
 router.get("/:category", function (req, res)
 {
   let category = req.params.category;
-  res.send(category);
+  Product.find({}).where('category').equals(category).exec(function(error, allProducts) {
+    if (error) {
+      console.log("Error:", error);
+    } else {
+      res.render("products/index", { products: allProducts });
+    }
+  });
 });
 
 router.post("/", function (req, res)
@@ -45,7 +52,7 @@ router.post("/", function (req, res)
     else
     {
       category.save();
-      res.redirect("/categories");
+      res.redirect("/categorieen");
     }
   });
 });
