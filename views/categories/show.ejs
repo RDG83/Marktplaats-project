@@ -1,15 +1,15 @@
 <% include ../partials/header %>
 <h1 class="text-dark">Alle producten van <%=category.toLowerCase()%></h1>
 <div class="row">
-    <% products.forEach(function(product){ %>
-    <div class="col-lg-3 card-deck">
-        <div class="card shadow">
-            <div class="card-body">
-                <h5 class="text-dark"><%=product.title%></h5>
-                <div class="card-text"><%=product.body%></div>
-            </div>
-        </div>
+  <% products.forEach(function(product){ %>
+  <div class="col-lg-3 col-sm-6 card-deck">
+    <div class="card shadow m-2">
+      <div class="card-body">
+        <h5 class="text-dark"><%=product.title%></h5>
+        <div class="card-text"><%=product.body%></div>
+      </div>
     </div>
-    <% }); %>
+  </div>
+  <% }); %>
 </div>
 <% include ../partials/footer %>

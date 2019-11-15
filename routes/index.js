@@ -12,7 +12,6 @@ router.get("/", function(req, res) {
       let catSet = new Set();
       allProducts.forEach(function(product) {
         catSet.add(product.category);
-        console.log(catSet);
       });
       res.render("home", { product: catSet });
     }
