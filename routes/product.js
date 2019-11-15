@@ -11,7 +11,7 @@ router.get("/new", function(req, res) {
 // Products index route
 router.get("/", function(req, res) {
   if (req.query.search) {
-    Product.find({ title: req.query.search }, function(error, allProducts) {
+    Product.find({ $or: [{ title: req.query.search }, { category: req.query.search }] }, function(error, allProducts) {
       if (error) {
         console.log("Error:", error);
       } else {
