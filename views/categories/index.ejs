@@ -1,8 +1,8 @@
 <% include ../partials/header %>
 <h1 class="text-dark">Alle categorieën</h1>
-<div class="row">
+<div class="row card-deck">
     <% categories.forEach(function(category){ %>
-    <div class="col-lg-3 card-deck">
+    <div class="col-lg-3">
         <div class="card shadow">
             <div class="card-body">
                 <h5 class="text-dark"><%=category.title%></h5>
