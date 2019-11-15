@@ -1,9 +1,21 @@
 <% include partials/header %>
 <div class="row justify-content-center">
   <div class="col-8 justify-content-center">
-      <h1 class="text-dark">Marktplaats</h1>
+    <h1 class="text-dark">Marktplaats</h1>
   </div>
 </div>
+<!-- begin searchbar -->
+<div class="row justify-content-center">
+  <div class="col-8 justify-content-center">
+    <form class="form-inline" action="/advertenties" method="get">
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" name="search" id="" placeholder="Zoekterm" />
+      </div>
+      <button type="submit" class="btn btn-warning mb-2">Zoeken</button>
+    </form>
+  </div>
+</div>
+<!-- eind searchbar -->
 
 <div class="row justify-content-center">
   <div class="col-8 justify-content-center">

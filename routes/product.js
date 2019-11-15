@@ -10,13 +10,23 @@ router.get("/new", function(req, res) {
 
 // Products index route
 router.get("/", function(req, res) {
-  Product.find({}, function(error, allProducts) {
-    if (error) {
-      console.log("Error:", error);
-    } else {
-      res.render("products/index", { products: allProducts });
-    }
-  });
+  if (req.query.search) {
+    Product.find({ title: req.query.search }, function(error, allProducts) {
+      if (error) {
+        console.log("Error:", error);
+      } else {
+        res.render("products/index", { products: allProducts });
+      }
+    });
+  } else {
+    Product.find({}, function(error, allProducts) {
+      if (error) {
+        console.log("Error:", error);
+      } else {
+        res.render("products/index", { products: allProducts });
+      }
+    });
+  }
 });
 
 router.post("/", function(req, res) {
