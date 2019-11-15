@@ -5,9 +5,6 @@ const Product = require("../models/product");
 
 // MAIN ROUTE TO HOME
 router.get("/", function(req, res) {
-<<<<<<< HEAD
-  res.redirect("/categorieen/");
-=======
   Product.find({}, function(error, allProducts) {
     if (error) {
       console.log(error);
@@ -20,7 +17,6 @@ router.get("/", function(req, res) {
       res.render("home", { product: catSet });
     }
   });
->>>>>>> templatefixes
 });
 
 module.exports = router;
