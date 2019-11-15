@@ -2,10 +2,18 @@
 <h1 class="text-dark">Alle advertenties</h1>
 <div class="row">
   <% products.forEach(function(product){ %>
-  <div class="card-deck col-sm-6 col-lg-3">
+  <div class="card-deck col-sm-6 col-lg-4">
     <div class="card shadow m-2">
       <div class="card-body">
-        <h5 class="text-dark"><%=product.title%></h5>
+        <div class="row">
+          <div class="col-6">
+            <h5 class="text-dark"><%=product.title%></h5>
+          </div>
+          <div class="col-6 text-right">
+            <img src="https://via.placeholder.com/140x100" width="140" height="100">
+          </div>
+        </div>
+
         <div class="card-text">
           <%=product.body.substring(0, 50)%>
         </div>
