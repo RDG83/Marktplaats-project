@@ -76,7 +76,6 @@ h1
   font-weight: 700;
   line-height: 60px;
   margin-bottom: 30px;
-  color: #fff;
 }
 h5
 {
@@ -87,3 +86,15 @@ h5
   color: #fff;
 }
 
+.parent img {
+  object-fit: cover;
+  width: 150px;
+  height: 100px;
+}
+
+
+.carousel
+{
+  width: 200px;
+  height: 200px;
+}

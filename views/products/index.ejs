@@ -13,7 +13,9 @@
           </div>
           <div class="col-6 text-right">
             <% if(product.images.length > 0 ) { %>
-            <img src="/uploads/products/<%=product.images[0]%>" width="140" height="100">
+            <div class="parent">
+              <img src="/uploads/products/<%=product.images[0]%>">
+            </div>
             <% } %>
           </div>
         </div>

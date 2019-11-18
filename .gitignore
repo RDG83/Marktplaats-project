@@ -107,4 +107,7 @@ typings/
 # Extra local files
 .prettierignore
 
+# Ignore user uploaded files
+public/uploads/*
+
 # End of https://www.gitignore.io/api/node
