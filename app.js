@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const request = require("request");
 const Product = require("./models/product");
+
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
 // Require Mongoose
@@ -28,6 +29,9 @@ const categoryRoutes = require("./routes/category");
 app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);
+
+
+
 
 // Start server
 app.listen(process.env.PORT, () => console.log(`Webserver running on port ${process.env.PORT}!`));
