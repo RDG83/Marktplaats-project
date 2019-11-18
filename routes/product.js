@@ -17,7 +17,7 @@ const storage = multer.diskStorage
 
 const upload = multer({ storage: storage });
 // Require Sharp image resize module
-c//onst sharp = require('sharp');
+//const sharp = require('sharp');
 
 // New product get route
 router.get("/new", function (req, res)
