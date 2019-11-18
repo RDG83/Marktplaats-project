@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const request = require("request");
 const Product = require("./models/product");
-
+const Bid = require("./models/bid");
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
 // Require Mongoose
@@ -24,11 +24,13 @@ app.use(express.urlencoded({ extended: true }));
 const indexRoutes = require("./routes/index");
 const productRoutes = require("./routes/product");
 const categoryRoutes = require("./routes/category");
+const bidRoutes = require("./routes/bid");
 
 // ROUTE INCLUDES
 app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);
+app.use("/advertenties/:product_id/bids", bidRoutes);
 
 
 

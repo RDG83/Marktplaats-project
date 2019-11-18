@@ -79,6 +79,20 @@ router.post("/imageupload", upload.array('productImages', 3), function (req, res
   console.log(req.files);
 });
 
+// Product show route
+router.get("/:product_id", function(req, res) {
+  Product.findById(req.params.product_id)
+    .populate("bids")
+    .exec(function(err, foundProduct) {
+      if (err) {
+        console.log(err);
+        res.redirect("/advertenties");
+      } else {
+        res.render("products/show", { product: foundProduct });
+      }
+    });
+});
+
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
