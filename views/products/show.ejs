@@ -9,6 +9,10 @@
         <p><%=bid.bid%> - <%=bid.createdAt%></p>
         <% }) %>
       </div>
+      <form action="/advertenties/<%=product._id%>/bids" method="POST">
+        <input type="number" name="bid[bid]" id="bid" />
+        <input type="submit" name="" id="" value="Bied" />
+      </form>
     </div>
 
     <div class="col-lg-9">

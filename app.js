@@ -24,11 +24,13 @@ app.use(express.urlencoded({ extended: true }));
 const indexRoutes = require("./routes/index");
 const productRoutes = require("./routes/product");
 const categoryRoutes = require("./routes/category");
+const bidRoutes = require("./routes/bid");
 
 // ROUTE INCLUDES
 app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);
+app.use("/advertenties/:product_id/bids", bidRoutes);
 
 // Start server
 app.listen(process.env.PORT, () => console.log(`Webserver running on port ${process.env.PORT}!`));
