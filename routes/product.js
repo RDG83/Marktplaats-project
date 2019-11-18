@@ -11,7 +11,8 @@ router.get("/new", function(req, res) {
 // Products index route
 router.get("/", function(req, res) {
   if (req.query.search) {
-    Product.find({ $or: [{ title: req.query.search }, { category: req.query.search }] }, function(error, allProducts) {
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+    Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }] }, function(error, allProducts) {
       if (error) {
         console.log("Error:", error);
       } else {
@@ -40,5 +41,9 @@ router.post("/", function(req, res) {
     }
   });
 });
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;
