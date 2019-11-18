@@ -30,6 +30,7 @@ router.get("/", function(req, res) {
   }
 });
 
+// Product post route
 router.post("/", function(req, res) {
   Product.create(req.body.product, function(err, product) {
     if (err) {
@@ -38,6 +39,18 @@ router.post("/", function(req, res) {
     } else {
       product.save();
       res.redirect("/advertenties");
+    }
+  });
+});
+
+// Product show route
+router.get("/:product_id", function(req, res) {
+  Product.findById(req.params.product_id, function(err, foundProduct) {
+    if (err) {
+      console.log(err);
+      res.redirect("/advertenties");
+    } else {
+      res.render("products/show", { product: foundProduct });
     }
   });
 });
