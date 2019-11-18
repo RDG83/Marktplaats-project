@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const bidSchema = new mongoose.Schema({
   bid: Number,
-  timestamps: true
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("Bid", bidSchema);

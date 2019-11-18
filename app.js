@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const request = require("request");
 const Product = require("./models/product");
+const Bid = require("./models/bid");
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
 // Require Mongoose

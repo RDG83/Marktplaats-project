@@ -45,14 +45,16 @@ router.post("/", function(req, res) {
 
 // Product show route
 router.get("/:product_id", function(req, res) {
-  Product.findById(req.params.product_id, function(err, foundProduct) {
-    if (err) {
-      console.log(err);
-      res.redirect("/advertenties");
-    } else {
-      res.render("products/show", { product: foundProduct });
-    }
-  });
+  Product.findById(req.params.product_id)
+    .populate("bids")
+    .exec(function(err, foundProduct) {
+      if (err) {
+        console.log(err);
+        res.redirect("/advertenties");
+      } else {
+        res.render("products/show", { product: foundProduct });
+      }
+    });
 });
 
 function escapeRegex(text) {
