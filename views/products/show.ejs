@@ -6,7 +6,7 @@
       <h1 class="my-4">Shop Name</h1>
       <div class="list-group">
         <% product.bids.forEach(function(bid){ %>
-        <p><%=bid.amount%> - <%=bid.createdAt%></p>
+        <p><%=bid.amount%> - <%=bid.createdAt.toLocaleDateString("en-GB")%></p>
         <% }) %>
       </div>
       <form action="/advertenties/<%=product._id%>/bids" method="POST">
