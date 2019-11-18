@@ -26,18 +26,25 @@ router.get("/new", function (req, res)
 });
 
 // Products index route
-router.get("/", function (req, res)
-{
-  Product.find({}, function (error, allProducts)
-  {
-    if (error)
-    {
-      console.log("Error:", error);
-    } else
-    {
-      res.render("products/index", { products: allProducts });
-    }
-  });
+router.get("/", function(req, res) {
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+    Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }] }, function(error, allProducts) {
+      if (error) {
+        console.log("Error:", error);
+      } else {
+        res.render("products/index", { products: allProducts });
+      }
+    });
+  } else {
+    Product.find({}, function(error, allProducts) {
+      if (error) {
+        console.log("Error:", error);
+      } else {
+        res.render("products/index", { products: allProducts });
+      }
+    });
+  }
 });
 
 // Post route of a product, with multer upload middleware
@@ -71,5 +78,9 @@ router.post("/imageupload", upload.array('productImages', 3), function (req, res
 {
   console.log(req.files);
 });
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;
