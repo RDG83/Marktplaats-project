@@ -8,6 +8,8 @@ router.post("/", function(req, res) {
   Product.findById(req.params.product_id, function(err, foundProduct) {
     if (err) {
       console.log(err);
+    } else if (req.body.bid.amount < foundProduct.minprice) {
+      res.redirect("/advertenties/" + req.params.product_id);
     } else {
       Bid.create(req.body.bid, function(err, bid) {
         if (err) {

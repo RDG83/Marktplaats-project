@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const bidSchema = new mongoose.Schema({
-  bid: Number,
+  amount: Number,
   createdAt: { type: Date, default: Date.now }
 });
 

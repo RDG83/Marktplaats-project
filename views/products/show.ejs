@@ -6,12 +6,12 @@
       <h1 class="my-4">Shop Name</h1>
       <div class="list-group">
         <% product.bids.forEach(function(bid){ %>
-        <p><%=bid.bid%> - <%=bid.createdAt%></p>
+        <p><%=bid.amount%> - <%=bid.createdAt%></p>
         <% }) %>
       </div>
       <form action="/advertenties/<%=product._id%>/bids" method="POST">
-        <input type="number" name="bid[bid]" id="bid" />
-        <input type="submit" name="" id="" value="Bied" />
+        <input type="number" name="bid[amount]" id="bid" />
+        <input type="submit" name="" value="Bied" />
       </form>
     </div>
 
