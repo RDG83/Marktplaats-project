@@ -1,15 +1,9 @@
 <% include ../partials/header %>
-<div class="row justify-content-center">
-  <div class="col">
-    <h1 class="my-4">
-      <%=product.title%> voor &euro;<%=product.price%>
-    </h1>
-  </div>
-  <!-- images-->
-  <div class="col">
+<div class="row">
+  <div class="col-lg-9">
     <% if (product.images.length > 0 ) { %>
     <div id="carousel">
-      <div class="carousel slide" data-ride="carousel">
+      <div class="carousel slide overflow-hidden" data-ride="carousel">
         <div class="carousel-inner">
           <% product.images.forEach(function(image) { %>
           <div class="carousel-item">
@@ -22,33 +16,60 @@
     <% } else { %>
     <img src="/images/product_placeholder.png" width="310" height="200">
     <% } %>
+    <h1 class="card-title"><%=product.title%></h3>
+      <h4>Prijs &euro;<%=product.price%></h4>
   </div>
+  <% if (product.images.length > 0 ) { %>
+  <div class="col-lg-3">
+    <div class="row">
+      <% product.images.forEach(function(image) { %>
+      <div class="col card-deck">
+        <div class="card">
+          <div class="card-body d-flex flex-wrap align-items-center">
+            <img class="d-block w-100" src="/uploads/products/<%=image%>">
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+  <% } %>
 </div>
 <div class="row">
-  <div class="col">
-    <hr>
+  <div class="col-lg-9">
+    <div class="text-justify">
+      <%=product.body%>
+    </div>
   </div>
-</div>
-<div class="row justify-content-center">
-  <div class="col-8 text-justify">
-    <%=product.body%>
-  </div>
-  <% if (product.bids.length > 0) { %>
-  <div class="col-4">
-    <div class="list-group">
-      <% product.bids.forEach(function(bid) { %>
-      <p>
-        <strong>&euro;<%=bid.bid%></strong> - <%=bid.createdAt%>
-      </p>
-      <% }); %>
-      <% } %>
-      <div class="card shadow">
-        <form action="/advertenties/<%=product._id%>/bids" method="POST" class="form-inline">
-          <legend>Bieden</legend>
-          <input type="number" name="bid[bid]" id="bid" class="form-control" placeholder="Uw bieding">
-          <input type="submit" name="" id="" value="Bied" class="btn btn-primary">
+  <div class="col-lg-3">
+    <div class="card rounded shadow card-deck mb-2">
+      <div class="card-body">
+        <div class="card-title">
+          <h2>Biedt u mee?</h2>
+        </div>
+        <form action="/advertenties/<%=product._id%>/bids" method="POST">
+          <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
+          <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
+          <input class="btn btn-warning btn-block mt-2" type="submit" name="" value="Bied">
         </form>
-        <span>Bieden vanaf &euro;<%=product.minprice%></span>
+      </div>
+    </div>
+    <div class="card rounded shadow card-deck">
+      <div class="card-body">
+        <div class="card-title">
+          <h3>Biedingsverloop</h3>
+        </div>
+        <% if (product.bids.length > 0) { %>
+        <ul class="list-group list-group-flush">
+          <% product.bids.forEach(function(bid){ %>
+          <li class="list-group-item">
+            <date><%=moment(bid.createdAt).format("DD MMM 'YY")%></date> - <strong>&euro;<%=bid.amount%></strong>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <p class="text-muted">Er zijn nog geen biedingen geplaatst.</p>
+        <% } %>
       </div>
     </div>
   </div>

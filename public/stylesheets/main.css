@@ -1,6 +1,6 @@
 /* HEADER */
 
-.navbar-nav .nav-item .nav-link>span {
+.navbar-nav .nav-item .nav-link > span {
   padding: 1.1em 0.5em !important;
   font-size: 100%;
   font-weight: 500;
@@ -8,12 +8,12 @@
   color: #172338 !important;
 }
 
-.nav-item:focus .nav-link>span:focus {
+.nav-item:focus .nav-link > span:focus {
   color: #172338 !important;
 }
 
-.nav-item .nav-link>span:after {
-  content: '';
+.nav-item .nav-link > span:after {
+  content: "";
   position: absolute;
   width: 0;
   height: 3px;
@@ -21,11 +21,11 @@
   margin-top: 5px;
   right: 0;
   background: transparent;
-  transition: width .2s ease;
-  -webkit-transition: width .2s ease;
+  transition: width 0.2s ease;
+  -webkit-transition: width 0.2s ease;
 }
 
-.nav-item .nav-link>span:hover:after {
+.nav-item .nav-link > span:hover:after {
   width: 100%;
   left: 0;
   background: #fdc737;
@@ -36,9 +36,9 @@
 }
 
 nav {
-  -webkit-transition: padding-top .3s, padding-bottom .3s;
-  -moz-transition: padding-top .3s, padding-bottom .3s;
-  transition: padding-top .3s, padding-bottom .3s;
+  -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
+  -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
+  transition: padding-top 0.3s, padding-bottom 0.3s;
   border: none;
 }
 
@@ -59,31 +59,26 @@ nav {
   color: #fff !important;
 } */
 
-.nav-item .nav-link>span {
+.nav-item .nav-link > span {
   position: relative;
 }
 
-
-::selection
-{
+::selection {
   color: white;
   background: #fdc737;
 }
 
-h1
-{
+h1 {
   font-size: 50px;
   font-weight: 700;
   line-height: 60px;
   margin-bottom: 30px;
 }
-h5
-{
+h5 {
   font-size: 30px;
   font-weight: 300;
   line-height: 30px;
   margin-bottom: 50px;
-  color: #fff;
 }
 
 .parent img {
@@ -92,9 +87,25 @@ h5
   height: 100px;
 }
 
-
 .carousel
 {
   width: 200px;
   height: 200px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#minbidwarning {
+  font-style: italic;
+  align-items: baseline;
 }

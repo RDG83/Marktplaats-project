@@ -10,6 +10,8 @@ const Bid = require("./models/bid");
 // Require Mongoose
 const mongoose = require("mongoose");
 
+app.locals.moment = require("moment");
+
 // Actual DB connection
 mongoose.connect(process.env.DB_FULLPATH, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
