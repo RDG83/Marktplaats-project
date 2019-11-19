@@ -10,8 +10,8 @@
         <% }) %>
       </div>
       <form action="/advertenties/<%=product._id%>/bids" method="POST">
-        <input type="number" name="bid[amount]" id="bid" min="0" />
-        <input type="submit" name="" value="Bied" />
+        <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" />
+        <input class="btn btn-success btn-block mt-2" type="submit" name="" value="Bied" />
       </form>
     </div>
 
