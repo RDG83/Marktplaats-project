@@ -7,9 +7,13 @@
       <div class="card-body">
         <div class="row">
           <div class="col-6">
-            <a href="/advertenties/<%=product._id%>">
-              <h5 class="text-dark"><%=product.title%></h5>
-            </a>
+
+            <h5 class="text-dark">
+              <a href="/advertenties/<%=product._id%>">
+                <%=product.title%>
+              </a>
+            </h5>
+
           </div>
           <div class="col-6 text-right">
             <% if(product.images.length > 0 ) { %>
@@ -22,7 +26,7 @@
         <div class="card-text">
           <%=product.body.substring(0, 50)%>
         </div>
-        <a class="badge badge-info text-dark p-2" href="/categorieen/<%=product.category%>">
+        <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>">
           <%=product.category%>
         </a>
       </div>
