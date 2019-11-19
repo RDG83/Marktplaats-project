@@ -5,6 +5,7 @@ const app = express();
 const request = require("request");
 const Product = require("./models/product");
 const Bid = require("./models/bid");
+const methodOverride = require('method-override');
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
 // Require Mongoose
@@ -27,6 +28,7 @@ const categoryRoutes = require("./routes/category");
 const bidRoutes = require("./routes/bid");
 
 // ROUTE INCLUDES
+app.use(methodOverride("_method"));
 app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);

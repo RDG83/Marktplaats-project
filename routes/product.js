@@ -61,4 +61,18 @@ function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
+// Product delete route
+router.delete("/:id", function(req, res) {
+  Product.findByIdAndRemove(req.params.id, function(err){
+    if (err) {
+      console.log(err);
+      res.redirect("/advertenties");
+    }
+    else {
+      res.redirect("/advertenties");
+    }
+  });
+});
+
+
 module.exports = router;
