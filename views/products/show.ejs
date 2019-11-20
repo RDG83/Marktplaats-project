@@ -47,7 +47,7 @@
         <div class="card-title">
           <h5>Advertentiebeheer</h5>
         </div>
-        <form class="form-inline">
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="form-inline" method="POST" onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
           <button class="btn btn-danger">Advertentie verwijderen</button>
         </form>
       </div>
