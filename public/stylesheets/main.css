@@ -83,8 +83,7 @@ h5 {
 
 .parent img {
   object-fit: cover;
-  width: 150px;
-  height: 100px;
+  height: 200px;
 }
 
 /* Universal Cover class for setting object-fit to cover */

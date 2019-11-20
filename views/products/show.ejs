@@ -20,14 +20,12 @@
       <h4>Prijs &euro;<%=product.price%></h4>
   </div>
   <% if (product.images.length > 0 ) { %>
-  <div id="thumbnails" class="col-4">
-    <div class="row">
+  <div id="thumbnails" class="col-4 justify-content-center">
+    <div class="row d-flex justify-content-center">
       <% product.images.forEach(function(image) { %>
-      <div class="col card-deck p-2">
-        <div class="card justify-content-center">
-          <div class="align-items-center justify-content-center p-1">
-            <img class="d-block rounded cover thumbnail" src="/uploads/products/<%=image%>" width="100">
-          </div>
+      <div class="col-6 card-deck">
+        <div class="card rounded d-flex align-items-center justify-content-center p-2 m-1">
+          <img class="cover thumbnail" src="/uploads/products/<%=image%>" width="100">
         </div>
       </div>
       <% }); %>
@@ -47,7 +45,8 @@
         <div class="card-title">
           <h5>Advertentiebeheer</h5>
         </div>
-        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="form-inline" method="POST" onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="form-inline" method="POST"
+          onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
           <button class="btn btn-danger">Advertentie verwijderen</button>
         </form>
       </div>
