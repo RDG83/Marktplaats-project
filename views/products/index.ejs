@@ -7,18 +7,16 @@
       <div class="card-body">
         <div class="row">
           <div class="col-6">
-
-            <h5 class="text-dark">
+            <h6 class="text-dark">
               <a href="/advertenties/<%=product._id%>">
                 <%=product.title%>
               </a>
-            </h5>
-
+            </h6>
           </div>
           <div class="col-6 text-right">
             <% if(product.images.length > 0 ) { %>
             <div class="parent overflow-hidden">
-              <img src="/uploads/products/<%=product.images[0]%>">
+              <img src="/uploads/products/<%=product.images[0]%>" />
             </div>
             <% } %>
           </div>

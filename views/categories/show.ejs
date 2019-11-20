@@ -1,19 +1,33 @@
 <% include ../partials/header %>
-<h1 class="text-dark">Alle producten van <%=category.toLowerCase()%></h1>
+<h1 class="text-dark">Alle <%=category.toLowerCase()%></h1>
 <div class="row">
   <% products.forEach(function(product){ %>
-  <div class="col-4 card-deck">
+  <div class="card-deck col-sm-6 col-lg-4">
     <div class="card shadow m-2">
       <div class="card-body">
-        <div class="card-title">
-          <a href="/advertenties/<%=product._id%>">
-            <h5 class="text-dark"><%=product.title%></h5>
-          </a>
+        <div class="row">
+          <div class="col-6">
+            <h6 class="text-dark">
+              <a href="/advertenties/<%=product._id%>">
+                <%=product.title%>
+              </a>
+            </h6>
+          </div>
+          <div class="col-6 text-right">
+            <% if(product.images.length > 0 ) { %>
+            <div class="parent overflow-hidden">
+              <img src="/uploads/products/<%=product.images[0]%>" />
+            </div>
+            <% } %>
+          </div>
         </div>
-        <div class="card-text"><%=product.body%></div>
+        <div class="card-text">
+          <%=product.body.substring(0, 50)%>
+        </div>
       </div>
     </div>
   </div>
   <% }); %>
 </div>
+
 <% include ../partials/footer %>
