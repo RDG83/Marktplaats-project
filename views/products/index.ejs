@@ -3,32 +3,26 @@
 <div class="row">
   <% products.forEach(function(product) { %>
   <div class="card-deck col-sm-6 col-lg-4">
-    <div class="card shadow m-2">
+    <div class="card shadow m-2 d-flex justify-content-center">
       <div class="card-body">
-        <div class="row">
-          <div class="col-6">
-
-            <h5 class="text-dark">
-              <a href="/advertenties/<%=product._id%>">
-                <%=product.title%>
-              </a>
-            </h5>
-
-          </div>
-          <div class="col-6 text-right">
-            <% if(product.images.length > 0 ) { %>
-            <div class="parent overflow-hidden">
-              <img src="/uploads/products/<%=product.images[0]%>">
-            </div>
-            <% } %>
-          </div>
+        <div class="card-title text-center">
+          <h5 class="text-dark">
+            <a href="/advertenties/<%=product._id%>"><%=product.title%></a>
+          </h5>
         </div>
-        <div class="card-text">
+        <div class="parent d-flex align-items-center justify-content-center">
+          <% if(product.images.length > 0 ) { %>
+          <img src="/uploads/products/<%=product.images[0]%>">
+          <% } else { %>
+          <img src="/images/product_placeholder.png">
+          <% } %>
+        </div>
+
+        <div class="card-text text-truncate">
           <%=product.body.substring(0, 50)%>
         </div>
-        <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>">
-          <%=product.category%>
-        </a>
+        <hr>
+        <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>"><%=product.category%></a>
       </div>
     </div>
   </div>
