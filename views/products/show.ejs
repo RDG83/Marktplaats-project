@@ -3,15 +3,15 @@
 <div class="container mb-3">
   <div class="row">
     <div class="col-lg-3">
-      <h1 class="my-4">Shop Name</h1>
+      <h4 class="my-4">Bieden vanaf &euro; <%=product.minprice%></h4>
       <div class="list-group">
         <% product.bids.forEach(function(bid){ %>
-        <p><%=bid.bid%> - <%=bid.createdAt%></p>
+        <p><%=moment(bid.createdAt).format("DD MMM 'YY")%> - &euro; <%=bid.amount%></p>
         <% }) %>
       </div>
       <form action="/advertenties/<%=product._id%>/bids" method="POST">
-        <input type="number" name="bid[bid]" id="bid" />
-        <input type="submit" name="" id="" value="Bied" />
+        <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" />
+        <input class="btn btn-success btn-block mt-2" type="submit" name="" value="Bied" />
       </form>
     </div>
 
@@ -21,16 +21,9 @@
         <div class="card-body">
           <h3 class="card-title"><%=product.title%></h3>
           <h4>Prijs: &euro; <%=product.price%></h4>
-          <h4>Bieden vanaf: &euro; <%=product.minprice%></h4>
           <p class="card-text">
             <%=product.body%>
           </p>
-        </div>
-        <div class="card-footer">  
-         <form id="frmRemoveProduct" class="d-flex justify-content-end" 
-         action="/advertenties/<%=product._id%>?_method=DELETE" method="POST">
-           <input type="submit" value="Verwijder advertentie !" id="btnRemoveProduct" class="btn btn-outline-warning btn-xs">
-         </form>
         </div>
       </div>
     </div>
