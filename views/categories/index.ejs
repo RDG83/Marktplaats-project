@@ -2,10 +2,12 @@
 <h1 class="text-dark">Alle categorieën</h1>
 <div class="row">
   <% categories.forEach(function(category){ %>
-  <div class="col-sm-6 col-lg-3 col-md-3 col-3 card-deck">
+  <div class="col-4 card-deck">
     <div class="card shadow m-2">
       <div class="card-body">
-        <h5 class="text-dark"><%=category.title%></h5>
+        <div class="card-title">
+          <h5 class="text-dark"><%=category.title%></h5>
+        </div>
         <div class="card-text"><%=category.description.substring(0, 50)%></div>
         <span class="badge badge-info text-dark p-2"><%=product.category%></span>
       </div>
