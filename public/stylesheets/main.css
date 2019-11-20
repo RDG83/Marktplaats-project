@@ -87,6 +87,19 @@ h5 {
   height: 100px;
 }
 
+/* Universal Cover class for setting object-fit to cover */
+
+.cover
+{
+  object-fit: cover;
+}
+
+/* Images within the thumbnails area of the show page section */
+#thumbnails img
+{
+  width: 100px;
+}
+
 .carousel
 {
   width: 200px;
