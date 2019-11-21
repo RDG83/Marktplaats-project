@@ -36,7 +36,8 @@ router.get("/", function (req, res)
       if (error)
       {
         console.log("Error:", error);
-      } else
+      }
+      else
       {
         res.render("products/index", { products: allProducts });
       }
