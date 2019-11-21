@@ -2,26 +2,22 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("../models/product");
 const router = express.Router({ mergeParams: true });
-const multer = require('multer');
-const storage = multer.diskStorage
-  ({
-    destination: function (req, file, cb)
-    {
-      cb(null, 'public/uploads/products');
-    },
-    filename: function (req, file, cb)
-    {
-      cb(null, file.originalname);
-    }
-  });
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "public/uploads/products");
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
 
 const upload = multer({ storage: storage });
 // Require Sharp image resize module
 //const sharp = require('sharp');
 
 // New product get route
-router.get("/new", function (req, res)
-{
+router.get("/new", function(req, res) {
   res.render("products/new");
 });
 
@@ -48,34 +44,25 @@ router.get("/", function(req, res) {
 });
 
 // Post route of a product, with multer upload middleware
-router.post("/", upload.array('productImages', 5), function (req, res)
-{
-
-  Product.create(req.body.product, function (error, product)
-  {
-    if (error)
-    {
+router.post("/", upload.array("productImages", 5), function(req, res) {
+  Product.create(req.body.product, function(error, product) {
+    if (error) {
       console.log(error);
       res.redirect("/advertenties");
-    } else
-    {
+    } else {
       // Save file metadata to product entry in database
-      req.files.forEach(function (file)
-      {
+      req.files.forEach(function(file) {
         product.images.push(file.filename);
       });
 
       product.save();
-      
     }
   });
   res.redirect("/advertenties");
 });
 
-
 // Multer testing route
-router.post("/imageupload", upload.array('productImages', 3), function (req, res)
-{
+router.post("/imageupload", upload.array("productImages", 3), function(req, res) {
   console.log(req.files);
 });
 
@@ -88,7 +75,7 @@ router.get("/:product_id", function(req, res) {
         console.log(err);
         res.redirect("/advertenties");
       } else {
-        res.render("products/show", { product: foundProduct });
+        res.render("products/show", { product: foundProduct, message: req.flash("error") });
       }
     });
 });
@@ -99,16 +86,14 @@ function escapeRegex(text) {
 
 // Product delete route
 router.delete("/:id", function(req, res) {
-  Product.findByIdAndRemove(req.params.id, function(err){
+  Product.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
       console.log(err);
       res.redirect("/advertenties");
-    }
-    else {
+    } else {
       res.redirect("/advertenties");
     }
   });
 });
-
 
 module.exports = router;

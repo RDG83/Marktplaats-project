@@ -10,6 +10,7 @@ router.post("/", function(req, res) {
     if (err) {
       console.log(err);
     } else if (req.body.bid.amount < foundProduct.minprice) {
+      req.flash("error", "Uw bod is te laag, probeer een hoger bod");
       res.redirect("/advertenties/" + req.params.product_id);
     } else {
       Bid.create(req.body.bid, function(err, bid) {

@@ -16,6 +16,9 @@
 
   <body>
       <% include menu %> <% // include search %>
+      <% if (error && error.length > 0) { %>
+      <div class="alert alert-danger h5" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <%=error%></div>
+      <% } %>
     <div class="container mb-2 pt-3">
       
 
