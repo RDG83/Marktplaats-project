@@ -45,10 +45,10 @@
         <div class="card-title">
           <h5>Advertentiebeheer</h5>
         </div>
-        <a class="btn btn-info" href="/advertenties/<%=product.id%>/edit">Bewerken</a>
-        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="form-inline" method="POST"
+        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit">Bewerken</a>
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
           onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
-          <button class="btn btn-danger">Verwijderen</button>
+          <button class="btn btn-danger d-inline">Verwijderen</button>
         </form>
       </div>
     </div>
