@@ -58,6 +58,7 @@ router.post("/", upload.array("productImages", 5), function(req, res) {
       product.save();
     }
   });
+  req.flash("success", "Uw advertentie is met succes aangemaakt");
   res.redirect("/advertenties");
 });
 
@@ -75,14 +76,10 @@ router.get("/:product_id", function(req, res) {
         console.log(err);
         res.redirect("/advertenties");
       } else {
-        res.render("products/show", { product: foundProduct, message: req.flash("error") });
+        res.render("products/show", { product: foundProduct });
       }
     });
 });
-
-function escapeRegex(text) {
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-}
 
 // Product delete route
 router.delete("/:id", function(req, res) {
@@ -91,9 +88,14 @@ router.delete("/:id", function(req, res) {
       console.log(err);
       res.redirect("/advertenties");
     } else {
+      req.flash("success", "Uw advertentie is met succes verwijderd");
       res.redirect("/advertenties");
     }
   });
 });
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;

@@ -19,6 +19,7 @@ router.post("/", function(req, res) {
         } else {
           foundProduct.bids.push(bid);
           foundProduct.save();
+          req.flash("success", "Uw bod is met succes geplaatst");
           res.redirect("/advertenties/" + req.params.product_id);
         }
       });
