@@ -21,7 +21,11 @@ app.set("view engine", "ejs");
 
 // Defining public folder
 app.use(express.static(__dirname + "/public"));
+
+// For using nested query string objects
 app.use(express.urlencoded({ extended: true }));
+
+
 
 // ROUTE VARIABLES
 const indexRoutes = require("./routes/index");
