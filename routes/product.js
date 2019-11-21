@@ -2,12 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("../models/product");
 const router = express.Router({ mergeParams: true });
-const multer = require('multer');
+const multer = require("multer");
 const storage = multer.diskStorage
   ({
     destination: function (req, file, cb)
     {
-      cb(null, 'public/uploads/products');
+      cb(null, "public/uploads/products");
     },
     filename: function (req, file, cb)
     {
@@ -57,7 +57,7 @@ router.get("/", function (req, res)
 });
 
 // Post route of a product, with multer upload middleware
-router.post("/", upload.array('productImages', 5), function (req, res)
+router.post("/", upload.array("productImages", 5), function (req, res)
 {
   Product.create(req.body.product, function (error, product)
   {
@@ -74,15 +74,14 @@ router.post("/", upload.array('productImages', 5), function (req, res)
       });
 
       product.save();
-
     }
   });
+  req.flash("success", "Uw advertentie is met succes aangemaakt");
   res.redirect("/advertenties");
 });
 
-
 // Multer testing route
-router.post("/imageupload", upload.array('productImages', 3), function (req, res)
+router.post("/imageupload", upload.array("productImages", 3), function (req, res)
 {
   console.log(req.files);
 });
@@ -143,12 +142,6 @@ router.put("/:product_id", function (req, res)
   });
 });
 
-
-function escapeRegex(text)
-{
-  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-}
-
 // Product delete route
 router.delete("/:id", function (req, res)
 {
@@ -158,13 +151,17 @@ router.delete("/:id", function (req, res)
     {
       console.log(err);
       res.redirect("/advertenties");
-    }
-    else
+    } else
     {
+      req.flash("success", "Uw advertentie is met succes verwijderd");
       res.redirect("/advertenties");
     }
   });
 });
 
+function escapeRegex(text)
+{
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;
