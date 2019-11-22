@@ -62,17 +62,9 @@ router.get("/", function (req, res)
 // Post route of a product, with multer upload middleware
 router.post("/", upload.array("productImages", 5), function (req, res)
 {
-  // Manually process the lat and long data, to insert into the product structure
-  let location =
-  {
-    "location":
-    {
-      "coordinates": [req.body.latitude, req.body.longitude]
-    }
-  };
-
-  // Append location structure to initial req.body.product
-  req.body.product = Object.assign(req.body.product, location);
+  
+  // Append lat and long to product JSON
+  appendLocationData(req.body.product, req.body.latitude, req.body.longitude);
 
   Product.create(req.body.product, function (error, product)
   {
@@ -81,9 +73,10 @@ router.post("/", upload.array("productImages", 5), function (req, res)
       console.log(error);
       req.flash("error", "Er is een fout opgetreden bij het aanmaken van de advertentie.");
       res.redirect("/advertenties");
-    } else
+    }
+    else
     {
-      // Save file metadata to product entry in database
+      // Save filename to product entry in database
       req.files.forEach(function (file)
       {
         product.images.push(file.filename);
@@ -95,6 +88,20 @@ router.post("/", upload.array("productImages", 5), function (req, res)
   req.flash("success", "Uw advertentie is met succes aangemaakt");
   res.redirect("/advertenties");
 });
+
+// Poging tot DRY
+function appendLocationData(targetObject, latitude, longitude)
+{
+   // Manually process the lat and long data, to insert into the product structure
+   let location =
+   {
+     "location":
+     {
+       "coordinates": [latitude, longitude]
+     }
+   };
+   return targetObject = Object.assign(targetObject, location);
+}
 
 // Multer testing route
 router.post("/imageupload", upload.array("productImages", 3), function (req, res)
@@ -132,7 +139,8 @@ router.get("/:product_id/edit", function (req, res)
       console.log(error);
       req.flash("error", "Er is een fout opgetreden bij het ophalen van de advertentie.");
       res.redirect("/advertenties");
-    } else
+    }
+    else
     {
       res.render("products/edit", { product: foundProduct });
     }
@@ -142,6 +150,9 @@ router.get("/:product_id/edit", function (req, res)
 // EDIT PUT ROUTE
 router.put("/:product_id", function (req, res)
 {
+  // Append lat and long to product JSON
+  appendLocationData(req.body.product, req.body.latitude, req.body.longitude);
+  
   // try to find the product by id and update it
   Product.findByIdAndUpdate(req.params.product_id, req.body.product, function (error, updatedProduct)
   {

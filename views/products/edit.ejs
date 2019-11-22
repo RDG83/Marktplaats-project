@@ -14,8 +14,22 @@
       value="<%=product.category%>">
   </div>
   <div class="form-group">
-      <label for="images">Afbeeldingen</label>
-      <span class="text-muted">Het wijzigen van de afbeeldingen wordt in een later stadium mogelijk</span>
+    <label for="images">Afbeeldingen</label>
+    <span class="text-muted">Het wijzigen van de afbeeldingen wordt in een later stadium mogelijk</span>
+  </div>
+  <label>Locatie:</label>
+  <div id="locationMap"></div>
+  <div class="form-row">
+    <div class="form-group-inline col-6">
+      <label for="latitude">Breedtegraad:</label>
+      <input type="number" id="latitude" class="form-control" name="latitude" placeholder="53.203230" step="any"
+        value="<%=product.location.coordinates[0]%>" readonly>
+    </div>
+    <div class="form-group-inline col-6">
+      <label for="longitude">Lengtegraad:</label>
+      <input type="number" id="longitude" class="form-control" name="longitude" placeholder="6.555360" step="any"
+        value="<%=product.location.coordinates[1]%>" readonly>
+    </div>
   </div>
   <div class="form-group">
     <label for="price">Prijs</label>
@@ -34,4 +48,39 @@
   </div>
   <button class="btn btn-info" type="submit">Wijzigingen opslaan</button>
 </form>
+<script>
+    <% if (product.location.coordinates.length > 0) { %>
+    let defaultCenter = [<%=product.location.coordinates%>];
+    let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
+    <% } else { %>
+      let defaultCenter = [52.132633, 5.291266]; // the Netherlands
+      let defaultZoomLevel = 5; // More zoom out, because no location picked yet.
+    <% } %>
+    let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
+  
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
+      {
+        center: defaultCenter,
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoibXNnYmlnaG91c2UiLCJhIjoiY2sxaHdrY214MDZkbDNoanpwNW9rcjRsOSJ9.YXMtqR_k0YWeKNnAZHmhdg'
+      })
+      .addTo(locationMap);
+  
+    var marker = L.marker(defaultCenter).addTo(locationMap);
+    var updateMarker = function (lat, lng)
+    {
+      marker
+        .setLatLng([lat, lng]);
+      return false;
+    };
+  
+    locationMap.on('click', function (e)
+    {
+      $('#latitude').val(e.latlng.lat);
+      $('#longitude').val(e.latlng.lng);
+      updateMarker(e.latlng.lat, e.latlng.lng);
+    });
+  
+  </script>
 <% include ../partials/footer %>

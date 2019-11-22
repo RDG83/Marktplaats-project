@@ -109,7 +109,9 @@
 </div>
 <% if (product.location.coordinates.length > 0 ) { %>
 <script>
-  let locationMap = L.map("locationMap").setView([<%=product.location.coordinates%>], 15);
+    let defaultCenter = [<%=product.location.coordinates%>];
+    let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
+    let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
     {
