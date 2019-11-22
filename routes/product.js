@@ -76,7 +76,7 @@ router.post("/", upload.array("productImages", 5), function (req, res)
       {
         product.images.push(file.filename);
       });
-      
+
       product.save();
     }
   });
@@ -105,6 +105,7 @@ router.get("/:product_id", function (req, res)
       } else
       {
         res.render("products/show", { product: foundProduct });
+        //res.send(foundProduct.location.coordinates);
       }
     });
 });

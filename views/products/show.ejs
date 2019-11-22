@@ -66,11 +66,13 @@
         <div class="card-title">
           <h2>Advertentie-informatie</h2>
         </div>
-        <div class="card-text">
-          <iframe class="w-100" height="400"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2389.7253106843777!2d6.55323841530882!3d53.20484239300268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c832b187723e0d%3A0x43183c976e240e21!2sLeonard%20Springerlaan%2035%2C%209727%20KB%20Groningen!5e0!3m2!1snl!2snl!4v1574416191281!5m2!1snl!2snl"
-            frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-        </div>
+        <% if (product.location.coordinates.length > 0 ) { %>
+        <div id="locationMap"></div>
+        <% } else { %>
+          <div class="card-text">
+            Geen locatie beschikbaar.
+          </div>
+        <% } %>
       </div>
     </div>
     <div class="card rounded shadow card-deck mb-2">
@@ -105,4 +107,18 @@
     </div>
   </div>
 </div>
+<% if (product.location.coordinates.length > 0 ) { %>
+<script>
+  let locationMap = L.map("locationMap").setView([<%=product.location.coordinates%>], 19);
+
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
+    {
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'pk.eyJ1IjoibXNnYmlnaG91c2UiLCJhIjoiY2sxaHdrY214MDZkbDNoanpwNW9rcjRsOSJ9.YXMtqR_k0YWeKNnAZHmhdg'
+    })
+    .addTo(locationMap);
+    L.marker([<%=product.location.coordinates%>]).addTo(locationMap);
+</script>
+<% } %>
 <% include ../partials/footer %>
