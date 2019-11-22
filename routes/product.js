@@ -62,6 +62,18 @@ router.get("/", function (req, res)
 // Post route of a product, with multer upload middleware
 router.post("/", upload.array("productImages", 5), function (req, res)
 {
+  // Manually process the lat and long data, to insert into the product structure
+  let location =
+  {
+    "location":
+    {
+      "coordinates": [req.body.latitude, req.body.longitude]
+    }
+  };
+
+  // Append location structure to initial req.body.product
+  req.body.product = Object.assign(req.body.product, location);
+
   Product.create(req.body.product, function (error, product)
   {
     if (error || !product)

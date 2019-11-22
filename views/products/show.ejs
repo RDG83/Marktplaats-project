@@ -109,7 +109,7 @@
 </div>
 <% if (product.location.coordinates.length > 0 ) { %>
 <script>
-  let locationMap = L.map("locationMap").setView([<%=product.location.coordinates%>], 19);
+  let locationMap = L.map("locationMap").setView([<%=product.location.coordinates%>], 15);
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
     {
