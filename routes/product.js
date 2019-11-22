@@ -36,6 +36,7 @@ router.get("/", function (req, res)
       if (error)
       {
         console.log("Error:", error);
+        req.flash("error", "Er is een fout opgetreden bij het uitvoeren van de zoekopdracht.");
       }
       else
       {
@@ -46,9 +47,10 @@ router.get("/", function (req, res)
   {
     Product.find({}, function (error, allProducts)
     {
-      if (error)
+      if (error || !allProducts)
       {
-        console.log("Error:", error);
+        console.log(error);
+        req.flash("error", "Er is een fout opgetreden bij het ophalen van de advertenties.");
       } else
       {
         res.render("products/index", { products: allProducts });
@@ -62,9 +64,10 @@ router.post("/", upload.array("productImages", 5), function (req, res)
 {
   Product.create(req.body.product, function (error, product)
   {
-    if (error)
+    if (error || !product)
     {
       console.log(error);
+      req.flash("error", "Er is een fout opgetreden bij het aanmaken van de advertentie.");
       res.redirect("/advertenties");
     } else
     {
@@ -73,7 +76,7 @@ router.post("/", upload.array("productImages", 5), function (req, res)
       {
         product.images.push(file.filename);
       });
-
+      
       product.save();
     }
   });
@@ -94,9 +97,10 @@ router.get("/:product_id", function (req, res)
     .populate("bids")
     .exec(function (err, foundProduct)
     {
-      if (err)
+      if (err || !foundProduct)
       {
         console.log(err);
+        req.flash("error", "Er is een fout opgetreden bij het ophalen van de advertentie.");
         res.redirect("/advertenties");
       } else
       {
@@ -110,9 +114,10 @@ router.get("/:product_id/edit", function (req, res)
 {
   Product.findById(req.params.product_id, function (error, foundProduct)
   {
-    if (error)
+    if (error || !foundProduct)
     {
       console.log(error);
+      req.flash("error", "Er is een fout opgetreden bij het ophalen van de advertentie.");
       res.redirect("/advertenties");
     } else
     {
@@ -127,10 +132,10 @@ router.put("/:product_id", function (req, res)
   // try to find the product by id and update it
   Product.findByIdAndUpdate(req.params.product_id, req.body.product, function (error, updatedProduct)
   {
-    if (error)
+    if (error || !updatedProduct)
     {
       console.log(error);
-      // req.flash("error", "Er is een fout opgetreden bij het wijzigen van de advertentie.");
+      req.flash("error", "Er is een fout opgetreden bij het wijzigen van de advertentie.");
       res.redirect("/advertenties/" + req.params.product_id);
     }
     else
@@ -138,6 +143,7 @@ router.put("/:product_id", function (req, res)
       // For debugging purposes
       console.log(req.body.product);
       // Redirect back to the advertisement page
+      req.flash("success", "Advertentie succesvol bijgewerkt.");
       res.redirect("/advertenties/" + req.params.product_id);
     }
   });
@@ -151,6 +157,7 @@ router.delete("/:id", function (req, res)
     if (err)
     {
       console.log(err);
+      req.flash("error", "Er is een fout opgetreden bij het verwijderen van de advertentie.");
       res.redirect("/advertenties");
     } else
     {
