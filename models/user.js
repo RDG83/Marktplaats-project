@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
-  name: { Type: String, required: true },
-  email: { Type: String, required: true },
-  password: { Type: String, required: true },
-  date: { Type: String, default: Date.now }
+  username: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  date: { type: String, default: Date.now }
 });
+
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema);

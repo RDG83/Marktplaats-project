@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
+const User = require("../models/user");
 
 router.get("/login", function(req, res) {
   // passport handling here
@@ -26,11 +27,11 @@ router.get("/signup", function(req, res) {
 });
 
 router.post("/signup", function(req, res) {
-  const { name, email, password, password2 } = req.body;
+  const { username, email, password, password2 } = req.body;
   // passport handling here
   let errors = [];
   // check of alle velden zijn ingevuld
-  if (!name || !email || !password || !password2) {
+  if (!username || !email || !password || !password2) {
     errors.push({ msg: "Vul alle velden in" });
   }
   // check of passwords hetzelfde zijn
@@ -44,13 +45,39 @@ router.post("/signup", function(req, res) {
   if (errors.length > 0) {
     res.render("signup", {
       errors,
-      name,
+      username,
       email,
       password,
       password2
     });
   } else {
-    res.send("signup succesvol");
+    User.findOne({ email: email }).then(function(user) {
+      if (user) {
+        errors.push({ msg: "Email is al in gebruik" });
+        res.render("signup", {
+          errors,
+          username,
+          email,
+          password,
+          password2
+        });
+      } else {
+        const newUser = new User({
+          username,
+          email
+        });
+        User.register(newUser, req.body.password, function(err, user) {
+          if (err) {
+            console.log(err);
+            return res.render("signup");
+          } else {
+            passport.authenticate("local")(req, res, function() {
+              res.redirect("/advertenties");
+            });
+          }
+        });
+      }
+    });
   }
 });
 

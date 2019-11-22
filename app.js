@@ -8,12 +8,16 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
 app.locals.moment = require("moment");
 
 // Actual DB connection
 mongoose.connect(process.env.DB_FULLPATH, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.set("useCreateIndex", true);
 
 // Set view engine to EJS
 app.set("view engine", "ejs");
@@ -33,6 +37,13 @@ app.use(
     // cookie staat uit, anders werkt flash niet
   })
 );
+
+// Setting up passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use(flash());
 
