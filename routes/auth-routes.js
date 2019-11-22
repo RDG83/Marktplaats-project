@@ -22,7 +22,12 @@ router.get("/logout", function(req, res) {
 
 router.get("/signup", function(req, res) {
   // passport handling here
-  res.send("welcome to the signup route");
+  res.render("signup");
+});
+
+router.post("/signup", function(req, res) {
+  // passport handling here
+  res.render("signup");
 });
 
 module.exports = router;
