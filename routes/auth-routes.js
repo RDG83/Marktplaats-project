@@ -3,8 +3,17 @@ const router = express.Router({ mergeParams: true });
 
 router.get("/login", function(req, res) {
   // passport handling here
-  res.send("welcome to the login route");
+  res.render("login");
 });
+
+// router.post(
+//   "/login",
+//   passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/login",
+//     failureFlash: true
+//   })
+// );
 
 router.get("/logout", function(req, res) {
   // passport handling here
