@@ -27,7 +27,8 @@ router.get("/signup", function(req, res) {
 
 router.post("/signup", function(req, res) {
   // passport handling here
-  res.render("signup");
+  console.log(req.body);
+  res.send("signup route");
 });
 
 module.exports = router;
