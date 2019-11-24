@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const User = require("../models/user");
+const passport = require("passport");
 
 router.get("/login", function(req, res) {
   // passport handling here
@@ -64,11 +65,12 @@ router.post("/signup", function(req, res) {
       } else {
         const newUser = new User({
           username,
+          password,
           email
         });
         User.register(newUser, req.body.password, function(err, user) {
           if (err) {
-            console.log(err);
+            console.log("post route error:" + err);
             return res.render("signup");
           } else {
             passport.authenticate("local")(req, res, function() {
@@ -80,5 +82,20 @@ router.post("/signup", function(req, res) {
     });
   }
 });
+
+// router.post("/signup", function(req, res) {
+//   const newUser = new User({ username: req.body.username, email: req.body.email });
+//   User.register(newUser, req.body.password, function(err, user) {
+//     if (err) {
+//       console.log(req.body);
+//       console.log(err);
+//       res.redirect("/auth/signup");
+//     } else {
+//       passport.authenticate("local")(req, res, function() {
+//         res.redirect("/advertenties");
+//       });
+//     }
+//   });
+// });
 
 module.exports = router;
