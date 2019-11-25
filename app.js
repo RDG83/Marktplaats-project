@@ -60,6 +60,7 @@ const productRoutes = require("./routes/product");
 const categoryRoutes = require("./routes/category");
 const bidRoutes = require("./routes/bid");
 const authRoutes = require("./routes/auth-routes");
+const accountRoutes = require("./routes/account");
 
 // ROUTE INCLUDES
 app.use(methodOverride("_method"));
@@ -68,6 +69,7 @@ app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);
 app.use("/advertenties/:product_id/bids", bidRoutes);
 app.use("/auth", authRoutes);
+app.use("/account", accountRoutes);
 
 // Start server
 app.listen(process.env.PORT, () => console.log(`Webserver running on port ${process.env.PORT}!`));
