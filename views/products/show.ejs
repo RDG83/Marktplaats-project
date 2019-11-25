@@ -95,8 +95,8 @@
         <% if (product.bids.length > 0) { %>
         <ul class="list-group list-group-flush">
           <% product.bids.forEach(function(bid){ %>
-          <li class="list-group-item">
-            <date><%=moment(bid.createdAt).format("DD MMM 'YY")%></date> - <strong>&euro;<%=bid.amount%></strong>
+          <li class="list-group-item d-flex justify-content-between">
+            <strong><%=bid.author.username%></strong>  <strong>&euro;<%=bid.amount%></strong><date><%=moment(bid.createdAt).format("DD MMM 'YY")%></date>
           </li>
           <% }) %>
         </ul>

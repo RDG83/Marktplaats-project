@@ -17,6 +17,9 @@ router.post("/", function(req, res) {
         if (err) {
           console.log(err);
         } else {
+          bid.author.id = req.user._id;
+          bid.author.username = req.user.username;
+          bid.save();
           foundProduct.bids.push(bid);
           foundProduct.save();
           req.flash("success", "Uw bod is met succes geplaatst");
