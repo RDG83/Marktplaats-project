@@ -22,9 +22,9 @@
           <%=product.body.substring(0, 50)%>
         </div>
         <hr>
-        <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>"><%=product.category%></a>
+        <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>"><i class="fa fa-tags" aria-hidden="true"></i> <%=product.category%></a>
         <% if(product.municipality) { %>
-          <span class="badge badge-info text-dark p-2"><%=product.municipality%></span>
+          <span class="badge badge-info text-dark p-2"><i class="fa fa-map-marker text-white" aria-hidden="true"></i> <%=product.municipality%></span>
           <% } %>
       </div>
     </div>
