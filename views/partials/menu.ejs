@@ -19,15 +19,21 @@
       <li class="nav-item">
         <a class="nav-link" href="/advertenties"><span>Alle advertenties</span></a>
       </li>
+      <% if(!currentUser){ %>
       <li class="nav-item">
         <a class="nav-link" href="/auth/signup"><span>Sign up</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/auth/login"><span>Login</span></a>
       </li>
+      <% } else { %>
+      <li>
+        <a href="#"><%= currentUser.username %></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="/auth/logout"><span>Logout</span></a>
       </li>
+      <% } %>
       <!-- <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
             </li> -->
