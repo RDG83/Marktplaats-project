@@ -9,7 +9,15 @@
   <div class="col-8 justify-content-center">
     <form class="form-inline" action="/advertenties" method="get">
       <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" name="search" id="" placeholder="Zoekterm" />
+        <input type="text" class="form-control" name="search" placeholder="Zoekterm">
+        <input type="text" class="form-control" name="search" placeholder="Huidige locatie">
+        <select name="distance" class="form-control">
+          <option>Alle afstanden</option>
+          <option>&lt; 5 KM</option>
+          <option>&lt; 10KM</option>
+          <option>&lt; 25KM</option>
+          <option>&lt; 50KM</option>
+        </select>
       </div>
       <button type="submit" class="btn btn-warning mb-2">Zoeken</button>
     </form>
