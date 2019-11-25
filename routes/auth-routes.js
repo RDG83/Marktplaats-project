@@ -18,7 +18,6 @@ router.post(
 );
 
 router.get("/logout", function(req, res) {
-  // passport handling here
   req.logout();
   res.redirect("/advertenties");
 });
@@ -81,5 +80,13 @@ router.post("/signup", function(req, res) {
     });
   }
 });
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect("/auth/login");
+  }
+}
 
 module.exports = router;
