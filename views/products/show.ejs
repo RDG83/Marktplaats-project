@@ -40,7 +40,7 @@
   <% } %>
 </div>
 
-<!--  -->
+<!-- Begin body product -->
 
 <div class="row">
   <div class="col-lg-8">
@@ -48,22 +48,21 @@
       <%=product.body%>
     </div>
   </div>
+      
+<!-- einde body product -->
+
+
+
   <div class="col-lg-4">
-    <% if(currentUser.username === product.author.username){ %>   
-    <div class="card rounded shadow card-deck mb-2">
-      <div class="card-body">
-        <div class="card-title">
-          <h5>Advertentiebeheer</h5>
-        </div>
-        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit">Bewerken</a>
-        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
-          onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
-          <button class="btn btn-danger d-inline">Verwijderen</button>
-        </form>
-      </div>
-    </div>
-    <% } %>
+
+
+
+
+
+
+
     <!-- location -->
+
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
@@ -78,22 +77,30 @@
         <% } %>
       </div>
     </div>
+
+    <!-- Begin bied sectie-->
+
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
-          <h2>Biedt u mee?</h2>
+          <h4>Biedt u mee?</h4>
         </div>
         <form action="/advertenties/<%=product._id%>/bids" method="POST">
           <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
           <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
           <button class="btn btn-warning btn-block mt-2" type="submit">Bied</button>
         </form>
+        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/comments/new">Contact</a>
       </div>
     </div>
+
+    <!-- Einde bied sectie-->
+
+
     <div class="card rounded shadow card-deck">
       <div class="card-body">
         <div class="card-title">
-          <h3>Biedingsverloop</h3>
+          <h4>Biedingsverloop</h4>
         </div>
         <% if (product.bids.length > 0) { %>
         <ul class="list-group list-group-flush">
@@ -108,8 +115,27 @@
         <% } %>
       </div>
     </div>
+
+  <!-- begin productbeheer -->
+
+    <% if(currentUser.username === product.author.username){ %>
+    <div class="card rounded shadow card-deck mt-2">
+      <div class="card-body">
+        <div class="card-title">
+          <h5>Advertentiebeheer</h5>
+        </div>
+        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit">Bewerken</a>
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
+          onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
+          <button class="btn btn-danger d-inline">Verwijderen</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
   </div>
 </div>
+
+<!-- einde productbeheer -->
 <% if (product.location.coordinates.length > 0 ) { %>
 <script>
     let defaultCenter = [<%=product.location.coordinates%>];
