@@ -7,12 +7,27 @@ const productSchema = new mongoose.Schema({
   category: String,
   price: Number,
   minprice: Number,
-  bids: [
+  bids:
+    [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Bid"
+      }
+    ],
+  location:
+  {
+    type:
     {
-      type: mongoose.Schema.ObjectId,
-      ref: "Bid"
+      type: String,
+      enum: ['Point'],
+      //required: true
+    },
+    coordinates:
+    {
+      type: [Number],
+      //required: true
     }
-  ]
+  }
 });
 
 module.exports = mongoose.model("Product", productSchema);

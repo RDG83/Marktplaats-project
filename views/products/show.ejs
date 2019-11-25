@@ -17,7 +17,7 @@
     </div>
     <% } else { %>
     <img src="/images/product_placeholder.png" width="310" height="200">
-    <% } %>   
+    <% } %>
     <h1 class="card-title"><%=product.title%></h3>
       <h4>Prijs &euro;<%=product.price%></h4>
   </div>
@@ -25,7 +25,7 @@
   <!--Einde carousel  -->
 
   <% if (product.images.length > 0 ) { %>
-  <div id="thumbnails" class="col-4 justify-content-center">
+  <div id="thumbnails" class="col justify-content-center">
     <div class="row d-flex justify-content-center">
       <% product.images.forEach(function(image) { %>
       <div class="col-6 card-deck">
@@ -53,10 +53,26 @@
         <div class="card-title">
           <h5>Advertentiebeheer</h5>
         </div>
-        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="form-inline" method="POST"
+        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit">Bewerken</a>
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
           onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
-          <button class="btn btn-danger">Advertentie verwijderen</button>
+          <button class="btn btn-danger d-inline">Verwijderen</button>
         </form>
+      </div>
+    </div>
+    <!-- location -->
+    <div class="card rounded shadow card-deck mb-2">
+      <div class="card-body">
+        <div class="card-title">
+          <h2>Advertentie-informatie</h2>
+        </div>
+        <% if (product.location.coordinates.length > 0 ) { %>
+        <div id="locationMap"></div>
+        <% } else { %>
+          <div class="card-text">
+            Geen locatie beschikbaar.
+          </div>
+        <% } %>
       </div>
     </div>
     <div class="card rounded shadow card-deck mb-2">
@@ -67,7 +83,7 @@
         <form action="/advertenties/<%=product._id%>/bids" method="POST">
           <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
           <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
-          <input class="btn btn-warning btn-block mt-2" type="submit" name="" value="Bied">
+          <button class="btn btn-warning btn-block mt-2" type="submit">Bied</button>
         </form>
       </div>
     </div>
@@ -91,4 +107,20 @@
     </div>
   </div>
 </div>
+<% if (product.location.coordinates.length > 0 ) { %>
+<script>
+    let defaultCenter = [<%=product.location.coordinates%>];
+    let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
+    let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
+
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
+    {
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'pk.eyJ1IjoibXNnYmlnaG91c2UiLCJhIjoiY2sxaHdrY214MDZkbDNoanpwNW9rcjRsOSJ9.YXMtqR_k0YWeKNnAZHmhdg'
+    })
+    .addTo(locationMap);
+    L.marker([<%=product.location.coordinates%>]).addTo(locationMap);
+</script>
+<% } %>
 <% include ../partials/footer %>
