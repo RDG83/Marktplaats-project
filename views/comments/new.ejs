@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+
+<h1>Contact opnemen met <%=product.author.username %></h1>
+
+<form action="">
+  <div class="form-group">
+    <textarea name="content" id="" cols="30" rows="10">
+   Beste <%= product.author.username %>,
+  
+   Ik heb een vraag over '<%= product.title %>'
+  
+  
+  
+   Met vriendelijke groet,
+  
+   <%= currentUser.username %>
+  </textarea
+    >
+  </div>
+
+  <input class="btn btn-primary" type="submit" value="Stuur op" />
+</form>
+
+<% include ../partials/footer %>

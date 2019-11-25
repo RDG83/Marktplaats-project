@@ -7,6 +7,18 @@ const productSchema = new mongoose.Schema({
   category: String,
   price: Number,
   minprice: Number,
+  comments: [
+    {
+      author: {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User"
+        },
+        username: String
+      },
+      content: String
+    }
+  ],
   bids: [
     {
       type: mongoose.Schema.ObjectId,
