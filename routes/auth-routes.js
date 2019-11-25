@@ -8,28 +8,27 @@ router.get("/login", function(req, res) {
   res.render("login");
 });
 
-// router.post(
-//   "/login",
-//   passport.authenticate("local", {
-//     successRedirect: "/",
-//     failureRedirect: "/login",
-//     failureFlash: true
-//   })
-// );
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/advertenties",
+    failureRedirect: "/login",
+    failureFlash: true
+  })
+);
 
 router.get("/logout", function(req, res) {
   // passport handling here
-  res.send("welcome to the logout route");
+  req.logout();
+  res.redirect("/advertenties");
 });
 
 router.get("/signup", function(req, res) {
-  // passport handling here
   res.render("signup");
 });
 
 router.post("/signup", function(req, res) {
   const { username, email, password, password2 } = req.body;
-  // passport handling here
   let errors = [];
   // check of alle velden zijn ingevuld
   if (!username || !email || !password || !password2) {
@@ -82,20 +81,5 @@ router.post("/signup", function(req, res) {
     });
   }
 });
-
-// router.post("/signup", function(req, res) {
-//   const newUser = new User({ username: req.body.username, email: req.body.email });
-//   User.register(newUser, req.body.password, function(err, user) {
-//     if (err) {
-//       console.log(req.body);
-//       console.log(err);
-//       res.redirect("/auth/signup");
-//     } else {
-//       passport.authenticate("local")(req, res, function() {
-//         res.redirect("/advertenties");
-//       });
-//     }
-//   });
-// });
 
 module.exports = router;
