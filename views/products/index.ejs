@@ -23,6 +23,9 @@
         </div>
         <hr>
         <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>"><%=product.category%></a>
+        <% if(product.municipality) { %>
+          <span class="badge badge-info text-dark p-2"><%=product.municipality%></span>
+          <% } %>
       </div>
     </div>
   </div>

@@ -27,7 +27,8 @@ const productSchema = new mongoose.Schema({
       type: [Number],
       //required: true
     }
-  }
+  },
+  municipality: String
 });
 
 module.exports = mongoose.model("Product", productSchema);

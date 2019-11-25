@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Product = require("../models/product");
 const router = express.Router({ mergeParams: true });
 const multer = require("multer");
+const municipalityController = require("../controllers/municipalityController");
 const storage = multer.diskStorage
   ({
     destination: function (req, file, cb)
@@ -22,17 +23,35 @@ const upload = multer({ storage: storage });
 // New product get route
 router.get("/new", function (req, res)
 {
-  res.render("products/new");
+  let municipalities = municipalityController.getAll();
+  res.render("products/new", { municipalities: municipalities });
 });
 
 // Products index route
 router.get("/", function (req, res)
 {
+  // Search subroute
   if (req.query.search)
   {
+
+    // filter user input
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
-    Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }] }, function (error, allProducts)
+
+    // Base query
+    let query = { $or: [{ title: regex }, { category: regex }, { body: regex }] };
+
+
+    // if a municipality was also given except the All entry, query needs to be overriden
+    if (req.query.municipalities && !req.query.municipalities.includes("all"))
     {
+      console.log("Je koos iets anders dan All");
+      query = { $or: [{ title: "banaan" }, { category: regex }, { body: regex }] }.where('municipality').equals('Amsterdam');
+    }
+    console.log(query);
+
+    Product.find(query, function (error, allProducts)
+    {
+      console.log(query);
       if (error)
       {
         console.log("Error:", error);
@@ -43,7 +62,8 @@ router.get("/", function (req, res)
         res.render("products/index", { products: allProducts });
       }
     });
-  } else
+  }
+  else
   {
     Product.find({}, function (error, allProducts)
     {
@@ -62,10 +82,9 @@ router.get("/", function (req, res)
 // Post route of a product, with multer upload middleware
 router.post("/", upload.array("productImages", 5), function (req, res)
 {
-  
+
   // Append lat and long to product JSON
   appendLocationData(req.body.product, req.body.latitude, req.body.longitude);
-
   Product.create(req.body.product, function (error, product)
   {
     if (error || !product)
@@ -82,32 +101,39 @@ router.post("/", upload.array("productImages", 5), function (req, res)
         product.images.push(file.filename);
       });
 
-      product.save();
+      // Callback function so redirection to id is possible
+      product.save(function(error,product)
+      {
+        // If error
+        if (error || !product)
+        {
+          console.log(error);
+          req.flash("error", "Fout bij het aanmaken van de advertentie.");
+          res.redirect("/advertenties");
+        }
+        else
+        {
+          req.flash("success", "Uw advertentie is met succes aangemaakt.");
+          res.redirect("/advertenties/" + product.id);
+        }
+      });
     }
   });
-  req.flash("success", "Uw advertentie is met succes aangemaakt");
-  res.redirect("/advertenties");
 });
 
 // Poging tot DRY
 function appendLocationData(targetObject, latitude, longitude)
 {
-   // Manually process the lat and long data, to insert into the product structure
-   let location =
-   {
-     "location":
-     {
-       "coordinates": [latitude, longitude]
-     }
-   };
-   return targetObject = Object.assign(targetObject, location);
+  // Manually process the lat and long data, to insert into the product structure
+  let location =
+  {
+    "location":
+    {
+      "coordinates": [latitude, longitude]
+    }
+  };
+  return targetObject = Object.assign(targetObject, location);
 }
-
-// Multer testing route
-router.post("/imageupload", upload.array("productImages", 3), function (req, res)
-{
-  console.log(req.files);
-});
 
 // Product show route
 router.get("/:product_id", function (req, res)
@@ -152,7 +178,7 @@ router.put("/:product_id", function (req, res)
 {
   // Append lat and long to product JSON
   appendLocationData(req.body.product, req.body.latitude, req.body.longitude);
-  
+
   // try to find the product by id and update it
   Product.findByIdAndUpdate(req.params.product_id, req.body.product, function (error, updatedProduct)
   {
@@ -191,6 +217,7 @@ router.delete("/:id", function (req, res)
   });
 });
 
+// To remove special and potentially unsafe characters
 function escapeRegex(text)
 {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
