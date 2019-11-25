@@ -7,26 +7,29 @@ const productSchema = new mongoose.Schema({
   category: String,
   price: Number,
   minprice: Number,
-  bids:
-    [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Bid"
-      }
-    ],
-  location:
-  {
-    type:
+  bids: [
     {
+      type: mongoose.Schema.ObjectId,
+      ref: "Bid"
+    }
+  ],
+  location: {
+    type: {
       type: String,
-      enum: ['Point'],
+      enum: ["Point"]
       //required: true
     },
-    coordinates:
-    {
-      type: [Number],
+    coordinates: {
+      type: [Number]
       //required: true
     }
+  },
+  author: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String
   }
 });
 
