@@ -5,16 +5,16 @@
 
   <form action="/advertenties/<%=product._id%>/messages" method="POST">
     <div class="form-group">
-      <textarea name="content" id="" cols="30" rows="10">
-   Beste <%= product.author.username %>,
+      <textarea name="message[content]" id="" cols="30" rows="10">
+        Beste <%= product.author.username %>,
   
-   Ik heb een vraag over '<%= product.title %>'
+Ik heb een vraag over '<%= product.title %>'
   
   
   
-   Met vriendelijke groet,
+Met vriendelijke groet,
   
-   <%= currentUser.username %>
+<%= currentUser.username %>
   </textarea
       >
     </div>
