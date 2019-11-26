@@ -20,22 +20,30 @@ router.post("/", function(req, res) {
     } else {
       // appendCommentData(product.comments, req.user._id, req.user.username, req.body.content);
       product.comments.push({ content: req.body.content, author: { username: req.user.username, id: req.user._id } });
-      console.log(product);
       product.save();
       res.redirect("/advertenties/" + req.params.product_id);
     }
   });
 });
 
-function appendCommentData(targetObject, authorId, username, content) {
-  let comment = {
-    author: {
-      id: { authorId },
-      username: username
-    },
-    content: content
-  };
-  return (targetObject = Object.assign(targetObject, comment));
-}
+router.get("/tonen", function(req, res) {
+  Product.findById(req.params.product_id, function(err, product) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("comments/show", { product: product });
+    }
+  });
+});
+
+router.get("/reactie", function(req, res) {
+  Product.findById(req.params.product_id, function(err, product) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("comments/reactie", { product: product });
+    }
+  });
+});
 
 module.exports = router;

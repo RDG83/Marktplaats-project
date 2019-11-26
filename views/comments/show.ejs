@@ -1,0 +1,12 @@
+<% include ../partials/header %>
+
+<h1>Berichten:</h1>
+
+<% product.comments.forEach(function(comment){ %>
+<p><%= comment.author.username %> - <%= comment.content %></p>
+<a class="btn btn-primary" href="/advertenties/<%=product.id%>/comments/reactie">Reageer</a>
+<% }) %>
+
+<br />
+
+<% include ../partials/footer %>
