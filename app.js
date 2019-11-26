@@ -1,9 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const request = require("request");
-const Product = require("./models/product");
-const Bid = require("./models/bid");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const mongoose = require("mongoose");

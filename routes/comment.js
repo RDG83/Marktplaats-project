@@ -31,16 +31,18 @@ router.get("/tonen", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("comments/show", { product: product });
+      res.render("comments/index", { product: product });
     }
   });
 });
 
-router.get("/reactie", function(req, res) {
-  Product.findById(req.params.product_id, function(err, product) {
+router.get("/:comment_id/reactie", function(req, res) {
+  console.log(req.params);
+  Product.findById(req.params.id, function(err, product) {
     if (err) {
       console.log(err);
     } else {
+      console.log(product);
       res.render("comments/reactie", { product: product });
     }
   });

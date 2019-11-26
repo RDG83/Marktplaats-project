@@ -4,7 +4,7 @@
 
 <% product.comments.forEach(function(comment){ %>
 <p><%= comment.author.username %> - <%= comment.content %></p>
-<a class="btn btn-primary" href="/advertenties/<%=product.id%>/comments/reactie">Reageer</a>
+<a class="btn btn-primary" href="/advertenties/<%=product.id%>/comments/<%=comment.id%>/reactie">Reageer</a>
 <% }) %>
 
 <br />
