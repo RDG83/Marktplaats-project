@@ -90,7 +90,7 @@
           <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
           <button class="btn btn-warning btn-block mt-2" type="submit">Bied</button>
         </form>
-        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/comments/new">Contact</a>
+        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new">Contact</a>
       </div>
     </div>
 
@@ -135,9 +135,9 @@
   </div>
 </div>
 <div class="row">
-  <% if(product.comments.length > 0 && currentUser.username === product.author.username){ %>
+  <% if(product.messages.length > 0 && currentUser.username === product.author.username){ %>
     <h2>Er zijn berichten</h2>
-    <a class="btn btn-primary" href="/advertenties/<%=product.id%>/comments/tonen">Naar berichten</a>
+    <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
   <% } %>
 
 

@@ -7,7 +7,7 @@ router.get("/new", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("comments/new", { product: foundProduct });
+      res.render("messages/new", { product: foundProduct });
     }
   });
 });
@@ -18,8 +18,7 @@ router.post("/", function(req, res) {
       console.log(err);
       res.redirect("/advertenties");
     } else {
-      // appendCommentData(product.comments, req.user._id, req.user.username, req.body.content);
-      product.comments.push({ content: req.body.content, author: { username: req.user.username, id: req.user._id } });
+      product.messages.push({ content: req.body.content, author: { username: req.user.username, id: req.user._id } });
       product.save();
       res.redirect("/advertenties/" + req.params.product_id);
     }
@@ -31,19 +30,19 @@ router.get("/tonen", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("comments/index", { product: product });
+      res.render("messages/index", { product: product });
     }
   });
 });
 
-router.get("/:comment_id/reactie", function(req, res) {
+router.get("/:message_id/reactie", function(req, res) {
   console.log(req.params);
   Product.findById(req.params.id, function(err, product) {
     if (err) {
       console.log(err);
     } else {
       console.log(product);
-      res.render("comments/reactie", { product: product });
+      res.render("messages/reactie", { product: product });
     }
   });
 });
