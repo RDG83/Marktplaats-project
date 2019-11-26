@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <label for="municipality">Gemeente</label>
-    <select name="product[municipality]" class="form-control" required>
+    <select name="product[municipality]" class="select2 form-control" required>
       <option value="">--- Kies gemeente ---</option>
       <% municipalities.forEach(municipality => { %>
       <option value="<%=municipality%>" <% if (product.municipality == municipality) { %> selected <% }%>><%=municipality%></option>

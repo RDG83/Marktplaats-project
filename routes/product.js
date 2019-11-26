@@ -30,22 +30,18 @@ router.get("/new", function (req, res)
 // Products index route
 router.get("/", function (req, res)
 {
+  // Array for municipalities given
+  let municipalities = [];
+
   // Search form submission subroute
   if (req.query.search)
   {
     // filter user input
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
 
-    // Base query
-    let query = { $or: [{ title: regex }, { category: regex }, { body: regex }] };
-
-
     // if a municipality was also given except the All entry, the query needs to
     if (req.query.municipalities && !req.query.municipalities.includes("all"))
     {
-      // Array for municipalities given
-      let municipalities = [];
-
       // Add all selected municipalities in an array to feed as AND clause for the search query
       req.query.municipalities.forEach(function (municipality)
       {
@@ -60,6 +56,7 @@ router.get("/", function (req, res)
         {
           console.log("Error:", error);
           req.flash("error", "Er is een fout opgetreden bij het uitvoeren van de zoekopdracht.");
+          res.redirect("/advertenties");
         }
         else
         {
@@ -70,7 +67,7 @@ router.get("/", function (req, res)
     // Else if no municipality was selected, or the All-option was selected, query should be without AND operator
     else
     {
-      Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }]}, function (error, foundProducts)
+      Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }] }, function (error, foundProducts)
       {
         if (error || !foundProducts)
         {
@@ -84,6 +81,24 @@ router.get("/", function (req, res)
         }
       });
     }
+  }
+  // If no search requests was done
+  else
+  {
+    // get all products
+    Product.find({}, function (error, allProducts)
+    {
+      if (error || !allProducts)
+      {
+        console.log("Error:", error);
+        req.flash("error", "Er is een fout opgetreden bij het uitvoeren van de zoekopdracht.");
+        res.redirect("/advertenties");
+      }
+      else
+      {
+        res.render("products/index", { products: allProducts });
+      }
+    });
   }
 });
 

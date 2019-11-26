@@ -31,7 +31,7 @@
   </div>
   <div class="form-group">
     <label for="municipality">Gemeente</label>
-    <select name="product[municipality]" class="form-control" required>
+    <select id="municipality" name="product[municipality]" class="form-control select2" required>
       <option value="">--- Kies gemeente ---</option>
       <% municipalities.forEach(municipality => { %>
       <option value="<%=municipality%>"><%=municipality%></option>
@@ -60,6 +60,9 @@
   let defaultZoomLevel = 5;
   let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
 
+  // Implement Geocoding Service
+  let geocodeService = L.esri.Geocoding.geocodeService();
+
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
     {
       center: defaultCenter,
@@ -82,6 +85,24 @@
     $('#latitude').val(e.latlng.lat);
     $('#longitude').val(e.latlng.lng);
     updateMarker(e.latlng.lat, e.latlng.lng);
+
+    // Lookup the geocode to return back a municipality
+    geocodeService.reverse().latlng(e.latlng).run(function (error, result)
+    {
+      if (error)
+      {
+        return;
+      }
+      marker.bindPopup(result.address.Subregion).openPopup();
+
+      // Let select2 change the value to selected municipality
+      if (result.address.Subregion != "")
+      {
+        $('#municipality').val(result.address.Subregion);
+        // Trigger visual update on select element
+        $('#municipality').trigger('change');
+      }
+    });
   });
 
 </script>
