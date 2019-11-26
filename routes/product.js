@@ -30,10 +30,9 @@ router.get("/new", function (req, res)
 // Products index route
 router.get("/", function (req, res)
 {
-  // Search subroute
+  // Search form submission subroute
   if (req.query.search)
   {
-
     // filter user input
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
 
@@ -41,41 +40,50 @@ router.get("/", function (req, res)
     let query = { $or: [{ title: regex }, { category: regex }, { body: regex }] };
 
 
-    // if a municipality was also given except the All entry, query needs to be overriden
+    // if a municipality was also given except the All entry, the query needs to
     if (req.query.municipalities && !req.query.municipalities.includes("all"))
     {
-      console.log("Je koos iets anders dan All");
-      query = { $or: [{ title: "banaan" }, { category: regex }, { body: regex }] }.where('municipality').equals('Amsterdam');
-    }
-    console.log(query);
+      // Array for municipalities given
+      let municipalities = [];
 
-    Product.find(query, function (error, allProducts)
+      // Add all selected municipalities in an array to feed as AND clause for the search query
+      req.query.municipalities.forEach(function (municipality)
+      {
+        // Push individual municipality to array in object structure
+        municipalities.push({ municipality });
+      });
+
+      // Find products where the and clause corresponds with the give municipalities
+      Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }], $and: [{ $or: municipalities }] }, function (error, foundProducts)
+      {
+        if (error || !foundProducts)
+        {
+          console.log("Error:", error);
+          req.flash("error", "Er is een fout opgetreden bij het uitvoeren van de zoekopdracht.");
+        }
+        else
+        {
+          res.render("products/index", { products: foundProducts });
+        }
+      });
+    }
+    // Else if no municipality was selected, or the All-option was selected, query should be without AND operator
+    else
     {
-      console.log(query);
-      if (error)
+      Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }]}, function (error, foundProducts)
       {
-        console.log("Error:", error);
-        req.flash("error", "Er is een fout opgetreden bij het uitvoeren van de zoekopdracht.");
-      }
-      else
-      {
-        res.render("products/index", { products: allProducts });
-      }
-    });
-  }
-  else
-  {
-    Product.find({}, function (error, allProducts)
-    {
-      if (error || !allProducts)
-      {
-        console.log(error);
-        req.flash("error", "Er is een fout opgetreden bij het ophalen van de advertenties.");
-      } else
-      {
-        res.render("products/index", { products: allProducts });
-      }
-    });
+        if (error || !foundProducts)
+        {
+          console.log("Error:", error);
+          req.flash("error", "Er is een fout opgetreden bij het uitvoeren van de zoekopdracht.");
+          res.redirect("/advertenties");
+        }
+        else
+        {
+          res.render("products/index", { products: foundProducts });
+        }
+      });
+    }
   }
 });
 
@@ -102,7 +110,7 @@ router.post("/", upload.array("productImages", 5), function (req, res)
       });
 
       // Callback function so redirection to id is possible
-      product.save(function(error,product)
+      product.save(function (error, product)
       {
         // If error
         if (error || !product)
@@ -168,7 +176,9 @@ router.get("/:product_id/edit", function (req, res)
     }
     else
     {
-      res.render("products/edit", { product: foundProduct });
+      // Only if every fail condition is already tackled, get the municipality list
+      let municipalities = municipalityController.getAll();
+      res.render("products/edit", { product: foundProduct, municipalities: municipalities });
     }
   });
 });

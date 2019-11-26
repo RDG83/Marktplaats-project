@@ -1,3 +1,13 @@
+// Everything that needs to be checked when document is ready
+$( document ).ready(function()
+{
+    if ($("#searchInput").val() == "")
+	{
+		$("#searchButton").prop('disabled', true);
+	}
+});
+
+
 /* navbar scrollen */
 $(window).scroll(function ()
 {

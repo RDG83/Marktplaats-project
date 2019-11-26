@@ -26,7 +26,7 @@
           -->
         </select>
       </div>
-      <button id="searchButton" type="submit" class="btn btn-warning mb-2" disabled>Zoeken</button>
+      <button id="searchButton" type="submit" class="btn btn-warning mb-2"><i class="fa fa-search" aria-hidden="true"></i> Zoeken</button>
     </form>
   </div>
 </div>
@@ -40,7 +40,7 @@
 <div class="row justify-content-center">
   <div class="list-group col-8">
     <% product.forEach(function(product){ %>
-    <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action"><%=product%></a>
+    <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action list-group-item-light"><i class="fa fa-tag" aria-hidden="true"></i> <%=product%></a>
     <% }) %>
   </div>
 </div>

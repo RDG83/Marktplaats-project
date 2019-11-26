@@ -7,10 +7,10 @@ const municipalityController = require("../controllers/municipalityController");
 // MAIN ROUTE TO HOME
 router.get("/", function (req, res)
 {
+  let municipalities = municipalityController.getAll();
+  
   // Set of unique categories
   let catSet = new Set();
-
-  let municipalities = municipalityController.getAll();
 
   Product.find({}, function (error, allProducts)
   {
@@ -25,8 +25,8 @@ router.get("/", function (req, res)
         catSet.add(product.category);
       });
     }
+    res.render("home", { product: catSet, municipalities: municipalities });
   });
-  res.render("home", { product: catSet, municipalities: municipalities });
 });
 
 
