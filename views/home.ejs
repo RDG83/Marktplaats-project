@@ -7,26 +7,31 @@
 <!-- begin searchbar -->
 <div class="row justify-content-center">
   <div class="col-8 justify-content-center">
-    <form class="form-inline" action="/advertenties" method="get">
-      <div class="form-group mx-sm-3 mb-2">
-        <input id="searchInput" type="text" class="form-control" name="search" placeholder="Zoekterm">
-        <select name="municipalities[]" class="form-control" multiple>
-          <option value="all">--- Alle gemeenten ---</option>
-          <% municipalities.forEach(municipality => { %>
-          <option value="<%=municipality%>"><%=municipality%></option>
-          <% }); %>
-        </select>
-        <!--
-          <select name="distance" class="form-control">
-          <option>Alle afstanden</option>
-          <option>&lt; 5 KM</option>
-          <option>&lt; 10KM</option>
-          <option>&lt; 25KM</option>
-          <option>&lt; 50KM</option>
-          -->
-        </select>
+    <form action="/advertenties" method="get">
+      <div class="row">
+        <div class="col-8">
+          <div class="row">
+            <div class="col">
+              <input id="searchInput" type="text" class="form-control mb-2" name="search" placeholder="Zoekterm">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <select name="municipalities[]" data-placeholder="Kies gemeenten..." class="select2 form-control"
+                multiple="multiple">
+                <option value="all">--- Alle gemeenten ---</option>
+                <% municipalities.forEach(municipality => { %>
+                <option value="<%=municipality%>"><%=municipality%></option>
+                <% }); %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <button id="searchButton" type="submit" class="btn btn-warning mb-2" disabled=""><i class="fa fa-search"
+              aria-hidden="true"></i> Zoeken</button>
+        </div>
       </div>
-      <button id="searchButton" type="submit" class="btn btn-warning mb-2"><i class="fa fa-search" aria-hidden="true"></i> Zoeken</button>
     </form>
   </div>
 </div>
@@ -40,7 +45,8 @@
 <div class="row justify-content-center">
   <div class="list-group col-8">
     <% product.forEach(function(product){ %>
-    <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action list-group-item-light"><i class="fa fa-tag" aria-hidden="true"></i> <%=product%></a>
+    <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action list-group-item-light"><i
+        class="fa fa-tag" aria-hidden="true"></i> <%=product%></a>
     <% }) %>
   </div>
 </div>
