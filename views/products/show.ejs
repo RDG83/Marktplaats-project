@@ -135,7 +135,10 @@
   </div>
 </div>
 <div class="row">
-  
+  <% if(product.comments.length > 0 && currentUser.username === product.author.username){ %>
+    <h2>Er zijn berichten</h2>
+    <a class="btn btn-primary" href="account/berichten">Naar berichten</a>
+  <% } %>
 <% product.comments.forEach(function(comment){ %>
   <p><%= comment.author.username %> - <%= comment.content %></p>
 <% }) %>
