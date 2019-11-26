@@ -34,10 +34,11 @@
 
   <div class="form-group">
     <label for="municipality">Gemeente</label>
-    <select name="product[municipality]" class="select2 form-control" required>
+    <select id="municipality" name="product[municipality]" class="select2 form-control" required>
       <option value="">--- Kies gemeente ---</option>
       <% municipalities.forEach(municipality => { %>
-      <option value="<%=municipality%>" <% if (product.municipality == municipality) { %> selected <% }%>><%=municipality%></option>
+      <option value="<%=municipality%>" <% if (product.municipality == municipality) { %> selected <% }%>>
+        <%=municipality%></option>
       <% }); %>
     </select>
   </div>
@@ -60,16 +61,17 @@
   <button class="btn btn-info" type="submit">Wijzigingen opslaan</button>
 </form>
 <script>
-    <% if (product.location.coordinates.length > 0)
-  { %>
+    <% if (product.location.coordinates.length > 0) { %>
     let defaultCenter = [<%=product.location.coordinates %>];
     let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
-    <% } else
-  { %>
+
+    <% } else { %>
     let defaultCenter = [52.132633, 5.291266]; // the Netherlands
     let defaultZoomLevel = 5; // More zoom out, because no location picked yet.
     <% } %>
     let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
+  // Implement Geocoding Service
+  let geocodeService = L.esri.Geocoding.geocodeService();
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
     {
@@ -80,8 +82,8 @@
     })
     .addTo(locationMap);
 
-  var marker = L.marker(defaultCenter).addTo(locationMap);
-  var updateMarker = function (lat, lng)
+  let marker = L.marker(defaultCenter).addTo(locationMap);
+  let updateMarker = function (lat, lng)
   {
     marker
       .setLatLng([lat, lng]);
@@ -93,7 +95,23 @@
     $('#latitude').val(e.latlng.lat);
     $('#longitude').val(e.latlng.lng);
     updateMarker(e.latlng.lat, e.latlng.lng);
-  });
 
+    // Lookup the geocode to return back a municipality
+    geocodeService.reverse().latlng(e.latlng).run(function (error, result)
+    {
+      if (error)
+      {
+        return;
+      }
+      // Let select2 change the value to selected municipality
+      if (result.address.Subregion != "")
+      {
+        marker.bindPopup(result.address.Subregion).openPopup();
+        $('#municipality').val(result.address.Subregion);
+        // Trigger visual update on select element
+        $('#municipality').trigger('change');
+      }
+    });
+  });
 </script>
 <% include ../partials/footer %>

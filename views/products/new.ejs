@@ -93,11 +93,11 @@
       {
         return;
       }
-      marker.bindPopup(result.address.Subregion).openPopup();
 
       // Let select2 change the value to selected municipality
       if (result.address.Subregion != "")
       {
+        marker.bindPopup(result.address.Subregion).openPopup();
         $('#municipality').val(result.address.Subregion);
         // Trigger visual update on select element
         $('#municipality').trigger('change');
