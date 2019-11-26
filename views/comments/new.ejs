@@ -3,7 +3,7 @@
 <div class="text-center">
   <h1>Contact opnemen met <%=product.author.username %></h1>
 
-  <form action="">
+  <form action="/advertenties/<%=product._id%>/comments" method="POST">
     <div class="form-group">
       <textarea name="content" id="" cols="30" rows="10">
    Beste <%= product.author.username %>,

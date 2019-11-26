@@ -134,7 +134,13 @@
     <% } %>
   </div>
 </div>
+<div class="row">
+  
+<% product.comments.forEach(function(comment){ %>
+  <p><%= comment.author.username %> - <%= comment.content %></p>
+<% }) %>
 
+  </div>
 <!-- einde productbeheer -->
 <% if (product.location.coordinates.length > 0 ) { %>
 <script>
