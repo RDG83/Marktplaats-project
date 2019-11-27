@@ -67,7 +67,7 @@
 
     <% } else { %>
     let defaultCenter = [52.132633, 5.291266]; // the Netherlands
-    let defaultZoomLevel = 5; // More zoom out, because no location picked yet.
+    let defaultZoomLevel = 6; // More zoom out, because no location picked yet.
     <% } %>
     let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
   // Implement Geocoding Service
