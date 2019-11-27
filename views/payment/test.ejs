@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 <h1>Betalen!!!!</h1>
-<form action="/charge" method="post" id="payment-form">
+<form action="/betalingen" method="post" id="payment-form">
   <div class="form-row">
     <label for="card-element">
       Credit or debit card
@@ -15,4 +15,21 @@
 
   <button>Submit Payment</button>
 </form>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+// Custom styling can be passed to options when creating an Element.
+const style = {
+  base: {
+    // Add your base input styles here. For example:
+    fontSize: '16px',
+    color: "#32325d",
+  },
+};
+
+// Create an instance of the card Element.
+const card = elements.create('card', {style});
+
+// Add an instance of the card Element into the `card-element` <div>.
+card.mount('#card-element');
+</script>
 <% include ../partials/footer %>

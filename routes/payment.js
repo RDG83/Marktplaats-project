@@ -7,4 +7,9 @@ router.get("/", function(req, res)
     res.render("payment/test");
 });
 
+router.post("/", function(req, res)
+{
+    res.send("Is ontvang'n!");
+});
+
 module.exports = router;
