@@ -44,6 +44,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Stripe Payment requirement
+const stripe = require('stripe')('sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh');
+
 // ROUTE VARIABLES
 const indexRoutes = require("./routes/index");
 const productRoutes = require("./routes/product");
