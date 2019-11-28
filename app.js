@@ -44,7 +44,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Stripe Payment requirement
+// Stripe Payment requirement with secret key
 const stripe = require('stripe')('sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh');
 
 // ROUTE VARIABLES

@@ -1,28 +1,23 @@
 <% include ../partials/header %>
-<h1>Betalen!!!!</h1>
-<form id="payment-form" action="/betalingen" method="POST">
-  <div class="form-row">
+<script src="https://js.stripe.com/v3/"></script>
+<form id="payment-form">
+  <div class="form-bla">
     <label for="name">
-      Name
+      Volledige naam:
     </label>
-    <input name="name">
+    <input id="name" name="name" placeholder="Jenny Rosen" required class="form-control">
   </div>
 
-  <div class="form-row">
-    <!--
-        Using a label with a for attribute that matches the ID of the
-        Element container enables the Element to automatically gain focus
-        when the customer clicks on the label.
-      -->
+  <div class="form-2">
     <label for="ideal-bank-element">
-      iDEAL Bank
+      Kies hieronder uw bank:
     </label>
     <div id="ideal-bank-element">
       <!-- A Stripe Element will be inserted here. -->
     </div>
   </div>
 
-  <button>Submit Payment</button>
+  <button class="rounded p-2 btn btn-primary">Doe betaling</button>
 
   <!-- Used to display form errors. -->
   <div id="error-message" role="alert"></div>
@@ -30,7 +25,7 @@
 <script>
   // Create a Stripe client.
   // Note: this merchant has been set up for demo purposes.
-  var stripe = Stripe('pk_test_nGMHwCRhhiEskjG9nbZ8dXv000GNF0HPDN');
+  var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
 
   // Create an instance of Elements.
   var elements = stripe.elements();
@@ -70,7 +65,7 @@
 
     var sourceData = {
       type: 'ideal',
-      amount: 1099,
+      amount: 2,
       currency: 'eur',
       owner: {
         name: document.querySelector('input[name="name"]').value,
@@ -91,7 +86,8 @@
         errorMessage.textContent = result.error.message;
         errorMessage.classList.add('visible');
         stopLoading();
-      } else
+      }
+      else
       {
         // Redirect the customer to the authorization URL.
         errorMessage.classList.remove('visible');
@@ -99,11 +95,5 @@
       }
     });
   });
-
-  idealBank.on('change', ({value}) => {
-  const bank = value;
-  alert("KAAS");
-});
-
 </script>
 <% include ../partials/footer %>

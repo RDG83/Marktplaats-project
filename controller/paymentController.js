@@ -5,12 +5,15 @@ const stripe = require('stripe')('sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh');
 
 // Set your secret key: remember to change this to your live secret key in production
 // See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripe = require("stripe")("sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh");
 
-
-(async () => {
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: 2, //hardcoded user story value for now
-    currency: 'eur',
-    payment_method_types: ['ideal'],
-  });
-})();
+stripe.customers.createSource(
+  'cus_GGcoX1xfjRF5y4',
+  {
+    source: 'src_1Fk5ZJHMcYHPqzMlfX5lBTAM',
+  },
+  function (err, source)
+  {
+    // asynchronously called
+  }
+);
