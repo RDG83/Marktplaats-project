@@ -36,7 +36,8 @@ const productSchema = new mongoose.Schema({
       ref: "User"
     },
     username: String
-  }
+  },
+  municipality: String
 });
 
 module.exports = mongoose.model("Product", productSchema);

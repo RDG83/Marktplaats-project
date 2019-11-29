@@ -19,25 +19,33 @@
   <div id="locationMap"></div>
   <div class="form-row">
     <div class="form-group-inline col-6">
-      <label for="latitude">Breedtegraad:</label>
+      <label for="latitude">Breedtegraad</label>
       <input type="number" id="latitude" class="form-control" name="latitude" placeholder="53.203230" step="any"
         value="53.203230" readonly>
     </div>
     <div class="form-group-inline col-6">
-      <label for="longitude">Lengtegraad:</label>
+      <label for="longitude">Lengtegraad</label>
       <input type="number" id="longitude" class="form-control" name="longitude" placeholder="6.555360" step="any"
         value="6.555360" readonly>
     </div>
   </div>
   <div class="form-group">
+    <label for="municipality">Gemeente</label>
+    <select id="municipality" name="product[municipality]" class="form-control select2" required>
+      <option value="">--- Kies gemeente ---</option>
+      <% municipalities.forEach(municipality => { %>
+      <option value="<%=municipality%>"><%=municipality%></option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="form-group">
     <label for="price">Prijs</label>
-    <input type="number" class="form-control" id="price" name="product[price]" placeholder="Prijs" step="0.01"
-      required />
+    <input type="number" class="form-control" id="price" name="product[price]" placeholder="Prijs" step="0.01" required>
   </div>
   <div class="form-group">
     <label for="minprice">Minimale prijs</label>
     <input type="number" class="form-control" id="minprice" name="product[minprice]" placeholder="Minimale prijs"
-      step="0.01" />
+      step="0.01">
   </div>
   <div class="form-group">
     <label for="body">Omschrijving</label>
@@ -49,8 +57,11 @@
 <script>
   // Geolocation of the Netherlands, happily borrowed from https://developers.google.com/public-data/docs/canonical/countries_csv
   let defaultCenter = [52.132633, 5.291266];
-  let defaultZoomLevel = 5;
+  let defaultZoomLevel = 6;
   let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
+
+  // Implement Geocoding Service
+  let geocodeService = L.esri.Geocoding.geocodeService();
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
     {
@@ -74,6 +85,24 @@
     $('#latitude').val(e.latlng.lat);
     $('#longitude').val(e.latlng.lng);
     updateMarker(e.latlng.lat, e.latlng.lng);
+
+    // Lookup the geocode to return back a municipality
+    geocodeService.reverse().latlng(e.latlng).run(function (error, result)
+    {
+      if (error)
+      {
+        return;
+      }
+
+      // Let select2 change the value to selected municipality
+      if (result.address.Subregion != "")
+      {
+        marker.bindPopup(result.address.Subregion).openPopup();
+        $('#municipality').val(result.address.Subregion);
+        // Trigger visual update on select element
+        $('#municipality').trigger('change');
+      }
+    });
   });
 
 </script>
