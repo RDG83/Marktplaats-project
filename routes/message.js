@@ -35,17 +35,17 @@ router.post("/", function (req, res) {
   });
 });
 
-// router.get("/tonen", function (req, res) {
-//   Product.findById(req.params.product_id)
-//     .populate("messages")
-//     .exec(function (err, product) {
-//       if (err || !product) {
-//         console.log(err);
-//       } else {
-//         res.render("messages/index", { product: product });
-//       }
-//     });
-// });
+router.get("/tonen", function (req, res) {
+  Product.findById(req.params.product_id)
+    .populate("messages")
+    .exec(function (err, product) {
+      if (err || !product) {
+        console.log(err);
+      } else {
+        res.render("messages/index", { product: product, product_id: req.params.product_id });
+      }
+    });
+});
 
 
 
@@ -82,16 +82,16 @@ router.post("/:message_id", function (req, res) {
   });
 });
 
-router.get("/tonen", function (req, res) {
-  let userId = req.user.id
-  Message.find({ parentId: { $exists: false }, "author.id": userId }, function (err, allMessages) {
-    if (err) {
-      console.log(err)
-    } else {
-      res.render("messages/index", { allMessages: allMessages, product_id: req.params.product_id });
-    }
-  });
-});
+// router.get("/tonen", function (req, res) {
+//   let userId = req.user.id
+//   Message.find({ parentId: { $exists: false }, "author.id": userId }, function (err, allMessages) {
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       res.render("messages/index", { allMessages: allMessages, product_id: req.params.product_id });
+//     }
+//   });
+// });
 
 
 

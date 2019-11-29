@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const Message = require("../models/message")
+const Message = require("../models/message");
+
+var total = [];
+
 
 router.get("/index", function (req, res) {
   res.render("accounts/index");
@@ -17,29 +20,46 @@ router.get("/berichten", function (req, res) {
   });
 });
 
-router.get("/berichten/:message_Id/thread", function (req, res) {
-  Message.aggregate([
-    // { $match: { "_id": req.params.message_Id } },
+router.get(
+  "/berichten/:message_id/thread", findMessages
+);
+
+
+function findMessages(req, res) {
+  let messages = [];
+  Message.find(
     {
-      $graphLookup: {
-        from: "messages",
-        startWith: "$_id",
-        connectFromField: "parentId",
-        connectToField: "_id",
-        as: "threadHierarchy"
+    }, function (err, allMessages) {
+      if (err) {
+        console.log(err)
       }
     }
-  ], function (err, threadHierarchy) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(threadHierarchy)
-      res.render("accounts/thread", { messages: threadHierarchy })
+  ).exec().then((allMessages) => {
+    let dataforview = [];
+    messages = allMessages;
+    allMessages.forEach(element => {
+      if (!element.parentId.id) {
+        let thread = [element.id];
+        let replys = zoekinarray(messages, element.id);
+        thread = thread.concat(replys);
+        dataforview.push(thread);
+      }
+    });
+    // render
+    console.log(dataforview);
+  });
+}
 
+function zoekinarray(arr, sleutel) {
+  let subs = [];
+  arr.forEach(e2 => {
+    if (e2.parentId.id == sleutel) {
+      subs.push(e2.id);
+      subs = subs.concat(zoekinarray(arr, e2.id));
+      // return subs;
     }
-  })
-})
-
-
+  });
+  return subs;
+}
 
 module.exports = router;

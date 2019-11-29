@@ -1,1 +1,3 @@
-<h2><%=messages%></h2>
+<%messages.forEach(function(message){%>
+<h5><%=message.author.username%> - <%=message.content%></h5>
+<% }) %>
