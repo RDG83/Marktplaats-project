@@ -9,18 +9,13 @@ const messageSchema = new mongoose.Schema({
     username: String
   },
   content: String,
-  parentmessage: {
+  parentId: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message"
     }
   },
-  parentproduct: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product"
-    }
-  }
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Message", messageSchema);

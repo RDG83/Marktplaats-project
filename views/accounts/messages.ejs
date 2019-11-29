@@ -4,7 +4,7 @@
 
 <% allMessages.forEach(function(message){ %>
 <p><%= message.author.username %> - <%=moment(message.createdAt).format("DD MMM, h:mm")%> - <%= message.content %></p>
-<a class="btn btn-primary" href="/advertenties/<%=product_id%>/messages/<%=message.id%>/reactie">Reageer</a>
+<a href="/account/berichten/<%=message.id%>/thread">Toon thread</a>
 <% }) %>
 
 <br />

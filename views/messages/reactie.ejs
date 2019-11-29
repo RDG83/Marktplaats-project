@@ -8,7 +8,7 @@
     <h3>Bericht van: <%=message.author.username %></h3>
     <div class="form-group">
       <textarea name="" id="" cols="30" rows="10">
-    
+
       <%= message.content %>
       
       </textarea>
@@ -16,8 +16,8 @@
   </div>
   <div class="col-6 text-center">
     <h3>Uw bericht</h3>
-    <form action="/advertenties/<%=product_id%>/messages/" method="POST">
-      <textarea name="" id="" cols="30" rows="10">
+    <form action="/advertenties/<%=product_id%>/messages/<%=message._id%>" method="POST">
+      <textarea name="message[content]" id="" cols="30" rows="10">
   Beste <%= message.author.username %>,
   
   
@@ -26,8 +26,8 @@
   met vriendelijke groet,
   
   <%= currentUser.username %>
-  </textarea
-      >
+  </textarea>
+      <input class="btn btn-primary" type="submit" value="Reageer">
     </form>
   </div>
 </div>
