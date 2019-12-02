@@ -39,27 +39,28 @@ function findMessages(req, res) {
     messages = allMessages;
     allMessages.forEach(element => {
       if (!element.parentId.id) {
-        let thread = [element.id];
-        let replys = zoekinarray(messages, element.id);
-        thread = thread.concat(replys);
+        let thread = [element];
+        let replies = zoekinarray(messages, element.id);
+        thread = thread.concat(replies);
         dataforview.push(thread);
       }
     });
-    // render
     console.log(dataforview);
+    res.send(JSON.stringify(dataforview));
+    // res.render("accounts/thread", { messages: dataforview })
   });
 }
 
-function zoekinarray(arr, sleutel) {
+function zoekinarray(array, sleutel) {
   let subs = [];
-  arr.forEach(e2 => {
+  array.forEach(e2 => {
     if (e2.parentId.id == sleutel) {
-      subs.push(e2.id);
-      subs = subs.concat(zoekinarray(arr, e2.id));
-      // return subs;
+      subs.push(e2);
+      subs = subs.concat(zoekinarray(array, e2.id));
     }
   });
   return subs;
 }
+
 
 module.exports = router;
