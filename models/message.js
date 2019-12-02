@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const messageSchema = new mongoose.Schema({
+  threadId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Thread"
+  },
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -9,12 +13,6 @@ const messageSchema = new mongoose.Schema({
     username: String
   },
   content: String,
-  parentId: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Message"
-    }
-  },
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -7,10 +7,10 @@ const productSchema = new mongoose.Schema({
   category: String,
   price: Number,
   minprice: Number,
-  messages: [
+  threads: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: "Message"
+      ref: "Thread"
     }
   ],
   bids: [
