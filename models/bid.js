@@ -4,7 +4,7 @@ const bidSchema = new mongoose.Schema({
   amount: Number,
   createdAt: { type: Date, default: Date.now },
   author: {
-    id: {
+    _id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     },

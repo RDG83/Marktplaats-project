@@ -131,7 +131,7 @@
   </div>
 </div>
 <div class="row">
-  <% if(product.messages.length > 0 && currentUser.id == product.author.id){ %>
+  <% if(product.threads.length > 0 && currentUser.id == product.author.id){ %>
   <h2>Er zijn berichten</h2>
   <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
   <% } %>

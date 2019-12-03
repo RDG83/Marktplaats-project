@@ -2,26 +2,33 @@ const mongoose = require("mongoose");
 
 const threadSchema = new mongoose.Schema({
  product: {
-  id: {
+  _id: {
    type: mongoose.Schema.ObjectId,
    ref: "Product"
   }
  },
  users: [
   {
-   username: String,
-   id: {
+   //_id: false,
+   _id: {
     type: mongoose.Schema.ObjectId,
     ref: "User"
-   }
+   }, username: String
   }
  ],
  messages: [
   {
-   type: mongoose.Schema.ObjectId,
-   ref: "Message"
+   author: {
+    _id: {
+     type: mongoose.Schema.Types.ObjectId,
+     ref: "User"
+    },
+    username: String
+   },
+   content: String,
+   createdAt: { type: Date, default: Date.now },
   }
  ]
 });
 
-module.exports = mongoose.model("Thread", threadSchema)
+module.exports = mongoose.model("Thread", threadSchema);

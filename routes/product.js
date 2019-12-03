@@ -4,6 +4,7 @@ const Product = require("../models/product");
 const router = express.Router({ mergeParams: true });
 const multer = require("multer");
 const municipalityController = require("../controllers/municipalityController");
+const middleware = require("../middleware")
 const storage = multer.diskStorage
   ({
     destination: function (req, file, cb) {
@@ -19,7 +20,7 @@ const upload = multer({ storage: storage });
 //const sharp = require('sharp');
 
 // New product get route
-router.get("/new", function (req, res) {
+router.get("/new", middleware.isLoggedIn, function (req, res) {
   let municipalities = municipalityController.getAll();
   res.render("products/new", { municipalities: municipalities });
 });
@@ -85,7 +86,7 @@ router.get("/", function (req, res) {
 });
 
 // Post route of a product, with multer upload middleware
-router.post("/", upload.array("productImages", 5), function (req, res) {
+router.post("/", middleware.isLoggedIn, upload.array("productImages", 5), function (req, res) {
 
   // Append lat and long to product JSON
   appendLocationData(req.body.product, req.body.latitude, req.body.longitude);
@@ -99,7 +100,7 @@ router.post("/", upload.array("productImages", 5), function (req, res) {
       req.files.forEach(function (file) {
         product.images.push(file.filename);
       });
-      product.author.id = req.user._id;
+      product.author._id = req.user._id;
       product.author.username = req.user.username;
       // Callback function so redirection to id is possible
       product.save(function (error, product) {
@@ -148,7 +149,7 @@ router.get("/:product_id", function (req, res) {
 });
 
 // EDIT FORM GET ROUTE
-router.get("/:product_id/edit", function (req, res) {
+router.get("/:product_id/edit", middleware.isLoggedIn, function (req, res) {
   Product.findById(req.params.product_id, function (error, foundProduct) {
     if (error || !foundProduct) {
       console.log(error);
@@ -164,7 +165,7 @@ router.get("/:product_id/edit", function (req, res) {
 });
 
 // EDIT PUT ROUTE
-router.put("/:product_id", function (req, res) {
+router.put("/:product_id", middleware.isLoggedIn, function (req, res) {
   // Append lat and long to product JSON
   appendLocationData(req.body.product, req.body.latitude, req.body.longitude);
 
@@ -185,7 +186,7 @@ router.put("/:product_id", function (req, res) {
 });
 
 // Product delete route
-router.delete("/:id", function (req, res) {
+router.delete("/:id", middleware.isLoggedIn, function (req, res) {
   Product.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       console.log(err);

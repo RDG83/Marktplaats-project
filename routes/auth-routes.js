@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true });
 const User = require("../models/user");
 const passport = require("passport");
 
-router.get("/login", function(req, res) {
+router.get("/login", function (req, res) {
   // passport handling here
   res.render("login");
 });
@@ -17,16 +17,16 @@ router.post(
   })
 );
 
-router.get("/logout", function(req, res) {
+router.get("/logout", function (req, res) {
   req.logout();
   res.redirect("/advertenties");
 });
 
-router.get("/signup", function(req, res) {
+router.get("/signup", function (req, res) {
   res.render("signup");
 });
 
-router.post("/signup", function(req, res) {
+router.post("/signup", function (req, res) {
   const { username, email, password, password2 } = req.body;
   let errors = [];
   // check of alle velden zijn ingevuld
@@ -50,7 +50,7 @@ router.post("/signup", function(req, res) {
       password2
     });
   } else {
-    User.findOne({ email: email }).then(function(user) {
+    User.findOne({ email: email }).then(function (user) {
       if (user) {
         errors.push({ msg: "Email is al in gebruik" });
         res.render("signup", {
@@ -66,12 +66,12 @@ router.post("/signup", function(req, res) {
           password,
           email
         });
-        User.register(newUser, req.body.password, function(err, user) {
+        User.register(newUser, req.body.password, function (err, user) {
           if (err) {
             console.log("post route error:" + err);
             return res.render("signup");
           } else {
-            passport.authenticate("local")(req, res, function() {
+            passport.authenticate("local")(req, res, function () {
               res.redirect("/advertenties");
             });
           }
@@ -80,13 +80,5 @@ router.post("/signup", function(req, res) {
     });
   }
 });
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect("/auth/login");
-  }
-}
 
 module.exports = router;
