@@ -80,23 +80,6 @@
         <div class="card-title">
           <h4>Biedt u mee?</h4>
         </div>
-        <form action="/advertenties/<%=product._id%>/bids" method="POST">
-          <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
-          <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
-          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bied</button>
-        </form>
-        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new">Contact</a>
-      </div>
-    </div>
-    <% } %>
-    <!-- Einde bied sectie-->
-
-
-    <div class="card rounded shadow card-deck">
-      <div class="card-body">
-        <div class="card-title">
-          <h4>Biedingsverloop</h4>
-        </div>
         <% if (product.bids.length > 0) { %>
         <ul class="list-group list-group-flush">
           <% product.bids.forEach(function(bid){ %>
@@ -109,8 +92,16 @@
         <% } else { %>
         <p class="text-muted">Er zijn nog geen biedingen geplaatst.</p>
         <% } %>
+        <form action="/advertenties/<%=product._id%>/bids" method="POST">
+          <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
+          <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
+          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bieden</button>
+        </form>
+        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new"><i class="fa fa-comments" aria-hidden="true"></i> Contact opnemen met <%=product.author.username %></a>
       </div>
     </div>
+    <% } %>
+    <!-- Einde bied sectie-->
 
     <!-- begin productbeheer -->
 
@@ -131,14 +122,10 @@
   </div>
 </div>
 <div class="row">
-  <% if(product.threads.length > 0 && currentUser.id == product.author.id){ %>
+  <% if(product.threads.length > 0 && currentUser.id == product.author._id){ %>
   <h2>Er zijn berichten</h2>
   <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
   <% } %>
-
-  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
-
-
 </div>
 <!-- einde productbeheer -->
 <% if (product.location.coordinates.length > 0 ) { %>

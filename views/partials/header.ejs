@@ -32,16 +32,16 @@
 </head>
 
 <body>
-  <% include menu %> <% // include search %>
-  <% if (error && error.length > 0) { %>
-  <div class="alert alert-danger" role="alert">
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-    <h5><%=error%></h5>
-  </div>
-  <% } %>
-  <% if (success && success.length > 0) { %>
-  <div class="alert alert-success" role="alert">
-    <i class="fa fa-check" aria-hidden="true"></i>
-    <h5><%=success%></h5>
-  <% } %>
-  <div class="container mb-2 pt-3">
+      <% include menu %>
+      
+      <div class="container mb-2 pt-3">
+      <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger" role="alert">
+         <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <%=error%></strong>
+        </div>
+        <% } %>
+        <% if (success && success.length > 0) { %>
+        <div class="alert alert-success" role="alert">
+          <strong><i class="fa fa-check" aria-hidden="true"></i> <%=success%></strong>
+        </div>
+        <% } %>
