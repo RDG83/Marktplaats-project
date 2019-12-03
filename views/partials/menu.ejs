@@ -18,17 +18,17 @@
         <a class="nav-link" href="/auth/signup"><span>Registreren</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/auth/login"><span>Inloggen</span></a>
+        <a class="nav-link" href="/auth/login"><span><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen</span></a>
       </li>
       <% } else { %>
       <li class="nav-item">
-        <a class="nav-link" href="/account/index"><span><%= currentUser.username %></span></a>
+        <a class="nav-link" href="/account/index"><span><i class="fa fa-user" aria-hidden="true"></i> Mijn profiel</span></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="/account/berichten"><span><i class="fa fa-envelope" aria-hidden="true"></i> <span class="badge badge-info">9</span> Mijn berichten</span></a>
+          <a class="nav-link" href="/account/berichten"><span><i class="fa fa-envelope" aria-hidden="true"></i> Mijn berichten</span></a>
         </li>
       <li class="nav-item">
-        <a class="nav-link" href="/auth/logout"><span>Uitloggen</span></a>
+        <a class="nav-link" href="/auth/logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i> Uitloggen</span></a>
       </li>
       <% } %>
       <!-- <li class="nav-item">
