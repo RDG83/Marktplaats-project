@@ -74,7 +74,7 @@
     </div>
 
     <!-- Begin bied sectie-->
-
+    <% if(currentUser.id != product.author._id){ %>
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
@@ -88,7 +88,7 @@
         <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new">Contact</a>
       </div>
     </div>
-
+    <% } %>
     <!-- Einde bied sectie-->
 
 
@@ -114,7 +114,7 @@
 
     <!-- begin productbeheer -->
 
-    <% if(currentUser.id == product.author.id){ %>
+    <% if(currentUser.id == product.author._id){ %>
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
