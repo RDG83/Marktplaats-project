@@ -1,24 +1,23 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 
-// OUTE TO PAYMENT FORM
-router.get("/", function (req, res)
-{
-    // Set your secret key: remember to change this to your live secret key in production
-    // See your keys here: https://dashboard.stripe.com/account/apikeys
-    const stripe = require('stripe')('sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh');
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripe = require('stripe')('sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh');
 
-    stripe.charges.create
-        ({
-            amount: 2,
+// OUTE TO PAYMENT FORM
+router.get("/", (req, res) =>
+{
+    
+        const paymentIntent = stripe.paymentIntents.create({
+            amount: 1099,
             currency: 'eur',
-            source: 'src_18eYalAHEMiOZZp1l9ZTjSU0',
-            payment_method_types: ['ideal']
-        }, function (err, charge)
-        {
-            // asynchronously called
+            payment_method_types: ['ideal'],
         });
-    res.render("payment/test");
+
+    res.send(paymentIntent);
+
+    //res.render("payment/test");
 });
 
 router.post("/doen", function (req, res)
