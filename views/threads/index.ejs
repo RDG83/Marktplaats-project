@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+
+<h1>Mijn conversaties</h1>
+<ul class="list-group">
+    <% threads.forEach(function(thread) { %>
+    <li class="list-group-item">
+    Conversatie met <strong><%
+    // Get the other user to display in the title
+    if (currentUser.id == thread.users[0]._id) { %>
+    <%=thread.users[1].username%>
+    <% } else { %>
+    <%=thread.users[0].username%>
+    <% } %></strong>
+    over <strong><%=thread.product._id.title %></strong>
+    <a class="btn btn-primary" href="/account/berichten/<%=thread.id%>">Ga naar conversatie</a>
+    <% }); %>
+</li>
+</ul>
+
+<% include ../partials/footer %>

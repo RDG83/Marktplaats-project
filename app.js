@@ -10,7 +10,11 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
+//Include Moment package
 app.locals.moment = require("moment");
+
+// Set Moment to dutch locale
+app.locals.moment.locale("nl");
 
 // Actual DB connection
 mongoose.connect(process.env.DB_FULLPATH, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
@@ -46,7 +50,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(flash());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next)
+{
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");

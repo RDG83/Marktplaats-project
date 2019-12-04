@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+<h1>
+    Conversatie met <%
+    // Get the other user to display in the title
+    if (currentUser.id == thread.users[0]._id) { %>
+    <%=thread.users[1].username%>
+    <% } else { %>
+    <%=thread.users[0].username%>
+    <% } %> over <%= product.title %>
+</h1>
+<%thread.messages.forEach(function(message){%>
+<div class="row mb-2">
+    <div class="col-6 <% if (message.author._id == currentUser.id) { %>user offset-md-2<% } else { %>other<%}%>">
+        <div class="card shadow text-white <% if (message.author._id == currentUser.id) { %>bg-info <% } else { %>bg-success<%}%>">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <strong><%=message.author.username%></strong>
+                    </div>
+                    <div class=" col text-right">
+        <abbr title="<%=moment(message.createdAt).format("DD-MM-YYYY HH:mm")%>"><i class="fa fa-clock-o"
+                aria-hidden="true"></i> <%=moment(message.createdAt).fromNow()%></abbr>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col">
+        <div class="card-text"><%=message.content%></div>
+    </div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+</div>
+<% }) %>
+<hr>
+<div class="row justify-content-center mt-2">
+    <div class="col-6">
+        <form action="/account/berichten/<%=thread._id%>" method="POST">
+            <textarea class="form-control" placeholder="Uw bericht" name="message[content]"></textarea>
+            <button type="submit" class="btn btn-warning">Verstuur bericht</button>
+        </form>
+    </div>
+</div>
+
+<% include ../partials/footer %>
