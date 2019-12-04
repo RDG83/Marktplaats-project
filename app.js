@@ -8,7 +8,10 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-//const middleware = require("./middleware"); //Implicitly refers to index.js
+
+// Seeding the database
+const seedDB = require("./seeds")
+seedDB()
 
 app.locals.moment = require("moment");
 
@@ -46,7 +49,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(flash());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");
