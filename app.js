@@ -38,7 +38,8 @@ app.use(
 
 app.use(flash());
 
-app.use(function(req, res, next) {
+app.use(function(req, res, next)
+{
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");
   next();
@@ -53,6 +54,7 @@ const productRoutes = require("./routes/product");
 const categoryRoutes = require("./routes/category");
 const bidRoutes = require("./routes/bid");
 const paymentRoutes = require("./routes/payment");
+const stripeRoutes = require("./routes/stripe");
 
 // ROUTE INCLUDES
 app.use(methodOverride("_method"));
@@ -60,7 +62,8 @@ app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);
 app.use("/advertenties/:product_id/bids", bidRoutes);
-app.use("/betalingen", paymentRoutes);
+// app.use("/betalingen", paymentRoutes);
+app.use("/stripe", stripeRoutes);
 
 // Start server
 app.listen(process.env.PORT, () => console.log(`Webserver running on port ${process.env.PORT}!`));
