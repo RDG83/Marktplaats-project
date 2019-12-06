@@ -13,20 +13,20 @@ fetch("/stripe/create-payment-intent", {
   },
   body: JSON.stringify(orderData)
 })
-  .then(function(result) {
+  .then(function (result) {
     return result.json();
   })
-  .then(function(data) {
+  .then(function (data) {
     return setupElements(data);
   })
-  .then(function({ stripe, card, ideal, clientSecret }) {
-    document.querySelector("form").addEventListener("submit", function(evt) {
+  .then(function ({ stripe, card, ideal, clientSecret }) {
+    document.querySelector("form").addEventListener("submit", function (evt) {
       evt.preventDefault();
       // Initiate payment when the submit button is clicked
       pay(stripe, card, ideal, clientSecret);
     });
-    document.querySelectorAll(".sr-pm-button").forEach(function(el) {
-      el.addEventListener("click", function(evt) {
+    document.querySelectorAll(".sr-pm-button").forEach(function (el) {
+      el.addEventListener("click", function (evt) {
         var id = evt.target.id;
         if (id === "card-button") {
           showElement("#card-element");
@@ -44,7 +44,7 @@ fetch("/stripe/create-payment-intent", {
   });
 
 // Set up Stripe.js and Elements to use in checkout form
-var setupElements = function(data) {
+var setupElements = function (data) {
   stripe = Stripe(data.publishableKey, { betas: ["ideal_pm_beta_1"] });
   var elements = stripe.elements();
   var style = {
@@ -82,7 +82,7 @@ var setupElements = function(data) {
  * Calls stripe.handleCardPayment which creates a pop-up modal to
  * prompt the user to enter extra authentication details without leaving your page
  */
-var pay = function(stripe, card, ideal, clientSecret) {
+var pay = function (stripe, card, ideal, clientSecret) {
   changeLoadingState(true);
 
   const selectedPaymentMethod = document.querySelector(
@@ -101,12 +101,12 @@ var pay = function(stripe, card, ideal, clientSecret) {
   }
 };
 
-var payWithCard = function(stripe, clientSecret, card) {
+var payWithCard = function (stripe, clientSecret, card) {
   // Initiate the payment.
   // If authentication is required, confirmCardPayment will automatically display a modal
   stripe
     .confirmCardPayment(clientSecret, { payment_method: { card: card } })
-    .then(function(result) {
+    .then(function (result) {
       if (result.error) {
         // Show error to your customer
         showError(result.error.message);
@@ -117,7 +117,7 @@ var payWithCard = function(stripe, clientSecret, card) {
     });
 };
 
-var payWithiDEAL = function(stripe, clientSecret, ideal) {
+var payWithiDEAL = function (stripe, clientSecret, ideal) {
   // Initiate the payment.
   // confirmIdealPayment will redirect the customer to their bank
   stripe
@@ -125,9 +125,9 @@ var payWithiDEAL = function(stripe, clientSecret, ideal) {
       payment_method: {
         ideal: ideal
       },
-      return_url: `${window.location.href}complete`
+      return_url: `${window.location.href}/complete`
     })
-    .then(function(result) {
+    .then(function (result) {
       if (result.error) {
         // Show error to your customer
         showError(result.error.message);
@@ -141,8 +141,8 @@ var payWithiDEAL = function(stripe, clientSecret, ideal) {
 /* ------- Post-payment helpers ------- */
 
 /* Shows a success / error message when the payment is complete */
-var orderComplete = function(clientSecret) {
-  stripe.retrievePaymentIntent(clientSecret).then(function(result) {
+var orderComplete = function (clientSecret) {
+  stripe.retrievePaymentIntent(clientSecret).then(function (result) {
     var paymentIntent = result.paymentIntent;
     var paymentIntentJson = JSON.stringify(paymentIntent, null, 2);
 
@@ -150,7 +150,7 @@ var orderComplete = function(clientSecret) {
     document.querySelector("pre").textContent = paymentIntentJson;
     document.querySelector(".sr-picker").classList.add("hidden");
     document.querySelector(".sr-result").classList.remove("hidden");
-    setTimeout(function() {
+    setTimeout(function () {
       document.querySelector(".sr-result").classList.add("expand");
     }, 200);
 
@@ -158,17 +158,17 @@ var orderComplete = function(clientSecret) {
   });
 };
 
-var showError = function(errorMsgText) {
+var showError = function (errorMsgText) {
   changeLoadingState(false);
   var errorMsg = document.querySelector(".sr-field-error");
   errorMsg.textContent = errorMsgText;
-  setTimeout(function() {
+  setTimeout(function () {
     errorMsg.textContent = "";
   }, 4000);
 };
 
 // Show a spinner on payment submission
-var changeLoadingState = function(isLoading) {
+var changeLoadingState = function (isLoading) {
   if (isLoading) {
     showElement("#spinner");
     hideElement("#button-text");
@@ -180,10 +180,10 @@ var changeLoadingState = function(isLoading) {
   }
 };
 
-var showElement = function(query) {
+var showElement = function (query) {
   document.querySelector(query).classList.remove("hidden");
 };
 
-var hideElement = function(query) {
+var hideElement = function (query) {
   document.querySelector(query).classList.add("hidden");
 };
