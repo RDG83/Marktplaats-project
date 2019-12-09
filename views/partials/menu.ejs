@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-expand-lg navbar-light bg-light shadow">
-  <a class="navbar-brand" href="/"> <img src="/images/logo.png" width="250" height="72" /> Marktplaats </a>
+  <a class="navbar-brand" href="/"> <img src="/images/logo.png" width="61" height="60"> Kraampje.nl</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
     aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -14,17 +14,20 @@
       </li>
       <% if(!currentUser){ %>
       <li class="nav-item">
-        <a class="nav-link" href="/auth/signup"><span>Sign up</span></a>
+        <a class="nav-link" href="/auth/signup"><span>Registreren</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/auth/login"><span>Login</span></a>
+        <a class="nav-link" href="/auth/login"><span><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen</span></a>
       </li>
       <% } else { %>
       <li class="nav-item">
-        <a class="nav-link" href="/account/index"><span><%= currentUser.username %></span></a>
+        <a class="nav-link" href="/account/index"><span><i class="fa fa-user" aria-hidden="true"></i> Mijn profiel</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/auth/logout"><span>Logout</span></a>
+          <a class="nav-link" href="/account/berichten"><span><i class="fa fa-envelope" aria-hidden="true"></i> Mijn berichten</span></a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i> Uitloggen</span></a>
       </li>
       <% } %>
       <!-- <li class="nav-item">

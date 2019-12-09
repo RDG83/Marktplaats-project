@@ -219,7 +219,28 @@ router.get("/:product_id/edit", middleware.isLoggedIn, function (req, res)
 // After payment route
 router.get("/:product_id/stripe/complete", (req, res) =>
 {
-  res.render("stripe/complete");
+  Product.findById(req.params.product_id, function (error, foundProduct)
+  {
+    if (error || !foundProduct)
+    {
+      console.log(error);
+      req.flash("error", "Er is een fout opgetreden bij het wijzigen van de advertentie.");
+      res.redirect("/advertenties/" + req.params.product_id);
+    }
+    else
+    {
+      if (foundProduct.premium)
+      {
+        req.flash("success", "Advertentie succesvol opgewaardeerd.");
+        res.redirect("/advertenties/" + req.params.product_id);
+      }
+      else
+      {
+        req.flash("error", "Advertentie kon niet worden opgewaardeerd. Bel even met Bennie.");
+        res.redirect("/advertenties/" + req.params.product_id);
+      }
+    }
+  });
 });
 
 // EDIT PUT ROUTE

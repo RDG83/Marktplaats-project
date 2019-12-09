@@ -87,11 +87,18 @@
           Geen locatie beschikbaar.
         </div>
         <% } %>
+        <dl>
+          <dt><strong>Verkoper:</strong></dt>
+          <dd><%=product.author.username %></dd>
+          <dt><strong>Productlocatie:</strong></dt>
+          <dd><%=product.municipality %></dd>
+        </dl>
+         
       </div>
     </div>
 
     <!-- Begin bied sectie-->
-
+    <% if(! currentUser || currentUser.id != product.author._id){ %>
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
@@ -127,12 +134,20 @@
         <% } else { %>
         <p class="text-muted">Er zijn nog geen biedingen geplaatst.</p>
         <% } %>
+        <form action="/advertenties/<%=product._id%>/bids" method="POST">
+          <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
+          <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
+          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bieden</button>
+        </form>
+        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new"><i class="fa fa-comments" aria-hidden="true"></i> Contact opnemen met <%=product.author.username %></a>
       </div>
     </div>
+    <% } %>
+    <!-- Einde bied sectie-->
 
     <!-- begin productbeheer -->
 
-    <% if(currentUser.id == product.author.id){ %>
+    <% if(currentUser && currentUser.id == product.author._id){ %>
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
@@ -150,14 +165,10 @@
   </div>
 </div>
 <div class="row">
-  <% if(product.threads.length > 0 && currentUser.id == product.author.id){ %>
+  <% if(product.threads.length > 0 && currentUser && currentUser.id == product.author._id){ %>
   <h2>Er zijn berichten</h2>
   <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
   <% } %>
-
-  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
-
-
 </div>
 <!-- einde productbeheer -->
 <% if (product.location.coordinates.length > 0 ) { %>
