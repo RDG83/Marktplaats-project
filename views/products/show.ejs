@@ -20,6 +20,7 @@
     <% } %>
     <h1 class="card-title"><%=product.title%></h3>
       <h4>Prijs &euro;<%=product.price%></h4>
+      <h5>Verkoper: <%=product.author.username%></h5>
   </div>
 
   <!--Einde carousel  -->
@@ -39,7 +40,7 @@
   <% } %>
 </div>
 
-<!--  -->
+<!-- Begin body product -->
 
 <div class="row">
   <div class="col-lg-8">
@@ -47,6 +48,11 @@
       <%=product.body%>
     </div>
   </div>
+
+  <!-- einde body product -->
+
+
+
   <div class="col-lg-4">
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
@@ -65,7 +71,10 @@
         </form>
       </div>
     </div>
+
+
     <!-- location -->
+
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
@@ -80,28 +89,38 @@
         <% } %>
       </div>
     </div>
+
+    <!-- Begin bied sectie-->
+
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
         <div class="card-title">
-          <h2>Biedt u mee?</h2>
+          <h4>Biedt u mee?</h4>
         </div>
         <form action="/advertenties/<%=product._id%>/bids" method="POST">
           <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
           <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
-          <button class="btn btn-warning btn-block mt-2" type="submit">Bied</button>
+          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white"
+              aria-hidden="true"></i> Bied</button>
         </form>
+        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new">Contact</a>
       </div>
     </div>
+
+    <!-- Einde bied sectie-->
+
+
     <div class="card rounded shadow card-deck">
       <div class="card-body">
         <div class="card-title">
-          <h3>Biedingsverloop</h3>
+          <h4>Biedingsverloop</h4>
         </div>
         <% if (product.bids.length > 0) { %>
         <ul class="list-group list-group-flush">
           <% product.bids.forEach(function(bid){ %>
-          <li class="list-group-item">
-            <date><%=moment(bid.createdAt).format("DD MMM 'YY")%></date> - <strong>&euro;<%=bid.amount%></strong>
+          <li class="list-group-item d-flex justify-content-between">
+            <strong><%=bid.author.username%></strong> <strong>&euro;<%=bid.amount%></strong>
+            <date><%=moment(bid.createdAt).format("DD MMM 'YY")%></date>
           </li>
           <% }) %>
         </ul>
@@ -110,8 +129,37 @@
         <% } %>
       </div>
     </div>
+
+    <!-- begin productbeheer -->
+
+    <% if(currentUser.id == product.author.id){ %>
+    <div class="card rounded shadow card-deck mb-2">
+      <div class="card-body">
+        <div class="card-title">
+          <h5>Advertentiebeheer</h5>
+        </div>
+        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil"
+            aria-hidden="true"></i> Bewerken</a>
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
+          onclick="return confirm('Weet u zeker dat u \'<%=product.title%>\' wil verwijderen?')">
+          <button class="btn btn-danger d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
   </div>
 </div>
+<div class="row">
+  <% if(product.threads.length > 0 && currentUser.id == product.author.id){ %>
+  <h2>Er zijn berichten</h2>
+  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
+  <% } %>
+
+  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
+
+
+</div>
+<!-- einde productbeheer -->
 <% if (product.location.coordinates.length > 0 ) { %>
 <script>
   let defaultCenter = [<%=product.location.coordinates %>];

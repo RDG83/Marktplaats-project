@@ -1,0 +1,13 @@
+<% include ../partials/header %>
+
+<h1>Overzicht gesprekken:</h1>
+
+<% threads.forEach(function(thread){ %>
+<% thread.messages.forEach(function(message){ %>
+<p><%= message.author.username %> - <%=moment(message.createdAt).format("DD MMM, h:mm")%> - <%= message.content %></p>
+<a class="btn btn-primary" href="/account/berichten/<%=thread.id%>">Toon thread</a>
+<% })}) %>
+
+<br />
+
+<% include ../partials/footer %>

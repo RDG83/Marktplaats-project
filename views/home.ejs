@@ -1,32 +1,55 @@
 <% include partials/header %>
 <div class="row justify-content-center">
-  <div class="col-8 justify-content-center">
-    <h1 class="text-dark">Marktplaats</h1>
-  </div>
-</div>
-<!-- begin searchbar -->
-<div class="row justify-content-center">
-  <div class="col-8 justify-content-center">
-    <form class="form-inline" action="/advertenties" method="get">
-      <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" name="search" id="" placeholder="Zoekterm" />
+  <div class="col-8">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-dark">Marktplaats</h1>
+        <!-- begin searchbar -->
+        <div class="row">
+          <div class="col">
+            <form action="/advertenties" method="get">
+              <div class="row">
+                <div class="col-8">
+                  <div class="row">
+                    <div class="col">
+                      <input id="searchInput" type="text" class="form-control mb-2" name="search"
+                        placeholder="Zoekterm">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <select name="municipalities[]" data-placeholder="Kies gemeenten..." class="select2 form-control"
+                        multiple="multiple">
+                        <option value="all">--- Alle gemeenten ---</option>
+                        <% municipalities.forEach(municipality => { %>
+                        <option value="<%=municipality%>"><%=municipality%></option>
+                        <% }); %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col align-self-center">
+                  <button id="searchButton" type="submit" class="btn btn-warning p-4"><i
+                      class="fa fa-search" aria-hidden="true"></i> Zoeken</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- eind searchbar -->
       </div>
-      <button type="submit" class="btn btn-warning mb-2">Zoeken</button>
-    </form>
-  </div>
-</div>
-<!-- eind searchbar -->
-
-<div class="row justify-content-center">
-  <div class="col-8 justify-content-center">
-    <h2>Alle categorieën</h2>
-  </div>
-</div>
-<div class="row justify-content-center">
-  <div class="list-group col-8">
-    <% product.forEach(function(product){ %>
-    <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action"><%=product%></a>
-    <% }) %>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2 class="mt-2">Alle categorieën</h2>
+        <div class="list-group col-8">
+          <% product.forEach(function(product){ %>
+          <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action list-group-item-light"><i
+              class="fa fa-tag" aria-hidden="true"></i> <%=product%></a>
+          <% }) %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <% include partials/footer %>

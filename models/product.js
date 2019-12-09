@@ -7,24 +7,26 @@ const productSchema = new mongoose.Schema({
   category: String,
   price: Number,
   minprice: Number,
-  bids:
-    [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Bid"
-      }
-    ],
-  location:
-  {
-    type:
+  threads: [
     {
+      type: mongoose.Schema.ObjectId,
+      ref: "Thread"
+    }
+  ],
+  bids: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Bid"
+    }
+  ],
+  location: {
+    type: {
       type: String,
-      enum: ['Point'],
+      enum: ["Point"]
       //required: true
     },
-    coordinates:
-    {
-      type: [Number],
+    coordinates: {
+      type: [Number]
       //required: true
     }
   },
@@ -32,7 +34,15 @@ const productSchema = new mongoose.Schema({
   {
     type: Boolean,
     default: false
-  } 
+  },
+  author: {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String
+  },
+  municipality: String
 });
 
 module.exports = mongoose.model("Product", productSchema);
