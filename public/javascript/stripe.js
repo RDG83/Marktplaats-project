@@ -1,12 +1,20 @@
 // A reference to Stripe.js
 var stripe;
 
-var orderData = {
-  items: [{ id: "photo-subscription" }],
-  currency: "eur" // iDEAL only accepts EUR
+let productId = "";
+
+// Get productId from hidden field
+productId = document.getElementById("productIdfield").value;
+
+var orderData =
+{
+  currency: "eur",
+  productId: productId
 };
 
-fetch("/stripe/create-payment-intent", {
+
+fetch("/stripe/create-payment-intent",
+{
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -32,12 +40,17 @@ fetch("/stripe/create-payment-intent", {
           showElement("#card-element");
           hideElement("#ideal-bank-element");
           document.querySelector("#card-button").classList.add("selected");
+          document.querySelector("#card-button").classList.add("active");
           document.querySelector("#ideal-button").classList.remove("selected");
+          document.querySelector("#ideal-button").classList.remove("active");
         } else {
           hideElement("#card-element");
           showElement("#ideal-bank-element");
           document.querySelector("#card-button").classList.remove("selected");
+          document.querySelector("#card-button").classList.remove("active");
           document.querySelector("#ideal-button").classList.add("selected");
+          document.querySelector("#ideal-button").classList.add("active")
+          
         }
       });
     });

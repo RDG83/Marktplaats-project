@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<h1>Advertentie omhoog plaatsen</h1>
+<div class="row justify-content-center">
+  <div class="col-6">
+    <div class="btn-group btn-group-toggle sr-pm-button" data-toggle="buttons">
+      <button class="sr-pm-button selected btn btn-outline-info active selected" id="card-button"
+        data-toggle="button">Creditcard</button>
+      <button class="btn btn-outline-info sr-pm-button" id="ideal-button">iDEAL</button>
+    </div>
+    <form class="sr-payment-form card">
+      <input type="hidden" id="productIdfield" name="productId" value="<%=productId%>">
+      <div class="sr-combo-inputs-row">
+        <div class="sr-input sr-element sr-card-element" id="card-element">
+          <!-- A Stripe card Element will be inserted here. -->
+        </div>
+        <div class="sr-input sr-element hidden" id="ideal-bank-element">
+          <!-- A Stripe iDEAL Element will be inserted here. -->
+        </div>
+      </div>
+      <div class="sr-field-error" id="card-errors" role="alert"></div>
+      <button id="submit" type="submit" class="btn btn-warning">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Betalen</span><span id="order-amount"></span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<% include ../partials/footer %>

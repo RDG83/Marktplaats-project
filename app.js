@@ -18,6 +18,8 @@ mongoose.connect(process.env.DB_FULLPATH, { useNewUrlParser: true, useUnifiedTop
 // Set view engine to EJS
 app.set("view engine", "ejs");
 
+app.use(express.json());
+
 // Defining public folder
 app.use(express.static(__dirname + "/public"));
 
@@ -53,7 +55,6 @@ const indexRoutes = require("./routes/index");
 const productRoutes = require("./routes/product");
 const categoryRoutes = require("./routes/category");
 const bidRoutes = require("./routes/bid");
-const paymentRoutes = require("./routes/payment");
 const stripeRoutes = require("./routes/stripe");
 
 // ROUTE INCLUDES
@@ -62,7 +63,6 @@ app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);
 app.use("/advertenties/:product_id/bids", bidRoutes);
-// app.use("/betalingen", paymentRoutes);
 app.use("/stripe", stripeRoutes);
 
 // Start server

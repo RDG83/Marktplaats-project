@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const mongoose = require("mongoose");
 const Product = require("../models/product");
 const router = express.Router({ mergeParams: true });
@@ -130,6 +131,21 @@ router.get("/:product_id", function (req, res)
 });
 
 // EDIT FORM GET ROUTE
+router.post("/:product_id/stripe", function (req, res)
+{
+    app.locals.productId = req.body.productId;
+    res.render("products/payment");
+});
+
+// EDIT FORM GET ROUTE
+router.get("/:product_id/stripe", function (req, res)
+{
+    // Render page and pass productId to payment page
+    res.render("products/payment", { productId: req.params.product_id });
+    // res.send(req.params.product_id);
+});
+
+// EDIT FORM GET ROUTE
 router.get("/:product_id/edit", function (req, res)
 {
   Product.findById(req.params.product_id, function (error, foundProduct)
@@ -145,6 +161,13 @@ router.get("/:product_id/edit", function (req, res)
       res.render("products/edit", { product: foundProduct });
     }
   });
+});
+
+
+// After payment route
+router.get("/:product_id/stripe/complete", (req, res) =>
+{
+    res.render("stripe/complete");
 });
 
 // EDIT PUT ROUTE

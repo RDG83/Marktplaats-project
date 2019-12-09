@@ -27,7 +27,12 @@ const productSchema = new mongoose.Schema({
       type: [Number],
       //required: true
     }
-  }
+  },
+  premium:
+  {
+    type: Boolean,
+    default: false
+  } 
 });
 
 module.exports = mongoose.model("Product", productSchema);
