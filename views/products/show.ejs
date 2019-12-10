@@ -147,20 +147,6 @@
           Contact opnemen met <%=product.author.username %></a>
       </div>
     </div>
-
-    <div class="card rounded shadow card-deck">
-      <div class="card-body">
-        <div class="card-title">Berichten</div>
-        <div class="card-text">
-          <% if (product.threads.length > 0 && currentUser && currentUser.id == product.author._id){ %>
-          Er zijn nieuwe berichten.
-          <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
-          <% } else { %>
-          Er zijn nog geen berichten.
-          <% } %>
-        </div>
-      </div>
-    </div>
     <% } %>
     <!-- Einde bied sectie-->
 
