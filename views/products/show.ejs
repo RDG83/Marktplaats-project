@@ -60,14 +60,16 @@
           <h5>Advertentiebeheer</h5>
         </div>
         <% if (!product.premium ) {%>
-        <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-warning">Zichtbaarheid verhogen</a>
+        <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-warning"><i class="fa fa-star"
+            aria-hidden="true"></i> Zichtbaarheid verhogen</a>
         <% } else { %>
         Premium-advertentie
         <% } %>
-        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit">Bewerken</a>
+        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil"
+            aria-hidden="true"></i> Bewerken</a>
         <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
           onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
-          <button class="btn btn-danger d-inline">Verwijderen</button>
+          <button class="btn btn-danger d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
         </form>
       </div>
     </div>
@@ -93,7 +95,7 @@
           <dt><strong>Productlocatie:</strong></dt>
           <dd><%=product.municipality %></dd>
         </dl>
-         
+
       </div>
     </div>
 
@@ -137,9 +139,11 @@
         <form action="/advertenties/<%=product._id%>/bids" method="POST">
           <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
           <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
-          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bieden</button>
+          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white"
+              aria-hidden="true"></i> Bieden</button>
         </form>
-        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new"><i class="fa fa-comments" aria-hidden="true"></i> Contact opnemen met <%=product.author.username %></a>
+        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new"><i
+            class="fa fa-comments" aria-hidden="true"></i> Contact opnemen met <%=product.author.username %></a>
       </div>
     </div>
     <% } %>
@@ -147,21 +151,6 @@
 
     <!-- begin productbeheer -->
 
-    <% if(currentUser && currentUser.id == product.author._id){ %>
-    <div class="card rounded shadow card-deck mb-2">
-      <div class="card-body">
-        <div class="card-title">
-          <h5>Advertentiebeheer</h5>
-        </div>
-        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil"
-            aria-hidden="true"></i> Bewerken</a>
-        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
-          onclick="return confirm('Weet u zeker dat u \'<%=product.title%>\' wil verwijderen?')">
-          <button class="btn btn-danger d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
-        </form>
-      </div>
-    </div>
-    <% } %>
   </div>
 </div>
 <div class="row">

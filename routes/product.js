@@ -87,8 +87,8 @@ router.get("/", function (req, res)
   // If no search requests was done
   else
   {
-    // get all products
-    Product.find({}, function (error, allProducts)
+    // get all products and sort by premium
+    Product.find({}).sort({premium: 'desc' }).exec(function (error, allProducts)
     {
       if (error || !allProducts)
       {
@@ -229,6 +229,7 @@ router.get("/:product_id/stripe/complete", (req, res) =>
     }
     else
     {
+      console.log(foundProduct);
       if (foundProduct.premium)
       {
         req.flash("success", "Advertentie succesvol opgewaardeerd.");

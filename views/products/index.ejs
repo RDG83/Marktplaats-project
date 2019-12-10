@@ -4,11 +4,14 @@
   <% if (products.length > 0 ) { %>
   <% products.forEach(function(product) { %>
   <div class="card-deck col-sm-6 col-lg-4">
-    <div class="card shadow m-2 d-flex justify-content-center">
+    <div class="card shadow m-2 d-flex justify-content-center <% if (product.premium) { %> border-warning <% } %>">
       <div class="card-body">
         <div class="card-title text-center">
           <h5 class="text-dark">
-            <a href="/advertenties/<%=product._id%>"><%=product.title%></a>
+              <% if (product.premium) { %>
+                <i class="fa fa-star text-warning" aria-hidden="true"></i>
+              <% } %>
+              <a href="/advertenties/<%=product._id%>"><%=product.title%></a>
           </h5>
         </div>
         <div class="parent d-flex align-items-center justify-content-center">
