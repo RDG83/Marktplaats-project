@@ -13,7 +13,8 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/advertenties",
     failureRedirect: "/auth/login",
-    failureFlash: true
+    failureFlash: "Ongeldige gebruikersnaam of wachtwoord ingevoerd",
+    successFlash: "Welkom op Kraampje.nl"
   })
 );
 
