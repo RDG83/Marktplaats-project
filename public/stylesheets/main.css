@@ -132,8 +132,7 @@ input[type="number"] {
 }
 
 .carimg {
-  width: 80%;
+  max-width: 400px;
   object-fit: contain;
   max-height: 400px !important;
-
 }
