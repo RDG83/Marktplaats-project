@@ -1,0 +1,23 @@
+<div class="card rounded shadow card-deck mb-2">
+    <div class="card-body">
+        <div class="card-title">
+            <h5>Advertentiebeheer</h5>
+        </div>
+        <% if (!product.premium ) {%>
+        <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-warning">
+            <i class="fa fa-star" aria-hidden="true"></i> 
+            Zichtbaarheid verhogen
+        </a>
+        <% } else { %>
+        Premium-advertentie
+        <% } %>
+        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+             Bewerken
+        </a>
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
+            onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
+            <button class="btn btn-danger d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
+        </form>
+    </div>
+</div>
