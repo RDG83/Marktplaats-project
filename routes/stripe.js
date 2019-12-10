@@ -11,13 +11,14 @@ const stripeSecretKey = "sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh";
 // Stripe Payment requirement with secret key
 const stripe = require('stripe')(stripeSecretKey);
 
+
+// STRIPE WEBHOOK ENDPOINT
 router.post('/test', (req, res) =>
 {
-    // res.json(req.body.type);
-
+    // Logic if payment succeeded
     if (req.body.type == "payment_intent.succeeded")
     {
-        // Logic if payment succeeded
+        // Retrieve productid
         Product.findById(req.body.data.object.metadata.productId, function (error, foundProduct)
         {
             if (error)
@@ -30,7 +31,6 @@ router.post('/test', (req, res) =>
                 foundProduct.save();
             }
         });
-        // Retrieve productid
     }
     else if (req.body.type == "payment_intent.payment_failed")
     {
@@ -51,7 +51,7 @@ router.get("/payment-intent", async (req, res) =>
 router.post("/create-payment-intent", async (req, res) =>
 {
     // Get values from client side json object
-    let productId = req.body.productId
+    let productId = req.body.productId;
 
     // Create a PaymentIntent with the order amount and currency
     // Set payment_method_types to the set of PaymentMethods you want to accept
