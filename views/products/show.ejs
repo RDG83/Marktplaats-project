@@ -55,6 +55,24 @@
 
   <div class="col-lg-4">
 
+      <% if (currentUser && currentUser.id == product.author._id) { %>
+    <div class="card rounded shadow card-deck">
+      <div class="card-body">
+        <div class="card-title">
+          <h5>Berichten</h5>
+        </div>
+        <div class="card-text">
+            <% if (product.threads.length > 0 ){ %>
+  Er zijn nieuwe berichten.
+  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
+  <% } else { %>
+    Er zijn nog geen berichten.
+    <% } %>
+        </div>
+      </div>
+    </div>
+    <% }%>
+
     <% if (currentUser && currentUser.id == product.author._id) { %>
 
     <div class="card rounded shadow card-deck mb-2">
@@ -128,32 +146,15 @@
         </form>
         <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new"><i
             class="fa fa-comments" aria-hidden="true"></i> Contact opnemen met <%=product.author.username %></a>
+            <% } %>
       </div>
     </div>
 
-    <div class="card rounded shadow card-deck">
-      <div class="card-body">
-        <div class="card-title">Berichten</div>
-        <div class="card-text">
-            <% if (product.threads.length > 0 && currentUser && currentUser.id == product.author._id){ %>
-  Er zijn nieuwe berichten.
-  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
-  <% } else { %>
-    Er zijn nog geen berichten.
-    <% } %>
-        </div>
-      </div>
-    </div>
-    <% } %>
     <!-- Einde bied sectie-->
 
 
 
   </div>
-</div>
-
-<div class="row">
-  
 </div>
 
 <!-- einde productbeheer -->
