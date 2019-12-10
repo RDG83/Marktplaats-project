@@ -168,28 +168,22 @@
   </div>
 </div>
 
-<<<<<<< HEAD <div class="row">
+<!-- einde productbeheer -->
 
-  </div>
+<% if (product.location.coordinates.length > 0 ) { %>
+<script>
+  let defaultCenter = [<%=product.location.coordinates %>];
+  let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
+  let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
 
-  =======
-  >>>>>>> cb4f69cc4c552163f329199548236ac7745afe0f
-  <!-- einde productbeheer -->
-
-  <% if (product.location.coordinates.length > 0 ) { %>
-  <script>
-    let defaultCenter = [<%=product.location.coordinates %>];
-    let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
-    let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
-
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
-      {
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoibXNnYmlnaG91c2UiLCJhIjoiY2sxaHdrY214MDZkbDNoanpwNW9rcjRsOSJ9.YXMtqR_k0YWeKNnAZHmhdg'
-      })
-      .addTo(locationMap);
-    L.marker([<%=product.location.coordinates %>]).addTo(locationMap);
-  </script>
-  <% } %>
-  <% include ../partials/footer %>
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
+    {
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'pk.eyJ1IjoibXNnYmlnaG91c2UiLCJhIjoiY2sxaHdrY214MDZkbDNoanpwNW9rcjRsOSJ9.YXMtqR_k0YWeKNnAZHmhdg'
+    })
+    .addTo(locationMap);
+  L.marker([<%=product.location.coordinates %>]).addTo(locationMap);
+</script>
+<% } %>
+<% include ../partials/footer %>
