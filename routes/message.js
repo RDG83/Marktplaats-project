@@ -34,7 +34,7 @@ router.post("/", isLoggedIn, function (req, res)
         // Thread.find({ $and: [{ "users._id": req.user._id }, { "product._id": req.params.product_id }] }, function (error, thread) {
         if (error)
         {
-          console.log(error)
+          console.log(error);
         }
         // If a thread exists
         if (thread)
