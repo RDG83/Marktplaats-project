@@ -98,27 +98,7 @@
 
       </div>
     </div>
-
-    <!-- Begin bied sectie-->
-    <% if(! currentUser || currentUser.id != product.author._id){ %>
-    <div class="card rounded shadow card-deck mb-2">
-      <div class="card-body">
-        <div class="card-title">
-          <h4>Biedt u mee?</h4>
-        </div>
-        <form action="/advertenties/<%=product._id%>/bids" method="POST">
-          <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
-          <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
-          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white"
-              aria-hidden="true"></i> Bied</button>
-        </form>
-        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new">Contact</a>
-      </div>
-    </div>
-
-    <!-- Einde bied sectie-->
-
-
+    
     <div class="card rounded shadow card-deck">
       <div class="card-body">
         <div class="card-title">
