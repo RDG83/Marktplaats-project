@@ -56,6 +56,24 @@
   <div class="col-lg-4">
 
     <% if (currentUser && currentUser.id == product.author._id) { %>
+    <div class="card rounded shadow card-deck">
+      <div class="card-body">
+        <div class="card-title">
+          <h5>Berichten</h5>
+        </div>
+        <div class="card-text">
+          <% if (product.threads.length > 0 ){ %>
+          Er zijn nieuwe berichten.
+          <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
+          <% } else { %>
+          Er zijn nog geen berichten.
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% }%>
+
+    <% if (currentUser && currentUser.id == product.author._id) { %>
 
     <div class="card rounded shadow card-deck mb-2">
       <div class="card-body">
@@ -150,26 +168,28 @@
   </div>
 </div>
 
-<div class="row">
+<<<<<<< HEAD <div class="row">
 
-</div>
+  </div>
 
-<!-- einde productbeheer -->
+  =======
+  >>>>>>> cb4f69cc4c552163f329199548236ac7745afe0f
+  <!-- einde productbeheer -->
 
-<% if (product.location.coordinates.length > 0 ) { %>
-<script>
-  let defaultCenter = [<%=product.location.coordinates %>];
-  let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
-  let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
+  <% if (product.location.coordinates.length > 0 ) { %>
+  <script>
+    let defaultCenter = [<%=product.location.coordinates %>];
+    let defaultZoomLevel = 19; // Max zoom because now it's already a specific location
+    let locationMap = L.map("locationMap").setView(defaultCenter, defaultZoomLevel);
 
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
-    {
-      maxZoom: 18,
-      id: 'mapbox.streets',
-      accessToken: 'pk.eyJ1IjoibXNnYmlnaG91c2UiLCJhIjoiY2sxaHdrY214MDZkbDNoanpwNW9rcjRsOSJ9.YXMtqR_k0YWeKNnAZHmhdg'
-    })
-    .addTo(locationMap);
-  L.marker([<%=product.location.coordinates %>]).addTo(locationMap);
-</script>
-<% } %>
-<% include ../partials/footer %>
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
+      {
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoibXNnYmlnaG91c2UiLCJhIjoiY2sxaHdrY214MDZkbDNoanpwNW9rcjRsOSJ9.YXMtqR_k0YWeKNnAZHmhdg'
+      })
+      .addTo(locationMap);
+    L.marker([<%=product.location.coordinates %>]).addTo(locationMap);
+  </script>
+  <% } %>
+  <% include ../partials/footer %>
