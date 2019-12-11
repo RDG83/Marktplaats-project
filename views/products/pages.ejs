@@ -57,35 +57,33 @@
  </div>
 
  <!-- PAGINATION -->
- <div class="shop-pagination">
-  <div class="pagination">
-   <% if (currentPage == 1 && pages > 1) { %>
-   <a href="/producten/<%= parseInt(currentPage) + 1 %>/?search=<%=searchVal%>">
-    <span>
-     Page <%=  parseInt(currentPage) + 1 %>
-     <i class="icon ion-ios-arrow-forward"></i>
-    </span>
-   </a>
+ <div class="container text-center mt-3">
+  <% if (currentPage == 1 && pages > 1) { %>
+  <a href="/producten/<%= parseInt(currentPage) + 1 %>/?search=<%=searchVal%>">
+   <span>
+    Page <%=  parseInt(currentPage) + 1 %>
+    <i class="fa fa-angle-right"></i>
+   </span>
+  </a>
 
-   <% } else if (currentPage < pages) { %>
-   <a href="/producten/<%= parseInt(currentPage) - 1 %>/?search=<%=searchVal%>">
-    <span>
-     <i class="icon ion-ios-arrow-back"></i>
-     Page <%= parseInt(currentPage) - 1 %>
-    </span>
-   </a><a href="/producten/<%= parseInt(currentPage) + 1 %>/?search=<%=searchVal%>"><span>
-     Page <%= parseInt(currentPage) + 1 %>
-     <i class="icon ion-ios-arrow-forward"></i>
-    </span>
-   </a>
+  <% } else if (currentPage < pages) { %>
+  <a href="/producten/<%= parseInt(currentPage) - 1 %>/?search=<%=searchVal%>">
+   <span>
+    <i class="fa fa-angle-left"></i>
+    Page <%= parseInt(currentPage) - 1 %>
+   </span>
+  </a><a href="/producten/<%= parseInt(currentPage) + 1 %>/?search=<%=searchVal%>"><span>
+    Page <%= parseInt(currentPage) + 1 %>
+    <i class="fa fa-angle-right"></i>
+   </span>
+  </a>
 
-   <% } else if (currentPage == pages && pages > 1) { %>
-   <a href="/producten/<%= parseInt(currentPage) - 1 %>/?search=<%=searchVal%>"><span>
-     <i class="icon ion-ios-arrow-back"></i>Page
-     <%=parseInt(currentPage) - 1 %>
-    </span>
-   </a><% } %>
-  </div>
+  <% } else if (currentPage == pages && pages > 1) { %>
+  <a href="/producten/<%= parseInt(currentPage) - 1 %>/?search=<%=searchVal%>"><span>
+    <i class="fa fa-angle-left"></i> Page
+    <%=parseInt(currentPage) - 1 %>
+   </span>
+  </a><% } %>
  </div>
 </section>
 
