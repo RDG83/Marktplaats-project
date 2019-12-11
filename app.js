@@ -8,6 +8,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
+const Product = require("./models/product")
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
 //Include Moment package
@@ -82,6 +83,48 @@ app.use("/stripe", stripeRoutes);
 app.use("/auth", authRoutes);
 app.use("/account", accountRoutes);
 app.use("/advertenties/:product_id/messages", messageRoutes);
+
+// ALERT!!! PAGINATION ROUTE
+
+// GET - Shop Product Page | - Displaying demanded product page with page numbers
+app.get('/producten/:page', async (req, res, next) => {
+  // Declaring variable
+  const resPerPage = 6; // results per page
+  const page = req.params.page || 1; // Page 
+  try {
+
+    if (req.query.search) {
+
+      // Declaring query based/search variables
+
+      const searchQuery = req.query.search,
+
+        regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      // Find Demanded Products - Skipping page values, limit results per page
+      const foundProducts = await Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }] })
+        .skip((resPerPage * page) - resPerPage)
+        .limit(resPerPage);
+      // Count how many products were found
+      const numOfProducts = await Product.count({ $or: [{ title: regex }, { category: regex }, { body: regex }] });
+      // Renders The Page
+      res.render("products/pages", {
+        products: foundProducts,
+        currentPage: page,
+        pages: Math.ceil(numOfProducts / resPerPage),
+        searchVal: searchQuery,
+        numOfResults: numOfProducts,
+      });
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
+
 
 // Start server
 app.listen(process.env.PORT, () => console.log(`Webserver running on port ${process.env.PORT}!`));

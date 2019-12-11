@@ -1,0 +1,94 @@
+<% include ../partials/header %>
+
+<!-- SEARCH RESULTS | START -->
+<div class="results">
+ <h3>Zoekresultaten voor: <span><%= searchVal %></span></h3>
+ <h4>Aantal gevonden zoekresultaten: <span><%= numOfResults %></span></h4>
+ <h4>
+  Pagina
+  <span><%= currentPage %></span>
+  van
+  <span><%= pages %></span>
+ </h4>
+</div>
+<!-- SEARCH RESULTS | END -->
+
+<!-- SHOP | START -->
+<section class="shop mb-5">
+ <div class="row">
+  <!-- Rendering Products using EJS -->
+  <% products.forEach(product => { %>
+  <div class="card-deck col-sm-6 col-lg-4">
+   <div class="card shadow m-2 d-flex justify-content-center <% if (product.premium) { %> border-warning <% } %>">
+    <div class="card-body">
+     <div class="card-title text-center">
+      <h5 class="text-dark">
+       <% if (product.premium) { %>
+       <i class="fa fa-star text-warning" aria-hidden="true"></i>
+       <% } %>
+       <a href="/advertenties/<%=product._id%>"><%=product.title%></a>
+      </h5>
+     </div>
+     <div class="d-flex align-items-center justify-content-center">
+      <% if(product.images.length > 0 ) { %>
+      <img class="img-fluid" src="/uploads/products/<%=product.images[0]%>">
+      <% } else { %>
+      <img src="/images/product_placeholder.png">
+      <% } %>
+     </div>
+
+     <div class="card-text text-truncate">
+      <%=product.body.substring(0, 50)%>
+     </div>
+     <hr>
+     <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>"><i class="fa fa-tag" aria-hidden="true"></i>
+      <%=product.category%></a>
+     <% if(product.municipality) { %>
+     <span class="badge badge-info text-dark p-2"><i class="fa fa-map-marker text-white" aria-hidden="true"></i>
+      <%=product.municipality%></span>
+     <% } %>
+    </div>
+   </div>
+  </div>
+
+
+
+  <% }); %>
+ </div>
+
+ <!-- PAGINATION -->
+ <div class="shop-pagination">
+  <div class="pagination">
+   <% if (currentPage == 1 && pages > 1) { %>
+   <a href="/producten/<%= parseInt(currentPage) + 1 %>/?search=<%=searchVal%>">
+    <span>
+     Page <%=  parseInt(currentPage) + 1 %>
+     <i class="icon ion-ios-arrow-forward"></i>
+    </span>
+   </a>
+
+   <% } else if (currentPage < pages) { %>
+   <a href="/producten/<%= parseInt(currentPage) - 1 %>/?search=<%=searchVal%>">
+    <span>
+     <i class="icon ion-ios-arrow-back"></i>
+     Page <%= parseInt(currentPage) - 1 %>
+    </span>
+   </a><a href="/producten/<%= parseInt(currentPage) + 1 %>/?search=<%=searchVal%>"><span>
+     Page <%= parseInt(currentPage) + 1 %>
+     <i class="icon ion-ios-arrow-forward"></i>
+    </span>
+   </a>
+
+   <% } else if (currentPage == pages && pages > 1) { %>
+   <a href="/producten/<%= parseInt(currentPage) - 1 %>/?search=<%=searchVal%>"><span>
+     <i class="icon ion-ios-arrow-back"></i>Page
+     <%=parseInt(currentPage) - 1 %>
+    </span>
+   </a><% } %>
+  </div>
+ </div>
+</section>
+
+
+
+<% include ../partials/footer %>
