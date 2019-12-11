@@ -5,11 +5,11 @@
   font-size: 100%;
   font-weight: 500;
   letter-spacing: 1px;
-  color: #172338 !important;
+  color: #28A745 !important;
 }
 
 .nav-item:focus .nav-link > span:focus {
-  color: #172338 !important;
+  color: #28A745 !important;
 }
 
 .nav-item .nav-link > span:after {
@@ -28,7 +28,12 @@
 .nav-item .nav-link > span:hover:after {
   width: 100%;
   left: 0;
-  background: #fdc737;
+  background: #28A745;
+}
+
+.productTitle, .productTitle a
+{
+  color: #28A745;
 }
 
 .navbar-toggler:focus {
@@ -65,7 +70,7 @@ nav {
 
 ::selection {
   color: white;
-  background: #fdc737;
+  background: #28A745;
 }
 
 h1 {
@@ -110,7 +115,8 @@ h5 {
 }
 
 input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-outer-spin-button
+{
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
