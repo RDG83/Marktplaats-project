@@ -19,10 +19,12 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
+    "core-js": "^3.4.8",
     "dotenv": "^8.2.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "jimp": "^0.9.3",
     "locus": "^2.0.4",
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
@@ -32,6 +34,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
     "request": "^2.88.0",
+    "resize-optimize-images": "^1.1.0",
     "sharp": "^0.23.3",
     "stripe": "^7.13.1"
   }
