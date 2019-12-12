@@ -9,7 +9,18 @@ var total = [];
 
 router.get("/index", middleware.isLoggedIn, function (req, res)
 {
-  res.render("accounts/index");
+
+  Product.find({ "author._id": req.user.id }, function (error, foundProducts)
+  {
+    if (error)
+    {
+      console.log(error);
+    }
+    else
+    {
+      res.render("accounts/show", {products: foundProducts });
+    }
+  });
 });
 
 
