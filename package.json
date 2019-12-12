@@ -19,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
+    "core-js": "^3.4.8",
     "dotenv": "^8.2.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
@@ -32,7 +33,8 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
     "request": "^2.88.0",
-    "sharp": "^0.23.3",
+    "resize-optimize-images": "^1.1.0",
+    "sharp": "^0.23.4",
     "stripe": "^7.13.1"
   }
 }
