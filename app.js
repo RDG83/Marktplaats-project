@@ -8,15 +8,15 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-<<<<<<< HEAD
 
 // Seeding the database
-const seedDB = require("./seeds")
-seedDB()
-=======
-const Product = require("./models/product")
+const seed = require("./seeds");
+seed.flushUsers();
+seed.flushProducts();
+seed.seedUsers();
+seed.seedProducts();
+
 //const middleware = require("./middleware"); //Implicitly refers to index.js
->>>>>>> 2b9706b401cedd155fc7bd07fe9ef0424ecac0a3
 
 //Include Moment package
 app.locals.moment = require("moment");
