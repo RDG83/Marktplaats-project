@@ -8,7 +8,7 @@ var total = [];
 
 
 router.get("/index", middleware.isLoggedIn, function (req, res) {
-  res.render("accounts/index");
+  res.render("accounts/show");
 });
 
 
