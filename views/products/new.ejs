@@ -8,8 +8,40 @@
     <input type="text" class="form-control" id="title" name="product[title]" placeholder="Titel" required>
   </div>
   <div class="form-group">
-    <label for="category">Categorie</label>
-    <input type="text" class="form-control" id="category" name="product[category]" placeholder="Categorie" required>
+    <select class="custom-select" name="product[category]" id="">
+      <option selected>Kies categorie</option>
+      <option value="Antiek en Kunst">Antiek en Kunst</option>
+      <option value="Audio, Tv en Foto">Audio, Tv en Foto</option>
+      <option value="Auto's">Auto's</option>
+      <option value="Boeken">Boeken</option>
+      <option value="Caravans en Kamperen">Caravans en Kamperen</option>
+      <option value="Cd's en Dvd's">Cd's en Dvd's</option>
+      <option value="Computers en Software">Computers en Software</option>
+      <option value="Dieren en Toebehoren">Dieren en Toebehoren</option>
+      <option value="Doe-het-zelf en Verbouw">Doe-het-zelf en Verbouw</option>
+      <option value="Fietsen en Brommers">Fietsen en Brommers</option>
+      <option value="Hobby en Vrije tijd">Hobby en Vrije tijd</option>
+      <option value="Huis en Inrichting">Huis en Inrichting</option>
+      <option value="Huizen en Kamers">Huizen en Kamers</option>
+      <option value="Kinderen en Baby's">Kinderen en Baby's</option>
+      <option value="Kleding | Dames">Kleding | Dames</option>
+      <option value="Kleding | Heren">Kleding | Heren</option>
+      <option value="Motoren">Motoren</option>
+      <option value="Muziek en Instrumenten">Muziek en Instrumenten</option>
+      <option value="Postzegels en Munten">Postzegels en Munten</option>
+      <option value="Sieraden en Tassen">Sieraden en Tassen</option>
+      <option value="Spelcomputers, Games">Spelcomputers, Games</option>
+      <option value="Sport en Fitness">Sport en Fitness</option>
+      <option value="Telecommunicatie">Telecommunicatie</option>
+      <option value="Tickets en Kaartjes">Tickets en Kaartjes</option>
+      <option value="Tuin en Terras">Tuin en Terras</option>
+      <option value="Vakantie">Vakantie</option>
+      <option value="Verzamelen">Verzamelen</option>
+      <option value="Watersport en Boten">Watersport en Boten</option>
+      <option value="Witgoed en Apparatuur">Witgoed en Apparatuur</option>
+      <option value="Zakelijke goederen">Zakelijke goederen</option>
+      <option value="Diversen">Diversen</option>
+    </select>
   </div>
   <div class="form-group">
     <label for="images">Afbeeldingen</label>
@@ -20,13 +52,11 @@
   <div class="form-row">
     <div class="form-group-inline col-6">
       <label for="latitude">Breedtegraad</label>
-      <input type="number" id="latitude" class="form-control" name="latitude" placeholder="53.203230" step="any"
-        value="53.203230" readonly>
+      <input type="number" id="latitude" class="form-control" name="latitude" placeholder="53.203230" step="any" value="53.203230" readonly>
     </div>
     <div class="form-group-inline col-6">
       <label for="longitude">Lengtegraad</label>
-      <input type="number" id="longitude" class="form-control" name="longitude" placeholder="6.555360" step="any"
-        value="6.555360" readonly>
+      <input type="number" id="longitude" class="form-control" name="longitude" placeholder="6.555360" step="any" value="6.555360" readonly>
     </div>
   </div>
   <div class="form-group">
@@ -44,13 +74,11 @@
   </div>
   <div class="form-group">
     <label for="minprice">Minimale prijs</label>
-    <input type="number" class="form-control" id="minprice" name="product[minprice]" placeholder="Minimale prijs"
-      step="0.01">
+    <input type="number" class="form-control" id="minprice" name="product[minprice]" placeholder="Minimale prijs" step="0.01">
   </div>
   <div class="form-group">
     <label for="body">Omschrijving</label>
-    <textarea class="form-control" id="body" rows="3" name="product[body]" placeholder="Geef een omschrijving" required
-      maxlength="400"></textarea>
+    <textarea class="form-control" id="body" rows="3" name="product[body]" placeholder="Geef een omschrijving" required maxlength="400"></textarea>
   </div>
   <input class="btn btn-warning" type="submit" value="Opslaan">
 </form>
@@ -73,30 +101,25 @@
     .addTo(locationMap);
 
   var marker = L.marker(defaultCenter).addTo(locationMap);
-  var updateMarker = function (lat, lng)
-  {
+  var updateMarker = function (lat, lng) {
     marker
       .setLatLng([lat, lng]);
     return false;
   };
 
-  locationMap.on('click', function (e)
-  {
+  locationMap.on('click', function (e) {
     $('#latitude').val(e.latlng.lat);
     $('#longitude').val(e.latlng.lng);
     updateMarker(e.latlng.lat, e.latlng.lng);
 
     // Lookup the geocode to return back a municipality
-    geocodeService.reverse().latlng(e.latlng).run(function (error, result)
-    {
-      if (error)
-      {
+    geocodeService.reverse().latlng(e.latlng).run(function (error, result) {
+      if (error) {
         return;
       }
 
       // Let select2 change the value to selected municipality
-      if (result.address.Subregion != "")
-      {
+      if (result.address.Subregion != "") {
         marker.bindPopup(result.address.Subregion).openPopup();
         $('#municipality').val(result.address.Subregion);
         // Trigger visual update on select element

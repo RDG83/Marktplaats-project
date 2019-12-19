@@ -9,7 +9,7 @@
         <div class="carousel-inner">
           <% product.images.forEach(function(image) { %>
           <div class="carousel-item">
-            <img class="d-block w-100" src="/uploads/products/<%=image%>">
+            <img class="carimg" src="/uploads/products/<%=image%>">
           </div>
           <% }); %>
         </div>
@@ -55,6 +55,47 @@
 
   <div class="col-lg-4">
 
+      <% if (currentUser && currentUser.id == product.author._id) { %>
+    <div class="card rounded shadow card-deck mb-2">
+      <div class="card-body">
+        <div class="card-title">
+          <h5>Berichten</h5>
+        </div>
+        <div class="card-text">
+            <% if (product.threads.length > 0 ){ %>
+  Er zijn nieuwe berichten.
+  <a class="btn btn-primary" href="/account/berichten">Naar berichten</a>
+  <% } else { %>
+    Er zijn nog geen berichten.
+    <% } %>
+        </div>
+      </div>
+    </div>
+    <% }%>
+
+
+    <% if (currentUser && currentUser.id == product.author._id) { %>
+
+    <div class="card rounded shadow card-deck mb-2">
+      <div class="card-body">
+        <div class="card-title">
+          <h5>Advertentiebeheer</h5>
+        </div>
+        <% if (!product.premium ) {%>
+        <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-warning"><i class="fa fa-star" aria-hidden="true"></i> Zichtbaarheid
+          verhogen</a>
+        <% } else { %>
+        Premium-advertentie
+        <% } %>
+        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Bewerken</a>
+        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
+          onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
+          <button class="btn btn-danger d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
+
 
     <!-- location -->
 
@@ -70,27 +111,14 @@
           Geen locatie beschikbaar.
         </div>
         <% } %>
+        <dl>
+          <dt><strong>Verkoper:</strong></dt>
+          <dd><%=product.author.username %></dd>
+          <dt><strong>Productlocatie:</strong></dt>
+          <dd><%=product.municipality %></dd>
+        </dl>
       </div>
     </div>
-
-    <!-- Begin bied sectie-->
-
-    <div class="card rounded shadow card-deck mb-2">
-      <div class="card-body">
-        <div class="card-title">
-          <h4>Biedt u mee?</h4>
-        </div>
-        <form action="/advertenties/<%=product._id%>/bids" method="POST">
-          <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
-          <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
-          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bied</button>
-        </form>
-        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new">Contact</a>
-      </div>
-    </div>
-
-    <!-- Einde bied sectie-->
-
 
     <div class="card rounded shadow card-deck">
       <div class="card-body">
@@ -109,38 +137,26 @@
         <% } else { %>
         <p class="text-muted">Er zijn nog geen biedingen geplaatst.</p>
         <% } %>
-      </div>
-    </div>
-
-    <!-- begin productbeheer -->
-
-    <% if(currentUser.id == product.author.id){ %>
-    <div class="card rounded shadow card-deck mb-2">
-      <div class="card-body">
-        <div class="card-title">
-          <h5>Advertentiebeheer</h5>
-        </div>
-        <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Bewerken</a>
-        <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
-          onclick="return confirm('Weet u zeker dat u \'<%=product.title%>\' wil verwijderen?')">
-          <button class="btn btn-danger d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
+        <% if(! currentUser || currentUser.id != product.author._id){ %>
+        <form action="/advertenties/<%=product._id%>/bids" method="POST">
+          <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
+          <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
+          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bieden</button>
         </form>
+        <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new"><i class="fa fa-comments" aria-hidden="true"></i>
+          Contact opnemen met <%=product.author.username %></a>
       </div>
     </div>
     <% } %>
+    <!-- Einde bied sectie-->
+
+
+
   </div>
 </div>
-<div class="row">
-  <% if(product.threads.length > 0 && currentUser.id == product.author.id){ %>
-  <h2>Er zijn berichten</h2>
-  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
-  <% } %>
 
-  <a class="btn btn-primary" href="/advertenties/<%=product.id%>/messages/tonen">Naar berichten</a>
-
-
-</div>
 <!-- einde productbeheer -->
+
 <% if (product.location.coordinates.length > 0 ) { %>
 <script>
   let defaultCenter = [<%=product.location.coordinates %>];

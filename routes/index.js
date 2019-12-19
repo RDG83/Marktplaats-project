@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const router = express.Router({ mergeParams: true });
 const Product = require("../models/product");
 const municipalityController = require("../controllers/municipalityController");

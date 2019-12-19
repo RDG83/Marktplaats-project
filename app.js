@@ -8,12 +8,21 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
+<<<<<<< HEAD
 
 // Seeding the database
 const seedDB = require("./seeds")
 seedDB()
+=======
+const Product = require("./models/product")
+//const middleware = require("./middleware"); //Implicitly refers to index.js
+>>>>>>> 2b9706b401cedd155fc7bd07fe9ef0424ecac0a3
 
+//Include Moment package
 app.locals.moment = require("moment");
+
+// Set Moment to dutch locale
+app.locals.moment.locale("nl");
 
 // Actual DB connection
 mongoose.connect(process.env.DB_FULLPATH, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
@@ -21,6 +30,8 @@ mongoose.set("useCreateIndex", true);
 
 // Set view engine to EJS
 app.set("view engine", "ejs");
+
+app.use(express.json());
 
 // Defining public folder
 app.use(express.static(__dirname + "/public"));
@@ -56,11 +67,15 @@ app.use(function (req, res, next) {
   next();
 });
 
+// Stripe Payment requirement with secret key
+const stripe = require('stripe')('sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh');
+
 // ROUTE VARIABLES
 const indexRoutes = require("./routes/index");
 const productRoutes = require("./routes/product");
 const categoryRoutes = require("./routes/category");
 const bidRoutes = require("./routes/bid");
+const stripeRoutes = require("./routes/stripe");
 const authRoutes = require("./routes/auth-routes");
 const accountRoutes = require("./routes/account");
 const messageRoutes = require("./routes/message");
@@ -71,6 +86,7 @@ app.use("/", indexRoutes);
 app.use("/advertenties", productRoutes);
 app.use("/categorieen", categoryRoutes);
 app.use("/advertenties/:product_id/bids", bidRoutes);
+app.use("/stripe", stripeRoutes);
 app.use("/auth", authRoutes);
 app.use("/account", accountRoutes);
 app.use("/advertenties/:product_id/messages", messageRoutes);

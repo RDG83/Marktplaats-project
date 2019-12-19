@@ -30,6 +30,11 @@ const productSchema = new mongoose.Schema({
       //required: true
     }
   },
+  premium:
+  {
+    type: Boolean,
+    default: false
+  },
   author: {
     _id: {
       type: mongoose.Schema.Types.ObjectId,

@@ -99,11 +99,11 @@ h5 {
   width: 100px;
 }
 
-.carousel
+/* .carousel
 {
   width: 200px;
   height: 200px;
-}
+} */
 
 #btnRemoveProduct {
   font-size: 0.75em;
@@ -129,4 +129,10 @@ input[type="number"] {
 #locationMap
 {
   height: 300px;
+}
+
+.carimg {
+  max-width: 400px;
+  object-fit: contain;
+  max-height: 400px !important;
 }
