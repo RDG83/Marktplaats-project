@@ -21,9 +21,12 @@
                 <a class="btn btn-success right" href="/account/berichten/<%=thread.id%>"><i class="fa fa-comments" aria-hidden="true"></i> Ga naar conversatie</a>
             </div>  
     </div>
-    
-    <% }); } %>
 </li>
+    <% }); %>
 </ul>
-
+<% } else { %>
+<p>
+    U heeft nog geen berichten.
+</p>
+<% } %>
 <% include ../partials/footer %>

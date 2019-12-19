@@ -5,7 +5,8 @@ const Product = require("../models/product");
 const router = express.Router({ mergeParams: true });
 const multer = require("multer");
 const municipalityController = require("../controllers/municipalityController");
-const middleware = require("../middleware")
+const middleware = require("../middleware");
+const Thread = require("../models/thread");
 
 // Declare filesystem
 let fs = require('fs');
@@ -293,15 +294,33 @@ router.put("/:product_id", middleware.isLoggedIn, function (req, res)
 // Product delete route
 router.delete("/:id", middleware.isLoggedIn, function (req, res)
 {
-  Product.findByIdAndRemove(req.params.id, function (err)
+  Product.findByIdAndRemove(req.params.id, (error, product) =>
   {
-    if (err)
+    if (error)
     {
       console.log(err);
       req.flash("error", "Er is een fout opgetreden bij het verwijderen van de advertentie.");
       res.redirect("/advertenties");
-    } else
+    }
+    else
     {
+      console.log(product);
+      // If product has threads
+      if (product.threads.length > 0)
+      {
+        // Remove threads of deleted product
+        product.threads.forEach(function(thread)
+        {
+          Thread.findByIdAndRemove(thread._id, (error, thread)=>
+          {
+            if(error)
+            {
+              console.log(error);
+            }
+          });
+        });
+      }
+  
       req.flash("success", "Uw advertentie is met succes verwijderd");
       res.redirect("/advertenties");
     }
@@ -311,13 +330,16 @@ router.delete("/:id", middleware.isLoggedIn, function (req, res)
 // ALERT!!! PAGINATION ROUTE
 
 // GET - Shop Product Page | - Displaying demanded product page with page numbers
-router.get('/p/:page', async (req, res, next) => {
+router.get('/p/:page', async (req, res, next) =>
+{
   // Declaring variable
   const resPerPage = 6; // results per page
   const page = req.params.page || 1; // Page 
-  try {
+  try
+  {
 
-    if (req.query.search) {
+    if (req.query.search)
+    {
 
       // Declaring query based/search variables
 
@@ -339,7 +361,8 @@ router.get('/p/:page', async (req, res, next) => {
         numOfResults: numOfProducts,
       });
     }
-  } catch (err) {
+  } catch (err)
+  {
     throw new Error(err);
   }
 });

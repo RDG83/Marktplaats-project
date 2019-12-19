@@ -37,7 +37,6 @@ router.get("/berichten", middleware.isLoggedIn, function (req, res)
     else
     {
       res.render("threads/index", { threads: threads });
-      // res.send(JSON.stringify(threads));
     }
   });
 });
