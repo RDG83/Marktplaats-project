@@ -10,7 +10,8 @@ router.get("/new", function (req, res)
     if (err)
     {
       console.log(err);
-    } else
+    }
+    else
     {
       res.render("messages/new", { product: foundProduct });
     }
@@ -31,7 +32,6 @@ router.post("/", isLoggedIn, function (req, res)
     {
       Thread.findOne({ $and: [{ "users._id": req.user._id }, { "product._id": req.params.product_id }] }, function (error, thread)
       {
-        // Thread.find({ $and: [{ "users._id": req.user._id }, { "product._id": req.params.product_id }] }, function (error, thread) {
         if (error)
         {
           console.log(error);

@@ -8,8 +8,8 @@
     <input type="text" class="form-control" id="title" name="product[title]" placeholder="Titel" required>
   </div>
   <div class="form-group">
-    <select class="custom-select" name="product[category]" id="">
-      <option selected>Kies categorie</option>
+    <select class="form-control select2" name="product[category]" required>
+      <option value="">Kies categorie</option>
       <option value="Antiek en Kunst">Antiek en Kunst</option>
       <option value="Audio, Tv en Foto">Audio, Tv en Foto</option>
       <option value="Auto's">Auto's</option>
@@ -80,7 +80,7 @@
     <label for="body">Omschrijving</label>
     <textarea class="form-control" id="body" rows="3" name="product[body]" placeholder="Geef een omschrijving" required maxlength="400"></textarea>
   </div>
-  <input class="btn btn-warning" type="submit" value="Opslaan">
+  <input class="btn btn-success" type="submit" value="Opslaan">
 </form>
 <script>
   // Geolocation of the Netherlands, happily borrowed from https://developers.google.com/public-data/docs/canonical/countries_csv

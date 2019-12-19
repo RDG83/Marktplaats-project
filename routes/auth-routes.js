@@ -5,7 +5,7 @@ const passport = require("passport");
 
 router.get("/login", function (req, res) {
   // passport handling here
-  res.render("login");
+  res.render("accounts/login");
 });
 
 router.post(
@@ -13,8 +13,7 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/advertenties",
     failureRedirect: "/auth/login",
-    failureFlash: "Ongeldige gebruikersnaam of wachtwoord ingevoerd",
-    successFlash: "Welkom op Kraampje.nl"
+    failureFlash: true
   })
 );
 
@@ -24,7 +23,7 @@ router.get("/logout", function (req, res) {
 });
 
 router.get("/signup", function (req, res) {
-  res.render("signup");
+  res.render("accounts/signup");
 });
 
 router.post("/signup", function (req, res) {
@@ -70,7 +69,7 @@ router.post("/signup", function (req, res) {
         User.register(newUser, req.body.password, function (err, user) {
           if (err) {
             console.log("post route error:" + err);
-            return res.render("signup");
+            return res.render("accounts/signup");
           } else {
             passport.authenticate("local")(req, res, function () {
               res.redirect("/advertenties");
