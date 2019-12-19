@@ -8,6 +8,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
+const Product = require("./models/product")
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
 //Include Moment package

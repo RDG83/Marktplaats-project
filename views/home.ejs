@@ -7,19 +7,17 @@
         <!-- begin searchbar -->
         <div class="row">
           <div class="col">
-            <form action="/advertenties" method="get">
+            <form action="/advertenties/p/1/" method="get">
               <div class="row">
                 <div class="col-8">
                   <div class="row">
                     <div class="col">
-                      <input id="searchInput" type="text" class="form-control mb-2" name="search"
-                        placeholder="Zoekterm">
+                      <input id="searchInput" type="text" class="form-control mb-2" name="search" placeholder="Zoekterm">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col">
-                      <select name="municipalities[]" data-placeholder="Kies gemeenten..." class="select2 form-control"
-                        multiple="multiple">
+                      <select name="municipalities[]" data-placeholder="Kies gemeenten..." class="select2 form-control" multiple="multiple">
                         <option value="all">--- Alle gemeenten ---</option>
                         <% municipalities.forEach(municipality => { %>
                         <option value="<%=municipality%>"><%=municipality%></option>
@@ -29,8 +27,7 @@
                   </div>
                 </div>
                 <div class="col align-self-center">
-                  <button id="searchButton" type="submit" class="btn btn-warning p-4"><i
-                      class="fa fa-search" aria-hidden="true"></i> Zoeken</button>
+                  <button id="searchButton" type="submit" class="btn btn-warning p-4"><i class="fa fa-search" aria-hidden="true"></i> Zoeken</button>
                 </div>
               </div>
             </form>
@@ -44,8 +41,8 @@
         <h2 class="mt-2">Alle categorieën</h2>
         <div class="list-group col-8">
           <% product.forEach(function(product){ %>
-          <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action list-group-item-light"><i
-              class="fa fa-tag" aria-hidden="true"></i> <%=product%></a>
+          <a href="/categorieen/<%=product%>" class="list-group-item list-group-item-action list-group-item-light"><i class="fa fa-tag"
+              aria-hidden="true"></i> <%=product%></a>
           <% }) %>
         </div>
       </div>

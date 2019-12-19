@@ -7,48 +7,36 @@ const middleware = require("../middleware")
 var total = [];
 
 
-router.get("/index", middleware.isLoggedIn, function (req, res)
-{
+router.get("/index", middleware.isLoggedIn, function (req, res) {
   res.render("accounts/index");
 });
 
 
 // Show conversations where the user is involved in
-router.get("/berichten", middleware.isLoggedIn, function (req, res)
-{
-  Thread.find({ "users._id": req.user.id }).populate('product._id').exec(function (error, threads)
-  {
-    if (error)
-    {
+router.get("/berichten", middleware.isLoggedIn, function (req, res) {
+  Thread.find({ "users._id": req.user.id }).populate('product._id').exec(function (error, threads) {
+    if (error) {
       console.log(error);
     }
-    else
-    {
+    else {
       res.render("threads/index", { threads: threads });
       // res.send(JSON.stringify(threads));
     }
   });
 });
 
-router.get("/berichten/:thread_id", middleware.isLoggedIn, function (req, res)
-{
-  Thread.findById(req.params.thread_id, function (error, thread)
-  {
-    if (error)
-    {
+router.get("/berichten/:thread_id", middleware.isLoggedIn, function (req, res) {
+  Thread.findById(req.params.thread_id, function (error, thread) {
+    if (error) {
       console.log(error);
       res.redirect("/account/berichten");
     }
-    else
-    {
-      Product.findOne(thread.product._id, function (error, product)
-      {
-        if (error)
-        {
+    else {
+      Product.findOne(thread.product._id, function (error, product) {
+        if (error) {
           console.log(error);
         }
-        else
-        {
+        else {
           res.render("threads/show", { thread: thread, product: product });
         }
       });
@@ -58,18 +46,14 @@ router.get("/berichten/:thread_id", middleware.isLoggedIn, function (req, res)
 });
 
 // Post route on existing thread
-router.post("/berichten/:thread_id", middleware.isLoggedIn, function (req, res)
-{
-  Thread.findById(req.params.thread_id, function (error, thread)
-  {
-    if (error)
-    {
+router.post("/berichten/:thread_id", middleware.isLoggedIn, function (req, res) {
+  Thread.findById(req.params.thread_id, function (error, thread) {
+    if (error) {
       console.log(error);
       req.flash("error", "Conversatie kan niet worden gevonden.");
       res.redirect("/account/berichten");
     }
-    else
-    {
+    else {
       // Append current user to message
       req.body.message.author = req.user;
 

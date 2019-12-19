@@ -308,6 +308,42 @@ router.delete("/:id", middleware.isLoggedIn, function (req, res)
   });
 });
 
+// ALERT!!! PAGINATION ROUTE
+
+// GET - Shop Product Page | - Displaying demanded product page with page numbers
+router.get('/p/:page', async (req, res, next) => {
+  // Declaring variable
+  const resPerPage = 6; // results per page
+  const page = req.params.page || 1; // Page 
+  try {
+
+    if (req.query.search) {
+
+      // Declaring query based/search variables
+
+      const searchQuery = req.query.search,
+
+        regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      // Find Demanded Products - Skipping page values, limit results per page
+      const foundProducts = await Product.find({ $or: [{ title: regex }, { category: regex }, { body: regex }] })
+        .skip((resPerPage * page) - resPerPage)
+        .limit(resPerPage);
+      // Count how many products were found
+      const numOfProducts = await Product.countDocuments({ $or: [{ title: regex }, { category: regex }, { body: regex }] });
+      // Renders The Page
+      res.render("products/pages", {
+        products: foundProducts,
+        currentPage: page,
+        pages: Math.ceil(numOfProducts / resPerPage),
+        searchVal: searchQuery,
+        numOfResults: numOfProducts,
+      });
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
 // To remove special and potentially unsafe characters
 function escapeRegex(text)
 {
