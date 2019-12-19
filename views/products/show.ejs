@@ -82,7 +82,7 @@
           <h5>Advertentiebeheer</h5>
         </div>
         <% if (!product.premium ) {%>
-        <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-warning"><i class="fa fa-star" aria-hidden="true"></i> Zichtbaarheid
+        <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-success"><i class="fa fa-star" aria-hidden="true"></i> Zichtbaarheid
           verhogen</a>
         <% } else { %>
         Premium-advertentie
@@ -141,7 +141,7 @@
         <form action="/advertenties/<%=product._id%>/bids" method="POST">
           <input class="form-control" type="number" name="bid[amount]" id="bid" min="0" required>
           <span class="text-muted">Bieden vanaf &euro;<%=product.minprice%></span>
-          <button class="btn btn-warning btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bieden</button>
+          <button class="btn btn-success btn-block mt-2" type="submit"><i class="fa fa-gavel text-white" aria-hidden="true"></i> Bieden</button>
         </form>
         <a class="btn btn-primary btn-block mt-2" href="/advertenties/<%=product._id%>/messages/new"><i class="fa fa-comments" aria-hidden="true"></i>
           Contact opnemen met <%=product.author.username %></a>
