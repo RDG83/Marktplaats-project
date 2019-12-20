@@ -85,7 +85,7 @@
         <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-success"><i class="fa fa-star" aria-hidden="true"></i> Zichtbaarheid
           verhogen</a>
         <% } else { %>
-        Premium-advertentie
+          <span class="btn btn-success disabled"><i class="fa fa-star" aria-hidden="true"></i> Premium-advertentie</span>
         <% } %>
         <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Bewerken</a>
         <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"

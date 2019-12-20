@@ -5,28 +5,32 @@
   <% products.forEach(function(product) { %>
   <div class="card-deck col-sm-6 col-lg-4">
     <div class="card shadow m-2 d-flex justify-content-center <% if (product.premium) { %> border-success <% } %>">
+      <div class="card-header text-center">
+        <h5 class="text-dark productTitle">
+          <% if (product.premium) { %>
+          <i class="fa fa-star text-success" aria-hidden="true"></i>
+          <% } %>
+          <a href="/advertenties/<%=product._id%>"><%=product.title%></a>
+        </h5>
+      </div>
       <div class="card-body">
-        <div class="card-title text-center">
-          <h5 class="text-dark productTitle">
-            <% if (product.premium) { %>
-            <i class="fa fa-star text-success" aria-hidden="true"></i>
-            <% } %>
-            <a href="/advertenties/<%=product._id%>"><%=product.title%></a>
-          </h5>
-        </div>
         <div class="d-flex align-items-center justify-content-center">
+          <a href="/advertenties/<%=product._id%>">
           <% if(product.images.length > 0 ) { %>
           <img class="img-fluid" src="/uploads/products/<%=product.images[0]%>">
           <% } else { %>
           <img src="/images/product_placeholder.png">
           <% } %>
+        </a>
         </div>
 
         <div class="card-text text-truncate">
           <%=product.body.substring(0, 50)%>
         </div>
-        <hr>
-        <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>"><i class="fa fa-tag" aria-hidden="true"></i>
+      </div>
+      <div class="card-footer text-center">
+        <a class="badge badge-warning text-dark p-2" href="/categorieen/<%=product.category%>"><i class="fa fa-tag"
+            aria-hidden="true"></i>
           <%=product.category%></a>
         <% if(product.municipality) { %>
         <span class="badge badge-info text-dark p-2"><i class="fa fa-map-marker text-white" aria-hidden="true"></i>

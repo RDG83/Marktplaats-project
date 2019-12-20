@@ -52,7 +52,7 @@ router.post("/signup", function (req, res) {
   } else {
     User.findOne({ email: email }).then(function (user) {
       if (user) {
-        errors.push({ msg: "Email is al in gebruik" });
+        errors.push({ msg: "E-mailadres is al in gebruik" });
         res.render("signup", {
           errors,
           username,
