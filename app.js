@@ -11,7 +11,7 @@ const User = require("./models/user");
 
 // Seeding the database
 const seed = require("./seed/seed");
-// seed.flushAndSeed();
+//seed.flushAndSeed();
 
 
 //const middleware = require("./middleware"); //Implicitly refers to index.js

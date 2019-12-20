@@ -42,7 +42,7 @@ router.post("/signup", function (req, res) {
     errors.push({ msg: "Wachtwoord is onvoldoende lang" });
   }
   if (errors.length > 0) {
-    res.render("signup", {
+    res.render("accounts/signup", {
       errors,
       username,
       email,
@@ -53,7 +53,7 @@ router.post("/signup", function (req, res) {
     User.findOne({ email: email }).then(function (user) {
       if (user) {
         errors.push({ msg: "E-mailadres is al in gebruik" });
-        res.render("signup", {
+        res.render("accounts/signup", {
           errors,
           username,
           email,
