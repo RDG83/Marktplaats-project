@@ -10,11 +10,9 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 
 // Seeding the database
-const seed = require("./seeds");
-seed.flushUsers();
-seed.flushProducts();
-seed.seedUsers();
-seed.seedProducts();
+const seed = require("./seed/seed");
+// seed.flushAndSeed();
+
 
 //const middleware = require("./middleware"); //Implicitly refers to index.js
 
@@ -60,8 +58,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(flash());
 
-app.use(function (req, res, next)
-{
+app.use(function (req, res, next) {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash("error");
   res.locals.success = req.flash("success");

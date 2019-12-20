@@ -3,6 +3,8 @@ const Product = require("./models/product");
 const Thread = require("./models/thread");
 const User = require("./models/user");
 const faker = require("faker");
+const authorArray = [];
+const newUserAmount = 10;
 
 // remove users
 exports.flushUsers = function () {
@@ -16,7 +18,7 @@ exports.flushUsers = function () {
 };
 
 exports.seedUsers = function () {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < newUserAmount; i++) {
     let name = faker.name.firstName();
     let email = faker.internet.email();
     let password = "password";
@@ -31,6 +33,7 @@ exports.seedUsers = function () {
         console.log(err)
       }
     });
+    authorArray.push(newUser);
   }
 }
 
@@ -65,12 +68,15 @@ exports.seedProducts = function () {
     let price = faker.commerce.price();
     let minprice = price / 2;
     let municipality = munArray[Math.floor(Math.random() * munArray.length)];
-    let location = { coordinates: [faker.address.latitude(), faker.address.longitude()] };
-    let images = imgArray[Math.floor(Math.random() * imgArray.length)];
-
-    // author
+    let location = { coordinates: [faker.address.longitude(), faker.address.latitude()] };
+    let images = []
+    for (let i = 0; i < 4; i++) {
+      images.push(imgArray[Math.floor(Math.random() * imgArray.length)])
+    };
+    let author = authorArray[Math.floor(Math.random() * authorArray.length)];
     // threads
     // bids
+
 
     let newProduct = new Product({
       title: `${title}`,
@@ -79,8 +85,9 @@ exports.seedProducts = function () {
       price: `${price}`,
       minprice: `${minprice}`,
       municipality: `${municipality}`,
-      location: `${location}`,
-      images: `${images}`,
+      location: location,
+      images: images,
+      author: author,
     });
     Product.create(newProduct, function (err) {
       if (err) {
@@ -89,6 +96,26 @@ exports.seedProducts = function () {
     });
   }
 }
+
+// exports.seedBids = function () {
+//   for (let i = 0; i < 3; i++) {
+//     let name = authorArray[Math.floor(Math.random() * authorArray.length)].username
+//     let randomAmount = [Math.floor(Math.random() * 1.5) + 1 * minprice]
+
+//     let newBid = new Bid({
+//       username: `${name}`,
+//       amount: `${randomAmount}`,
+//     });
+//     Bid.register(newBid, function (err) {
+//       if (err) {
+//         console.log(err)
+//       }
+//     });
+//   }
+// }
+
+// let bids = [{ amount: randomAmount, author: { username: randomUser } }]
+
 
 // // add products
 // //   seedData.forEach(function (seed) {
