@@ -69,7 +69,7 @@ app.use(function (req, res, next)
 });
 
 // Stripe Payment requirement with secret key
-const stripe = require('stripe')('sk_test_6CDfvsSFxdjfBxhZ0s0KFrwB00pp6dgEOh');
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
 // ROUTE VARIABLES
 const indexRoutes = require("./routes/index");
