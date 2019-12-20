@@ -4,7 +4,7 @@
     <h6>Naam: <%= currentUser.username %></h6>
     <h6>Lid sinds: <%=moment(currentUser.createdAt).format("DD MMM YYYY")%></h6>
     <h6>Email: <%= currentUser.email %></h6>
-    <h4><a class="btn btn-primary" href="/account/berichten">Mijn conversaties</a></h4>
+    <h4><a class="btn btn-success" href="/account/berichten">Mijn conversaties</a></h4>
   </div>
 </div>
 <div class="row">
@@ -25,9 +25,9 @@
         <tr>
           <td>
             <% if (product.images.length > 0 ) { %>
-              <img class="cover thumbnail" src="/uploads/products/<%=product.images[0]%>" width="100">
+              <img class="img-thumbnail cover" src="/uploads/products/<%=product.images[0]%>" width="100">
             <% } else { %>
-          <img src="/images/product_placeholder.png" width="100">
+          <img class="img-thumbnail cover" src="/images/product_placeholder.png" width="100">
           <% } %></td>
           <td><a href="/advertenties/<%=product._id%>"><%=product.title%></a></td>
           <td>
@@ -39,15 +39,15 @@
           </td>
           <td class="text-right">
             <% if (product.premium == false ) { %>
-              <a href="/advertenties/<%=product._id%>/stripe" class="btn btn-success"><i class="fa fa-star" aria-hidden="true"></i> Zichtbaarheid
+              <a href="/advertenties/<%=product._id%>/stripe" class="btn border-success"><i class="fa fa-star" aria-hidden="true"></i> Zichtbaarheid
           verhogen</a>
             <% } else { %>
-              Premium-advertentie
+              <span class="btn disabled"><i class="fa fa-star" aria-hidden="true"></i> Premium-advertentie</span>
               <% } %>
-              <a class="btn btn-info d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Bewerken</a>
+              <a class="btn d-inline p-2" href="/advertenties/<%=product.id%>/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Bewerken</a>
               <form action="/advertenties/<%=product.id%>?_method=DELETE" class="d-inline" method="POST"
           onclick="return confirm('Weet je zeker dat je <%=product.title%> wil verwijderen?')">
-          <button class="btn btn-danger d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
+          <button class="btn d-inline"><i class="fa fa-times" aria-hidden="true"></i> Verwijderen</button>
         </form>
             </td>
         </tr>

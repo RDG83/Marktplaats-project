@@ -212,9 +212,28 @@ router.post("/:product_id/stripe", function (req, res)
 // EDIT FORM GET ROUTE
 router.get("/:product_id/stripe", function (req, res)
 {
-  // Render page and pass productId to payment page
-  res.render("products/payment", { productId: req.params.product_id });
-  // res.send(req.params.product_id);
+  Product.findById(req.params.product_id, function (error, foundProduct)
+  {
+    if (error || !foundProduct)
+    {
+      console.log(error);
+      req.flash("error", "Advertentie kan niet worden gevonden. Hierdoor kan deze niet premium worden gemaakt.");
+      res.redirect("/advertenties");
+    }
+    else
+    {
+      if (foundProduct.premium == false)
+      {
+        // Render page and pass productId to payment page
+        res.render("products/payment", { productId: req.params.product_id });
+      }
+      else
+      {
+        req.flash("error", "Advertentie is al omhooggeplaatst.");
+        res.redirect("/advertenties/" + foundProduct.id);
+      }
+    }
+  });
 });
 
 // EDIT FORM GET ROUTE
@@ -309,18 +328,18 @@ router.delete("/:id", middleware.isLoggedIn, function (req, res)
       if (product.threads.length > 0)
       {
         // Remove threads of deleted product
-        product.threads.forEach(function(thread)
+        product.threads.forEach(function (thread)
         {
-          Thread.findByIdAndRemove(thread._id, (error, thread)=>
+          Thread.findByIdAndRemove(thread._id, (error, thread) =>
           {
-            if(error)
+            if (error)
             {
               console.log(error);
             }
           });
         });
       }
-  
+
       req.flash("success", "Uw advertentie is met succes verwijderd");
       res.redirect("/advertenties");
     }
